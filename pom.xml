@@ -75,6 +75,23 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+        <artifactId>maven-java-formatter-plugin</artifactId>
+        <version>0.4</version>
+        <configuration>
+          <compilerCompliance>1.8</compilerCompliance>
+          <compilerSource>1.8</compilerSource>
+          <compilerTargetPlatform>1.8</compilerTargetPlatform>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.6</version>
