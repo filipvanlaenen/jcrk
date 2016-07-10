@@ -4,6 +4,7 @@
 ## License
 
 jCRK – Cracking cryptographic hash functions implemented in Java.
+
 Copyright © 2016 Filip van Laenen <f.a.vanlaenen@ieee.org>
 
 This file is part of jCRK.
