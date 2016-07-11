@@ -51,6 +51,15 @@ public class SegmentLongConstructorTest {
 	public void longConstructorSetsStartPointCorrectly() {
 		Assert.assertEquals(segment.getStartPoint(), START_POINT);
 	}
+
+	/**
+	 * The long constructor should throw an IllegalArgumentException if the start point
+	 * is not a distinguished point of the provided order.
+	 */
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
+		new Segment(new byte[]{-1}, END_POINT, LENGTH, 1);
+	}
 	
 	/**
 	 * The long constructor removes access to the internal start point.

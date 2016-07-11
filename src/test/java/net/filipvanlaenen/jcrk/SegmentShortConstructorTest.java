@@ -50,6 +50,15 @@ public class SegmentShortConstructorTest {
 	}
 	
 	/**
+	 * The short constructor should throw an IllegalArgumentException if the start point
+	 * is not a distinguished point of the provided order.
+	 */
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void shortConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
+		new Segment(new byte[]{-1}, 1);
+	}
+	
+	/**
 	 * The short constructor removes access to the internal start point.
 	 */
 	@Test
