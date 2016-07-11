@@ -33,6 +33,10 @@ public class Point {
 		return bytes[i];
 	}
 
+	Point hash(HashFunction hash) {
+		return new Point(hash.hash(bytes));
+	}
+	
 	String asBinaryString() {
 		String hex = String.format(String.format("%%0%dx", bytes.length * 2), new java.math.BigInteger(1, bytes));
 		return hex.replaceAll("0", "0000").replaceAll("1", "0001").replaceAll("2", "0010").replaceAll("3", "0011")

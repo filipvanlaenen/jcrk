@@ -20,16 +20,16 @@
 package net.filipvanlaenen.jcrk;
 
 /**
- * Definition of a hash function. It takes a point, and produces a new point.
+ * Definition of a hash function. It takes a byte array, and produces a new byte
+ * array.
  */
 public interface HashFunction {
 	/**
-	 * The hash function. It takes a point, and produces a new point on the path
-	 * in Pollard's rho collision search.
+	 * The hash function. It takes a byte array, and produces a new byte array.
 	 * 
-	 * @param point
-	 *            The point to hash.
-	 * @return The next point on the path in Pollard's rho collision search.
+	 * @param source
+	 *            The source byte array.
+	 * @return The resulting byte array.
 	 */
-	Point hash(Point point);
+	byte[] hash(byte[] source);
 }
