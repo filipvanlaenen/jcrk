@@ -40,6 +40,12 @@ public class Segment {
 					String.format(
 							"The start point's order (%d) is less than the provided order (%d).",
 							startPoint.order(), order));
+		} else if (length < 0) {
+			throw new IllegalArgumentException(String.format(
+					"The length (%d) is negative.", length));
+		} else if (order < 0) {
+			throw new IllegalArgumentException(String.format(
+					"The order (%d) is negative.", order));
 		}
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;

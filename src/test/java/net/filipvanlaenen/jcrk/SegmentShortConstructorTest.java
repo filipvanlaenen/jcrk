@@ -95,4 +95,26 @@ public class SegmentShortConstructorTest {
 	public void constructorSetsOrderCorrectly() {
 		Assert.assertEquals(segment.getOrder(), ORDER);
 	}
+	
+	/**
+	 * The short constructor should throw an IllegalArgumentException if the order is negative.
+	 */
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void shortConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
+		new Segment(START_POINT, -1);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException should be correct when the order is negative.
+	 */
+	@Test
+	public void illegalArgumentExceptionMessageCorrectIfOrderIsNegative() {
+		try {
+			new Segment(START_POINT, -1);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The order (-1) is negative.");
+		}
+	}
+
 }

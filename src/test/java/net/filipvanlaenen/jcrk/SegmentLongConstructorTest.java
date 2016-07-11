@@ -92,10 +92,52 @@ public class SegmentLongConstructorTest {
 	}
 
 	/**
+	 * The long constructor should throw an IllegalArgumentException if the length is negative.
+	 */
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void longConstructorThrowsIllegalArgumentExceptionIfLengthIsNegative() {
+		new Segment(START_POINT, END_POINT, -1, ORDER);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException should be correct when the length is negative.
+	 */
+	@Test
+	public void illegalArgumentExceptionMessageCorrectIfLengthIsNegative() {
+		try {
+			new Segment(START_POINT, END_POINT, -1, ORDER);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The length (-1) is negative.");
+		}
+	}
+
+	/**
 	 * The long constructor should set the order correctly.
 	 */
 	@Test
 	public void longConstructorSetsOrderCorrectly() {
 		Assert.assertEquals(segment.getOrder(), ORDER);
+	}
+
+	/**
+	 * The long constructor should throw an IllegalArgumentException if the order is negative.
+	 */
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void longConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
+		new Segment(START_POINT, END_POINT, LENGTH, -1);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException should be correct when the order is negative.
+	 */
+	@Test
+	public void illegalArgumentExceptionMessageCorrectIfOrderIsNegative() {
+		try {
+			new Segment(START_POINT, END_POINT, LENGTH, -1);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The order (-1) is negative.");
+		}
 	}
 }
