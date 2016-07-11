@@ -195,6 +195,7 @@
           <timestampedReports>
 			      false
           </timestampedReports>
+          <mutationThreshold>100</mutationThreshold>
         </configuration>
         <executions>
           <execution>
