@@ -58,8 +58,7 @@ public class SegmentShortConstructorTest {
 		Segment mySegment = new Segment(myStartPoint, ORDER);
 		myStartPoint[0] = OTHER_BYTE;
 		Assert.assertEquals(mySegment.getStartPoint()[0], START_POINT_BYTE);		
-	}
-	
+	}	
 
 	/**
 	 * The short constructor should set the end point equal to the start point.
@@ -79,7 +78,6 @@ public class SegmentShortConstructorTest {
 		myStartPoint[0] = OTHER_BYTE;
 		Assert.assertEquals(mySegment.getEndPoint()[0], START_POINT_BYTE);		
 	}
-	
 
 	/**
 	 * The constructor should set the length to zero.

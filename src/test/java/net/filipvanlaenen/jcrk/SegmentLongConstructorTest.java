@@ -62,7 +62,6 @@ public class SegmentLongConstructorTest {
 		myStartPoint[0] = OTHER_BYTE;
 		Assert.assertEquals(mySegment.getStartPoint()[0], START_POINT_BYTE);		
 	}
-	
 
 	/**
 	 * The long constructor should set the end point correctly.
@@ -83,7 +82,6 @@ public class SegmentLongConstructorTest {
 		Assert.assertEquals(mySegment.getEndPoint()[0], END_POINT_BYTE);		
 	}
 	
-
 	/**
 	 * The long constructor should set the length correctly.
 	 */
