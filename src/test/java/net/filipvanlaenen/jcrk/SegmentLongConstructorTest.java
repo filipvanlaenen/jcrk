@@ -29,9 +29,8 @@ import org.testng.annotations.Test;
 public class SegmentLongConstructorTest {
 	private static final byte START_POINT_BYTE = 1;
 	private static final byte END_POINT_BYTE = 2;
-	private static final byte OTHER_BYTE = -1;
-	private static final byte[] START_POINT = new byte[]{START_POINT_BYTE};
-	private static final byte[] END_POINT = new byte[]{END_POINT_BYTE};
+	private static final Point START_POINT = new Point(START_POINT_BYTE);
+	private static final Point END_POINT = new Point(END_POINT_BYTE);
 	private static final long LENGTH = 2;
 	private static final int ORDER = 3;
 	private Segment segment;
@@ -58,18 +57,7 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(new byte[]{-1}, END_POINT, LENGTH, 1);
-	}
-	
-	/**
-	 * The long constructor removes access to the internal start point.
-	 */
-	@Test
-	public void longConstructorRemovesAccessToInternalStartPoint() {
-		byte[] myStartPoint = START_POINT.clone();
-		Segment mySegment = new Segment(myStartPoint, END_POINT, LENGTH, ORDER);
-		myStartPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getStartPoint()[0], START_POINT_BYTE);		
+		new Segment(new Point((byte)-1), END_POINT, LENGTH, 1);
 	}
 
 	/**
@@ -78,17 +66,6 @@ public class SegmentLongConstructorTest {
 	@Test
 	public void longConstructorSetsEndPointCorrectly() {
 		Assert.assertEquals(segment.getEndPoint(), END_POINT);
-	}
-
-	/**
-	 * The long constructor removes access to the internal end point.
-	 */
-	@Test
-	public void longConstructorRemovesAccessToInternalEndPoint() {
-		byte[] myEndPoint = END_POINT.clone();
-		Segment mySegment = new Segment(START_POINT, myEndPoint, LENGTH, ORDER);
-		myEndPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getEndPoint()[0], END_POINT_BYTE);		
 	}
 	
 	/**

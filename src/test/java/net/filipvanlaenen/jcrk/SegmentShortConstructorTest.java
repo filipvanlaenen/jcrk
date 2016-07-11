@@ -28,8 +28,7 @@ import org.testng.annotations.Test;
  */
 public class SegmentShortConstructorTest {
 	private static final byte START_POINT_BYTE = 1;
-	private static final byte OTHER_BYTE = -1;
-	private static final byte[] START_POINT = new byte[]{START_POINT_BYTE};
+	private static final Point START_POINT = new Point(START_POINT_BYTE);
 	private static final int ORDER = 3;
 	private Segment segment;
 	
@@ -55,19 +54,8 @@ public class SegmentShortConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void shortConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(new byte[]{-1}, 1);
+		new Segment(new Point((byte)-1), 1);
 	}
-	
-	/**
-	 * The short constructor removes access to the internal start point.
-	 */
-	@Test
-	public void shortConstructorRemovesAccessToInternalStartPoint() {
-		byte[] myStartPoint = START_POINT.clone();
-		Segment mySegment = new Segment(myStartPoint, ORDER);
-		myStartPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getStartPoint()[0], START_POINT_BYTE);		
-	}	
 
 	/**
 	 * The short constructor should set the end point equal to the start point.
@@ -75,17 +63,6 @@ public class SegmentShortConstructorTest {
 	@Test
 	public void shortConstructorSetsEndPointEqualToStartPoint() {
 		Assert.assertEquals(segment.getEndPoint(), START_POINT);
-	}
-
-	/**
-	 * The constructor removes access to the internal end point.
-	 */
-	@Test
-	public void shortConstructorRemovesAccessToInternalEndPoint() {
-		byte[] myStartPoint = START_POINT.clone();
-		Segment mySegment = new Segment(myStartPoint, ORDER);
-		myStartPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getEndPoint()[0], START_POINT_BYTE);		
 	}
 
 	/**
