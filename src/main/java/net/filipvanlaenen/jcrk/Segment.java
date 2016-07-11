@@ -21,18 +21,24 @@ package net.filipvanlaenen.jcrk;
 
 /**
  * A segment on a path in Pollard's rho collision search. A segment has a start
- * point, an end point and a length.
+ * point, an end point, a length and an order.
  */
 public class Segment {
 
 	private final byte[] startPoint;
 	private final byte[] endPoint;
 	private final long length;
+	private final int order;
 
-	Segment(byte[] startPoint, byte[] endPoint, long length) {
+	Segment(byte[] startPoint, int order) {
+		this(startPoint, startPoint, 0, order);
+	}
+
+	Segment(byte[] startPoint, byte[] endPoint, long length, int order) {
 		this.startPoint = startPoint.clone();
 		this.endPoint = endPoint.clone();
 		this.length = length;
+		this.order = order;
 	}
 
 	byte[] getStartPoint() {
@@ -45,5 +51,9 @@ public class Segment {
 
 	long getLength() {
 		return length;
+	}
+
+	int getOrder() {
+		return order;
 	}
 }

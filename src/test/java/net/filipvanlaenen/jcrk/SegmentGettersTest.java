@@ -24,42 +24,24 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * Class testing the Segment class.
+ * Class testing the getters of the Segment class.
  */
-public class SegmentTest {
+public class SegmentGettersTest {
 	private static final byte START_POINT_BYTE = 1;
 	private static final byte END_POINT_BYTE = 2;
 	private static final byte OTHER_BYTE = -1;
 	private static final byte[] START_POINT = new byte[]{START_POINT_BYTE};
 	private static final byte[] END_POINT = new byte[]{END_POINT_BYTE};
 	private static final long LENGTH = 2;
+	private static final int ORDER = 3;
 	private Segment segment;
 	
 	/**
-	 * Creates a segment instance to run the tests on.
+	 * Creates a segment instance using the long constructor to run the tests on.
 	 */
 	@BeforeMethod
 	public void createSegment() {
-		segment = new Segment(START_POINT, END_POINT, LENGTH);
-	}
-	
-	/**
-	 * The constructor should set the start point correctly.
-	 */
-	@Test
-	public void constructorSetsStartPointCorrectly() {
-		Assert.assertEquals(segment.getStartPoint(), START_POINT);
-	}
-	
-	/**
-	 * The constructor removes access to the internal start point.
-	 */
-	@Test
-	public void constructorRemovesAccessToInternalStartPoint() {
-		byte[] myStartPoint = START_POINT.clone();
-		Segment mySegment = new Segment(myStartPoint, END_POINT, LENGTH);
-		myStartPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getStartPoint()[0], START_POINT_BYTE);		
+		segment = new Segment(START_POINT, END_POINT, LENGTH, ORDER);
 	}
 	
 	/**
@@ -73,25 +55,6 @@ public class SegmentTest {
 	}
 
 	/**
-	 * The constructor should set the end point correctly.
-	 */
-	@Test
-	public void constructorSetsEndPointCorrectly() {
-		Assert.assertEquals(segment.getEndPoint(), END_POINT);
-	}
-
-	/**
-	 * The constructor removes access to the internal end point.
-	 */
-	@Test
-	public void constructorRemovesAccessToInternalEndPoint() {
-		byte[] myEndPoint = END_POINT.clone();
-		Segment mySegment = new Segment(START_POINT, myEndPoint, LENGTH);
-		myEndPoint[0] = OTHER_BYTE;
-		Assert.assertEquals(mySegment.getEndPoint()[0], END_POINT_BYTE);		
-	}
-	
-	/**
 	 * The method getEndPoint should not give access to the internal
 	 * end point.
 	 */
@@ -101,11 +64,4 @@ public class SegmentTest {
 		Assert.assertEquals(segment.getEndPoint()[0], END_POINT_BYTE);		
 	}
 
-	/**
-	 * The constructor should set the length correctly.
-	 */
-	@Test
-	public void constructorSetsLengthCorrectly() {
-		Assert.assertEquals(segment.getLength(), LENGTH);
-	}
 }
