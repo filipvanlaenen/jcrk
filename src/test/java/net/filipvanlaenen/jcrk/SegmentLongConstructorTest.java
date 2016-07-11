@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
  * Class testing the long constructor of the Segment class.
  */
 public class SegmentLongConstructorTest {
+	private static final int EIGHT = 8;
 	private static final byte START_POINT_BYTE = 1;
 	private static final byte END_POINT_BYTE = 2;
 	private static final Point START_POINT = new Point(START_POINT_BYTE);
@@ -57,9 +58,23 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(new Point((byte)-1), END_POINT, LENGTH, 1);
+		new Segment(START_POINT, END_POINT, LENGTH, EIGHT);
 	}
 
+	/**
+	 * The message of the IllegalArgumentException should be correct when the start point's order
+	 * doesn't match the segment order.
+	 */
+	@Test
+	public void illegalArgumentExceptionMessageCorrectIfStartPointOrderDoesNotMatchSegmentOrder() {
+		try {
+			new Segment(START_POINT, END_POINT, LENGTH, EIGHT);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The start point's order (7) is less than the provided order (8).");
+		}
+	}
+	
 	/**
 	 * The long constructor should set the end point correctly.
 	 */

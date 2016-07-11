@@ -27,7 +27,8 @@ import org.testng.annotations.Test;
  * Class testing the short constructor of the Segment class.
  */
 public class SegmentShortConstructorTest {
-	private static final byte START_POINT_BYTE = 1;
+	private static final int EIGHT = 8;
+	private static final byte START_POINT_BYTE = 0x01;
 	private static final Point START_POINT = new Point(START_POINT_BYTE);
 	private static final int ORDER = 3;
 	private Segment segment;
@@ -54,7 +55,21 @@ public class SegmentShortConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void shortConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(new Point((byte)-1), 1);
+		new Segment(START_POINT, EIGHT);
+	}
+	
+	/**
+	 * The message of the IllegalArgumentException should be correct when the start point's order
+	 * doesn't match the segment order.
+	 */
+	@Test
+	public void illegalArgumentExceptionMessageCorrectIfStartPointOrderDoesNotMatchSegmentOrder() {
+		try {
+			new Segment(START_POINT, EIGHT);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The start point's order (7) is less than the provided order (8).");
+		}
 	}
 
 	/**
