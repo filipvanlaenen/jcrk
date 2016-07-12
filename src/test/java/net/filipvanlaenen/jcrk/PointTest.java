@@ -47,15 +47,33 @@ public class PointTest {
 	}
 
 	/**
-	 * Produces the data to test the method asBinaryString.
+	 * Produces the data to test the method asBinaryString and
+	 * asHexadecimalString.
 	 * 
-	 * @return The data to test the method asBinaryString.
+	 * @return The data to test the methods asBinaryString and
+	 *         asHexadecimalString.
 	 */
-	@DataProvider(name = "asBinaryString")
+	@DataProvider(name = "binaryAndHexadecimalTestData")
 	public Object[][] bytesAndBinaryNumbers() {
-		return new Object[][] { { BYTE_0X01, "00000001" }, { BYTE_0X23, "00100011" }, { BYTE_0X45, "01000101" },
-				{ BYTE_0X67, "01100111" }, { BYTE_0X89, "10001001" }, { BYTE_0XAB, "10101011" },
-				{ BYTE_0XCD, "11001101" }, { BYTE_0XEF, "11101111" } };
+		return new Object[][] { { BYTE_0X01, "00000001", "01" }, { BYTE_0X23, "00100011", "23" },
+				{ BYTE_0X45, "01000101", "45" }, { BYTE_0X67, "01100111", "67" }, { BYTE_0X89, "10001001", "89" },
+				{ BYTE_0XAB, "10101011", "ab" }, { BYTE_0XCD, "11001101", "cd" }, { BYTE_0XEF, "11101111", "ef" } };
+	}
+
+	/**
+	 * The method asHexadecimalString produces all hexadecimal digits correctly.
+	 * 
+	 * @param aByte
+	 *            A byte to be converted.
+	 * @param expectedBinary
+	 *            The expected binary String representation of the byte.
+	 * @param expectedHexadecimal
+	 *            The expected hexadecimal String representation of the byte.
+	 */
+	@Test(dataProvider = "binaryAndHexadecimalTestData")
+	public void asHexadecimalStringProducesHexadecimalDigitsCorrectly(byte aByte, String expectedBinary,
+			String expectedHexadecimal) {
+		Assert.assertEquals(new Point(aByte).asHexadecimalString(), expectedHexadecimal);
 	}
 
 	/**
@@ -63,12 +81,15 @@ public class PointTest {
 	 * 
 	 * @param aByte
 	 *            A byte to be converted.
-	 * @param expected
-	 *            The expected String representation of the byte.
+	 * @param expectedBinary
+	 *            The expected binary String representation of the byte.
+	 * @param expectedHexadecimal
+	 *            The expected hexadecimal String representation of the byte.
 	 */
-	@Test(dataProvider = "asBinaryString")
-	public void asBinaryStringConvertsHexadecimalDigitsCorrectly(byte aByte, String expected) {
-		Assert.assertEquals(new Point(aByte).asBinaryString(), expected);
+	@Test(dataProvider = "binaryAndHexadecimalTestData")
+	public void asBinaryStringConvertsHexadecimalDigitsCorrectly(byte aByte, String expectedBinary,
+			String expectedHexadecimal) {
+		Assert.assertEquals(new Point(aByte).asBinaryString(), expectedBinary);
 	}
 
 	/**
@@ -93,5 +114,42 @@ public class PointTest {
 	@Test
 	public void pointWithEightZeroesHasOrderEight() {
 		Assert.assertEquals(new Point(BYTE_0X00).order(), EIGHT);
+	}
+	
+	/**
+	 * A Point is not equal to a String.
+	 */
+	@Test
+	public void aPointIsNotEqualToAString() {
+		Assert.assertFalse(new Point().equals(""));
+	}
+	
+	/**
+	 * A Point is equal to itself.
+	 */
+	@Test
+	public void aPointIsEqualToItself() {
+		Point point = new Point();
+		Assert.assertEquals(point, point);
+	}
+	
+	/**
+	 * A Point is equal to a Point with the same byte array.
+	 */
+	@Test
+	public void aPointIsEqualToAPointWithTheSameByteArray() {
+		Point a = new Point((byte) 0, (byte) 1, (byte) 2);
+		Point b = new Point((byte) 0, (byte) 1, (byte) 2);
+		Assert.assertEquals(a, b);
+	}
+	
+	/**
+	 * A Point is not equal to a Point with a different byte array.
+	 */
+	@Test
+	public void aPointIsNotEqualToAPointWithADifferentByteArray() {
+		Point a = new Point((byte) 0, (byte) 1, (byte) 2);
+		Point b = new Point((byte) 2, (byte) 1, (byte) 0);
+		Assert.assertFalse(a.equals(b));
 	}
 }
