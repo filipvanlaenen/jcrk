@@ -26,15 +26,21 @@ import java.security.NoSuchAlgorithmException;
  * The hash function SHA-256. 
  */
 public final class SHA256 implements HashFunction {
+	private static final String SHA_256_NAME = "SHA-256";
 	private final MessageDigest digest;
 	
 	SHA256() throws NoSuchAlgorithmException {
-		digest = MessageDigest.getInstance("SHA-256");
+		digest = MessageDigest.getInstance(SHA_256_NAME);
 	}
 	
 	@Override
 	public byte[] hash(byte[] source) {	
 		return digest.digest(source);
+	}
+	
+	@Override
+	public String getName() {
+		return SHA_256_NAME;
 	}
 
 }

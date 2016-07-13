@@ -23,14 +23,22 @@ package net.filipvanlaenen.jcrk;
  * Class cracking the hashing function.
  */
 class Cracker {
+	private final HashFunction hashFunction;
 
-	/**
-	 * Returns the number of segments currently calculated.
-	 * 
-	 * @return The number of segments.
-	 */
+	Cracker(HashFunction hashFunction) {
+		this.hashFunction = hashFunction;
+	}
+
 	int getNumberOfSegments() {
 		return 0;
+	}
+
+	int getCurrentOrder() {
+		return 0;
+	}
+
+	HashFunction getHashFunction() {
+		return hashFunction;
 	}
 
 }
