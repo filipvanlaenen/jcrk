@@ -23,24 +23,27 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * The hash function SHA-256. 
+ * Enumeration with some standard hash functions.
  */
-public final class SHA256 implements HashFunction {
-	private static final String SHA_256_NAME = "SHA-256";
+public enum StandardHashFunction implements HashFunction {
+	SHA1("SHA-1"), SHA256("SHA-256");
+
 	private final MessageDigest digest;
-	
-	SHA256() throws NoSuchAlgorithmException {
-		digest = MessageDigest.getInstance(SHA_256_NAME);
-	}
-	
-	@Override
-	public byte[] hash(byte[] source) {	
-		return digest.digest(source);
-	}
-	
-	@Override
-	public String getName() {
-		return SHA_256_NAME;
+
+	StandardHashFunction(String algorithm) {
+		digest = getMessageDigest(algorithm);
 	}
 
+	private MessageDigest getMessageDigest(String algorithm) {
+		try {
+			return MessageDigest.getInstance(algorithm);
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public byte[] hash(byte[] source) {
+		return digest.digest(source);
+	}
 }

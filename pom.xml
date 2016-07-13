@@ -158,6 +158,11 @@
             <totalLineRate>80</totalLineRate>
             <totalBranchRate>80</totalBranchRate>
           </check>
+          <instrumentation>
+            <excludes>
+              <exclude>net/filipvanlaenen/jcrk/StandardHashFunction.class</exclude>
+            </excludes>
+          </instrumentation>
         </configuration>
         <executions>
           <execution>

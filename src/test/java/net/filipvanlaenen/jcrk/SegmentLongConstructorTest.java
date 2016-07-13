@@ -19,8 +19,6 @@
  */
 package net.filipvanlaenen.jcrk;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,26 +33,15 @@ public class SegmentLongConstructorTest {
 	private static final Point END_POINT = new Point(END_POINT_BYTE);
 	private static final long LENGTH = 2;
 	private static final int ORDER = 1;
+	private static final HashFunction HASH_FUNCTION = StandardHashFunction.SHA256;
 	private Segment segment;
-	private HashFunction sha256;
-
-	/**
-	 * Creates the hash function to use in the unit tests.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 *             If SHA-256 couldn't be instantiated.
-	 */
-	@BeforeMethod
-	public void createSha256HashFunction() throws NoSuchAlgorithmException {
-		sha256 = new SHA256();
-	}
 	
 	/**
 	 * Creates a segment instance using the long constructor to run the tests on.
 	 */
 	@BeforeMethod
 	public void createSegmentUsingLongConstructor() {
-		segment = new Segment(START_POINT, END_POINT, LENGTH, ORDER, sha256);
+		segment = new Segment(START_POINT, END_POINT, LENGTH, ORDER, HASH_FUNCTION);
 	}
 	
 	/**
@@ -71,7 +58,7 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(START_POINT, END_POINT, LENGTH, 2, sha256);
+		new Segment(START_POINT, END_POINT, LENGTH, 2, HASH_FUNCTION);
 	}
 
 	/**
@@ -81,7 +68,7 @@ public class SegmentLongConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfStartPointOrderDoesNotMatchSegmentOrder() {
 		try {
-			new Segment(START_POINT, END_POINT, LENGTH, 2, sha256);
+			new Segment(START_POINT, END_POINT, LENGTH, 2, HASH_FUNCTION);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(), "The start point's order (1) is less than the provided order (2).");
@@ -109,7 +96,7 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfLengthIsNegative() {
-		new Segment(START_POINT, END_POINT, -1, ORDER, sha256);
+		new Segment(START_POINT, END_POINT, -1, ORDER, HASH_FUNCTION);
 	}
 
 	/**
@@ -118,7 +105,7 @@ public class SegmentLongConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfLengthIsNegative() {
 		try {
-			new Segment(START_POINT, END_POINT, -1, ORDER, sha256);
+			new Segment(START_POINT, END_POINT, -1, ORDER, HASH_FUNCTION);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(), "The length (-1) is negative.");
@@ -138,7 +125,7 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
-		new Segment(START_POINT, END_POINT, LENGTH, -1, sha256);
+		new Segment(START_POINT, END_POINT, LENGTH, -1, HASH_FUNCTION);
 	}
 
 	/**
@@ -147,7 +134,7 @@ public class SegmentLongConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfOrderIsNegative() {
 		try {
-			new Segment(START_POINT, END_POINT, LENGTH, -1, sha256);
+			new Segment(START_POINT, END_POINT, LENGTH, -1, HASH_FUNCTION);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(), "The order (-1) is negative.");

@@ -19,10 +19,7 @@
  */
 package net.filipvanlaenen.jcrk;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -39,25 +36,14 @@ public class SegmentTest {
 			0x08, (byte) 0x97, 0x14, (byte) 0x85, 0x6e, (byte) 0xe2, 0x33, (byte) 0xb3, (byte) 0x90, 0x2a, 0x59, 0x1d,
 			0x0d, 0x5f, 0x29, 0x25 };
 	private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point(HASH_OF_POINT_ZERO);
-	private HashFunction sha256;
-
-	/**
-	 * Creates the hash function to use in the unit tests.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 *             If SHA-256 couldn't be instantiated.
-	 */
-	@BeforeMethod
-	public void createSha256HashFunction() throws NoSuchAlgorithmException {
-		sha256 = new SHA256();
-	}
+	private static final HashFunction HASH_FUNCTION = StandardHashFunction.SHA256;
 	
 	/**
 	 * A segment is not complete if its length is zero.
 	 */
 	@Test
 	public void zeroLengthSegmentIsNotComplete() {
-		Segment newSegment = new Segment(POINT_ZERO, 1, sha256);
+		Segment newSegment = new Segment(POINT_ZERO, 1, HASH_FUNCTION);
 		Assert.assertFalse(newSegment.isComplete());
 	}
 
@@ -67,7 +53,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void segmentNotCompleteIfEndPointNotOfSameOrder() {
-		Segment incompleteSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0XFF), 1, 1, sha256);
+		Segment incompleteSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0XFF), 1, 1, HASH_FUNCTION);
 		Assert.assertFalse(incompleteSegment.isComplete());
 	}
 
@@ -76,7 +62,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void segmentCompleteIfEndPointHasSameOrder() {
-		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, sha256);
+		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, HASH_FUNCTION);
 		Assert.assertTrue(completeSegment.isComplete());
 	}
 
@@ -85,7 +71,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void segmentCompleteIfEndPointHasHigherOrderThanSegment() {
-		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X20), 1, 1, sha256);
+		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X20), 1, 1, HASH_FUNCTION);
 		Assert.assertTrue(completeSegment.isComplete());
 	}
 
@@ -95,7 +81,7 @@ public class SegmentTest {
 	 */
 	@Test(expectedExceptions = IllegalStateException.class)
 	public void extendOnCompleteSegmentThrowsIllegalStateException() {
-		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, sha256);
+		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, HASH_FUNCTION);
 		completeSegment.extend();
 	}
 	
@@ -104,7 +90,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void messageOfIllegalStateExceptionAfterExtendOnCompleteSegmentMustBeCorrect() {
-		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, sha256);
+		Segment completeSegment = new Segment(POINT_ZERO, new Point((byte) BYTE_0X40), 1, 1, HASH_FUNCTION);
 		try {
 			completeSegment.extend();
 			Assert.fail();
@@ -118,7 +104,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void extendIncrementsIncompleteSegmentLength() {
-		Segment newSegment = new Segment(POINT_ZERO, 1, sha256);
+		Segment newSegment = new Segment(POINT_ZERO, 1, HASH_FUNCTION);
 		newSegment.extend();
 		Assert.assertEquals(newSegment.getLength(), 1);
 	}
@@ -128,7 +114,7 @@ public class SegmentTest {
 	 */
 	@Test
 	public void extendUpdatesIncompleteSegmentEndPoint() {
-		Segment newSegment = new Segment(POINT_ZERO, 1, sha256);
+		Segment newSegment = new Segment(POINT_ZERO, 1, HASH_FUNCTION);
 		newSegment.extend();
 		Assert.assertEquals(newSegment.getEndPoint(), FIRST_POINT_AFTER_POINT_ZERO);
 	}

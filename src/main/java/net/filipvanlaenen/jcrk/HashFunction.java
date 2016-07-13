@@ -32,11 +32,4 @@ public interface HashFunction {
 	 * @return The resulting byte array.
 	 */
 	byte[] hash(byte[] source);
-
-	/**
-	 * Returns the name of the hash function.
-	 * 
-	 * @return The name of the hash function.
-	 */
-	String getName();
 }

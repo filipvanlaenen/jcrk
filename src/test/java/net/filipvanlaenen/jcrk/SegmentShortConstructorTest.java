@@ -19,8 +19,6 @@
  */
 package net.filipvanlaenen.jcrk;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,26 +30,15 @@ public class SegmentShortConstructorTest {
 	private static final byte START_POINT_BYTE = 0x40;
 	private static final Point START_POINT = new Point(START_POINT_BYTE);
 	private static final int ORDER = 1;
+	private static final HashFunction HASH_FUNCTION = StandardHashFunction.SHA256;
 	private Segment segment;
-	private HashFunction sha256;
-
-	/**
-	 * Creates the hash function to use in the unit tests.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 *             If SHA-256 couldn't be instantiated.
-	 */
-	@BeforeMethod
-	public void createSha256HashFunction() throws NoSuchAlgorithmException {
-		sha256 = new SHA256();
-	}
 	
 	/**
 	 * Creates a segment instance using the short constructor to run the tests on.
 	 */
 	@BeforeMethod
 	public void createSegmentUsingShortConstructor() {
-		segment = new Segment(START_POINT, ORDER, sha256);
+		segment = new Segment(START_POINT, ORDER, HASH_FUNCTION);
 	}
 	
 	/**
@@ -68,7 +55,7 @@ public class SegmentShortConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void shortConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(START_POINT, 2, sha256);
+		new Segment(START_POINT, 2, HASH_FUNCTION);
 	}
 	
 	/**
@@ -78,7 +65,7 @@ public class SegmentShortConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfStartPointOrderDoesNotMatchSegmentOrder() {
 		try {
-			new Segment(START_POINT, 2, sha256);
+			new Segment(START_POINT, 2, HASH_FUNCTION);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(), "The start point's order (1) is less than the provided order (2).");
@@ -114,7 +101,7 @@ public class SegmentShortConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void shortConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
-		new Segment(START_POINT, -1, sha256);
+		new Segment(START_POINT, -1, HASH_FUNCTION);
 	}
 
 	/**
@@ -123,11 +110,10 @@ public class SegmentShortConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfOrderIsNegative() {
 		try {
-			new Segment(START_POINT, -1, sha256);
+			new Segment(START_POINT, -1, HASH_FUNCTION);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(), "The order (-1) is negative.");
 		}
 	}
-
 }

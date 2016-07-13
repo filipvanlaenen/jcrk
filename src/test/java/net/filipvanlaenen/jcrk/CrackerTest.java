@@ -39,15 +39,15 @@ public class CrackerTest {
 	 */
 	@BeforeMethod
 	public void createNewCrackerInstance() throws NoSuchAlgorithmException {
-		cracker = new Cracker(new SHA256());
+		cracker = new Cracker(StandardHashFunction.SHA256);
 	}
 	
 	/**
-	 * Constructor sets the hash function correctly. This is verified by checking the hash function's name.
+	 * Constructor sets the hash function correctly.
 	 */
 	@Test
 	public void constructorSetsTheHashFunctionCorrectly() {
-		Assert.assertEquals(cracker.getHashFunction().getName(), "SHA-256");
+		Assert.assertEquals(cracker.getHashFunction(), StandardHashFunction.SHA256);
 	}
 
 	/**

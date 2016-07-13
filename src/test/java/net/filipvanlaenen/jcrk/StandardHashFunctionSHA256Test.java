@@ -19,16 +19,14 @@
  */
 package net.filipvanlaenen.jcrk;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * Unit tests on the SHA256 class.
+ * Unit tests on SHA-256.
  */
-public class SHA256Test {
+public class StandardHashFunctionSHA256Test {
+	private static final HashFunction SHA256 = StandardHashFunction.SHA256;
 	private static final int BYTE_LENGTH = 32;
 	private static final Point POINT_ZERO = new Point(new byte[BYTE_LENGTH]);
 	private static final byte[] HASH_OF_EMPTY_STRING = new byte[] { (byte) 0xe3, (byte) 0xb0, (byte) 0xc4, 0x42,
@@ -40,33 +38,21 @@ public class SHA256Test {
 			0x08, (byte) 0x97, 0x14, (byte) 0x85, 0x6e, (byte) 0xe2, 0x33, (byte) 0xb3, (byte) 0x90, 0x2a, 0x59, 0x1d,
 			0x0d, 0x5f, 0x29, 0x25 };
 	private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point(HASH_OF_POINT_ZERO);
-	private HashFunction sha256;
 
 	/**
-	 * Creates the hash function to run the tests on.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 *             If SHA-256 couldn't be instantiated.
-	 */
-	@BeforeMethod
-	public void createSha256() throws NoSuchAlgorithmException {
-		sha256 = new SHA256();
-	}
-
-	/**
-	 * Verifies that SHA256 hashes the empty string correctly.
+	 * Verifies that SHA-256 hashes the empty string correctly.
 	 */
 	@Test
 	public void sha256HashesEmptyStringCorrectly() {
-		byte[] hash = sha256.hash(new byte[] {});
+		byte[] hash = SHA256.hash(new byte[] {});
 		Assert.assertEquals(hash, HASH_OF_EMPTY_STRING);
 	}
 
 	/**
-	 * Verifies that SHA256 can produce a new point.
+	 * Verifies that SHA-256 can produce a new point.
 	 */
 	@Test
 	public void sha256CanProduceANewPoint() {
-		Assert.assertEquals(POINT_ZERO.hash(sha256), FIRST_POINT_AFTER_POINT_ZERO);
+		Assert.assertEquals(POINT_ZERO.hash(SHA256), FIRST_POINT_AFTER_POINT_ZERO);
 	}
 }
