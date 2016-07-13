@@ -152,4 +152,33 @@ public class PointTest {
 		Point b = new Point((byte) 2, (byte) 1, (byte) 0);
 		Assert.assertFalse(a.equals(b));
 	}
+	
+	/**
+	 * A Point has the same hash code as itself.
+	 */
+	@Test
+	public void aPointHasTheSameHashcodeAsItself() {
+		Point point = new Point();
+		Assert.assertEquals(point.hashCode(), point.hashCode());
+	}
+
+	/**
+	 * A Point has the same hash code as a Point with the same byte array.
+	 */
+	@Test
+	public void aPointHasTheSameHashcodeAsAPointWithTheSameByteArray() {
+		Point a = new Point((byte) 0, (byte) 1, (byte) 2);
+		Point b = new Point((byte) 0, (byte) 1, (byte) 2);
+		Assert.assertEquals(a.hashCode(), b.hashCode());
+	}
+	
+	/**
+	 * A Point should (in general) not have the same hash code as a Point with a different byte array.
+	 */
+	@Test
+	public void aPointShouldNotHaveTheSameHashcodeAsAPointWithADifferentByteArray() {
+		Point a = new Point((byte) 0, (byte) 1, (byte) 2);
+		Point b = new Point((byte) 2, (byte) 1, (byte) 0);
+		Assert.assertFalse(a.hashCode() == b.hashCode());
+	}
 }
