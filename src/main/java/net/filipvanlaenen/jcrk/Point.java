@@ -35,8 +35,8 @@ public class Point {
 		return bytes[i];
 	}
 
-	Point hash(HashFunction hash) {
-		return new Point(hash.hash(bytes));
+	Point hash(HashFunction hashFunction) {
+		return new Point(hashFunction.hash(bytes));
 	}
 	
 	String asHexadecimalString() {

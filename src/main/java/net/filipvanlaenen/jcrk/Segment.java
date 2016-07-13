@@ -21,20 +21,22 @@ package net.filipvanlaenen.jcrk;
 
 /**
  * A segment on a path in Pollard's rho collision search. A segment has a start
- * point, an end point, a length and an order.
+ * point, an end point, a length, an order and a hash function.
  */
 public class Segment {
 
 	private final Point startPoint;
-	private final Point endPoint;
-	private final long length;
+	private Point endPoint;
+	private long length;
 	private final int order;
+	private final HashFunction hashFunction;
 
-	Segment(Point startPoint, int order) {
-		this(startPoint, startPoint, 0, order);
+	Segment(Point startPoint, int order, HashFunction hashFunction) {
+		this(startPoint, startPoint, 0, order, hashFunction);
 	}
 
-	Segment(Point startPoint, Point endPoint, long length, int order) {
+	Segment(Point startPoint, Point endPoint, long length, int order,
+			HashFunction hashFunction) {
 		if (startPoint.order() < order) {
 			throw new IllegalArgumentException(
 					String.format(
@@ -51,6 +53,7 @@ public class Segment {
 		this.endPoint = endPoint;
 		this.length = length;
 		this.order = order;
+		this.hashFunction = hashFunction;
 	}
 
 	Point getStartPoint() {
@@ -71,5 +74,14 @@ public class Segment {
 
 	boolean isComplete() {
 		return length > 0 && endPoint.order() >= order;
+	}
+
+	void extend() {
+		if (isComplete()) {
+			throw new IllegalStateException(
+					"A complete segment cannot be extended.");
+		}
+		endPoint = endPoint.hash(hashFunction);
+		length++;
 	}
 }
