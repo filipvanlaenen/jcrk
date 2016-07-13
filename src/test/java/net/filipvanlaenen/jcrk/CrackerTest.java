@@ -19,8 +19,6 @@
  */
 package net.filipvanlaenen.jcrk;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -33,12 +31,9 @@ public class CrackerTest {
 
 	/**
 	 * Creates a new Cracker instance before all test methods.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 *             If SHA-256 couldn't be instantiated.
 	 */
 	@BeforeMethod
-	public void createNewCrackerInstance() throws NoSuchAlgorithmException {
+	public void createNewCrackerInstance() {
 		cracker = new Cracker(StandardHashFunction.SHA256);
 	}
 	
