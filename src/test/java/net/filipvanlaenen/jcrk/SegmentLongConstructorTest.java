@@ -27,13 +27,12 @@ import org.testng.annotations.Test;
  * Class testing the long constructor of the Segment class.
  */
 public class SegmentLongConstructorTest {
-	private static final int EIGHT = 8;
-	private static final byte START_POINT_BYTE = 1;
-	private static final byte END_POINT_BYTE = 2;
+	private static final byte START_POINT_BYTE = 0x40;
+	private static final byte END_POINT_BYTE = 0x20;
 	private static final Point START_POINT = new Point(START_POINT_BYTE);
 	private static final Point END_POINT = new Point(END_POINT_BYTE);
 	private static final long LENGTH = 2;
-	private static final int ORDER = 3;
+	private static final int ORDER = 1;
 	private Segment segment;
 	
 	/**
@@ -58,7 +57,7 @@ public class SegmentLongConstructorTest {
 	 */
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
-		new Segment(START_POINT, END_POINT, LENGTH, EIGHT);
+		new Segment(START_POINT, END_POINT, LENGTH, 2);
 	}
 
 	/**
@@ -68,10 +67,10 @@ public class SegmentLongConstructorTest {
 	@Test
 	public void illegalArgumentExceptionMessageCorrectIfStartPointOrderDoesNotMatchSegmentOrder() {
 		try {
-			new Segment(START_POINT, END_POINT, LENGTH, EIGHT);
+			new Segment(START_POINT, END_POINT, LENGTH, 2);
 			Assert.fail();
 		} catch (IllegalArgumentException iae) {
-			Assert.assertEquals(iae.getMessage(), "The start point's order (7) is less than the provided order (8).");
+			Assert.assertEquals(iae.getMessage(), "The start point's order (1) is less than the provided order (2).");
 		}
 	}
 	
