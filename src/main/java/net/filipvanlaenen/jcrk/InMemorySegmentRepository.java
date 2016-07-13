@@ -20,26 +20,8 @@
 package net.filipvanlaenen.jcrk;
 
 /**
- * Class cracking the hashing function.
+ * A segment repository storing all segments in memory only.
  */
-class Cracker {
-	private final HashFunction hashFunction;
-	private final SegmentRepository segmentRepository;
+public class InMemorySegmentRepository implements SegmentRepository {
 
-	Cracker(HashFunction hashFunction, SegmentRepository segmentRepository) {
-		this.hashFunction = hashFunction;
-		this.segmentRepository = segmentRepository;
-	}
-
-	int getCurrentOrder() {
-		return 0;
-	}
-
-	HashFunction getHashFunction() {
-		return hashFunction;
-	}
-
-	SegmentRepository getSegmentRepository() {
-		return segmentRepository;
-	}
 }

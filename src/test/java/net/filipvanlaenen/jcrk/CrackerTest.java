@@ -28,15 +28,18 @@ import org.testng.annotations.Test;
  */
 public class CrackerTest {
 	private Cracker cracker;
+	private SegmentRepository segmentRepository;
 
 	/**
-	 * Creates a new Cracker instance before all test methods.
+	 * Creates a new Cracker instance for the unit tests. The cracker uses
+	 * SHA-256 as the hash function and a new in-memory segment repository.
 	 */
 	@BeforeMethod
-	public void createNewCrackerInstance() {
-		cracker = new Cracker(StandardHashFunction.SHA256);
+	public void createNewSegmentRepositoryAndCrackerInstance() {
+		segmentRepository = new InMemorySegmentRepository();
+		cracker = new Cracker(StandardHashFunction.SHA256, segmentRepository);
 	}
-	
+
 	/**
 	 * Constructor sets the hash function correctly.
 	 */
@@ -44,13 +47,13 @@ public class CrackerTest {
 	public void constructorSetsTheHashFunctionCorrectly() {
 		Assert.assertEquals(cracker.getHashFunction(), StandardHashFunction.SHA256);
 	}
-
+	
 	/**
-	 * By default, no segments should be present in a Cracker instance.
+	 * Constructor sets the segment repository correctly.
 	 */
 	@Test
-	public void aCrackerHasNoSegmentsByDefault() {
-		Assert.assertEquals(cracker.getNumberOfSegments(), 0);
+	public void constructorSetsTheSegmentRepositoryCorrectly() {
+		Assert.assertEquals(cracker.getSegmentRepository(), segmentRepository);
 	}
 
 	/**
