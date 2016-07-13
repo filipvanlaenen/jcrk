@@ -68,4 +68,8 @@ public class Segment {
 	int getOrder() {
 		return order;
 	}
+
+	boolean isComplete() {
+		return length > 0 && endPoint.order() >= order;
+	}
 }
