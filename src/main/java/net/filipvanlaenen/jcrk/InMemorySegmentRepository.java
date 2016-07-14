@@ -19,9 +19,93 @@
  */
 package net.filipvanlaenen.jcrk;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
- * A segment repository storing all segments in memory only.
+ * An in-memory implementation of the segment repository.
  */
 public class InMemorySegmentRepository implements SegmentRepository {
+	private final HashFunction hashFunction;
+	private final Map<Point, Segment> startPointMap = new HashMap<Point, Segment>();
+	private final Map<Point, Set<Segment>> endPointMap = new HashMap<Point, Set<Segment>>();
+	private int order;
 
+	InMemorySegmentRepository(HashFunction hashFunction) {
+		this.hashFunction = hashFunction;
+	}
+
+	@Override
+	public boolean add(Segment segment) throws IllegalArgumentException {
+		if (contains(segment)) {
+			return false;
+		} else {
+			startPointMap.put(segment.getStartPoint(), segment);
+			if (endPointMap.containsKey(segment.getEndPoint())) {
+				endPointMap.get(segment.getEndPoint()).add(segment);
+			} else {
+				Set<Segment> segments = new HashSet<Segment>();
+				segments.add(segment);
+				endPointMap.put(segment.getEndPoint(), segments);
+			}
+			return true;
+		}
+	}
+
+	@Override
+	public boolean contains(Segment segment) {
+		return startPointMap.containsValue(segment);
+	}
+
+	@Override
+	public boolean containsSegmentWithStartPoint(Point point) {
+		return startPointMap.containsKey(point);
+	}
+
+	@Override
+	public boolean containsSegmentsWithEndPoint(Point point) {
+		return endPointMap.containsKey(point);
+	}
+
+	@Override
+	public Segment getSegmentWithStartPoint(Point point) {
+		return startPointMap.get(point);
+	}
+
+	@Override
+	public Set<Segment> getSegmentsWithEndPoint(Point point) {
+		if (endPointMap.containsKey(point)) {
+			return endPointMap.get(point);			
+		} else {
+			return Collections.EMPTY_SET;
+		}
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return startPointMap.isEmpty();
+	}
+
+	@Override
+	public int size() {
+		return startPointMap.size();
+	}
+
+	@Override
+	public int getOrder() {
+		return order;
+	}
+
+	@Override
+	public void compressToNextOrder() {
+		order++;
+	}
+
+	@Override
+	public HashFunction getHashFunction() {
+		return hashFunction;
+	}
 }

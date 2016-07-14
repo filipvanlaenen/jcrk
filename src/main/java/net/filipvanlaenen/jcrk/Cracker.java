@@ -23,20 +23,10 @@ package net.filipvanlaenen.jcrk;
  * Class cracking the hashing function.
  */
 class Cracker {
-	private final HashFunction hashFunction;
 	private final SegmentRepository segmentRepository;
 
-	Cracker(HashFunction hashFunction, SegmentRepository segmentRepository) {
-		this.hashFunction = hashFunction;
+	Cracker(SegmentRepository segmentRepository) {
 		this.segmentRepository = segmentRepository;
-	}
-
-	int getCurrentOrder() {
-		return 0;
-	}
-
-	HashFunction getHashFunction() {
-		return hashFunction;
 	}
 
 	SegmentRepository getSegmentRepository() {

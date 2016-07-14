@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  * Unit tests on a SHA-256 truncated to 8 bits.
  */
 public class TruncatedStandardHashFunctionSHA256To8BitsTest {
-	private static final HashFunction SHA256 = new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
+	private static final HashFunction TRUNCATED_SHA256 = new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
 	private static final int BYTE_LENGTH = 1;
 	private static final Point POINT_ZERO = new Point(new byte[BYTE_LENGTH]);
 	private static final byte[] HASH_OF_POINT_ZERO = new byte[] { 0x6e };
@@ -37,6 +37,6 @@ public class TruncatedStandardHashFunctionSHA256To8BitsTest {
 	 */
 	@Test
 	public void sha256CanProduceANewPoint() {
-		Assert.assertEquals(POINT_ZERO.hash(SHA256), FIRST_POINT_AFTER_POINT_ZERO);
+		Assert.assertEquals(POINT_ZERO.hash(TRUNCATED_SHA256), FIRST_POINT_AFTER_POINT_ZERO);
 	}
 }

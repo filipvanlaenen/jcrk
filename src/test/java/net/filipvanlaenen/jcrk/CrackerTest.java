@@ -27,30 +27,18 @@ import org.testng.annotations.Test;
  * Class testing the Cracker class.
  */
 public class CrackerTest {
-	private static final int HASH_TRUNCATION = 8;
-	private HashFunction hashFunction;
 	private Cracker cracker;
 	private SegmentRepository segmentRepository;
 
 	/**
-	 * Creates a new Cracker instance for the unit tests. The cracker uses
-	 * an 8 bit truncated version of SHA-256 as the hash function and a new in-memory segment repository.
+	 * Creates a new Cracker instance for the unit tests.
 	 */
 	@BeforeMethod
 	public void createNewSegmentRepositoryAndCrackerInstance() {
-		hashFunction = new TruncatedStandardHashFunction(StandardHashFunction.SHA256, HASH_TRUNCATION);
-		segmentRepository = new InMemorySegmentRepository();
-		cracker = new Cracker(hashFunction, segmentRepository);
+		segmentRepository = new InMemorySegmentRepository(StandardHashFunction.SHA256);
+		cracker = new Cracker(segmentRepository);
 	}
 
-	/**
-	 * Constructor sets the hash function correctly.
-	 */
-	@Test
-	public void constructorSetsTheHashFunctionCorrectly() {
-		Assert.assertEquals(cracker.getHashFunction(), hashFunction);
-	}
-	
 	/**
 	 * Constructor sets the segment repository correctly.
 	 */
@@ -59,11 +47,4 @@ public class CrackerTest {
 		Assert.assertEquals(cracker.getSegmentRepository(), segmentRepository);
 	}
 
-	/**
-	 * By default, a Cracker starts with order 0.
-	 */
-	@Test
-	public void aCrackerHasCurrentOrderZeroByDefault() {
-		Assert.assertEquals(cracker.getCurrentOrder(), 0);
-	}
 }
