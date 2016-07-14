@@ -31,8 +31,8 @@ public class InMemorySegmentRepositoryTest {
 			8);
 	private static final int BYTE_LENGTH = 1;
 	private static final Point POINT_ZERO = new Point(new byte[BYTE_LENGTH]);
-	private static final byte[] HASH_OF_POINT_ZERO = new byte[] { 0x6e };
-	private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point(HASH_OF_POINT_ZERO);
+	private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point((byte) 0x6e);
+	private static final Point POINT_FF = new Point((byte) 0xff);
 	private static final Segment SEGMENT_FOR_POINT_ZERO = new Segment(POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 0,
 			TRUNCATED_SHA256);
 	private SegmentRepository repository;
@@ -203,6 +203,32 @@ public class InMemorySegmentRepositoryTest {
 		} catch (IllegalArgumentException iae) {
 			Assert.assertEquals(iae.getMessage(),
 					"The hash function of the segment (SHA-256) isn't the same as the hash function of the repository (TRUNC(SHA-256, 8)).");
+		}
+	}
+
+	/**
+	 * The repository rejects incomplete segments.
+	 */
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void repositoryThrowsIllegalArgumentExceptionIfSegmentIsIncomplete() {
+		repository.compressToNextOrder();
+		Segment segment = new Segment(POINT_ZERO, POINT_FF, 1, 1, TRUNCATED_SHA256);
+		repository.add(segment);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException when the segment is
+	 * incomplete must be correct.
+	 */
+	@Test
+	public void messageOfIllegalArgumentExceptionWhenSegmentIsIncompleteMustBeCorrect() {
+		repository.compressToNextOrder();
+		Segment segment = new Segment(POINT_ZERO, POINT_FF, 1, 1, TRUNCATED_SHA256);
+		try {
+			repository.add(segment);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(), "The segment isn't complete.");
 		}
 	}
 }
