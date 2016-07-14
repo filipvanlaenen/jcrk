@@ -30,11 +30,13 @@ public class TruncatedStandardHashFunction implements HashFunction {
 	private static final int BYTE_0XFF = 0xff;
 	private static final int BITS_IN_A_BYTE = 8;
 	private final StandardHashFunction standardHashFunction;
+	private final int bitLength;
 	private final int byteArrayLength;
 	private final byte lastByteMask;
 
 	TruncatedStandardHashFunction(StandardHashFunction standardHashFunction, int bitLength) {
 		this.standardHashFunction = standardHashFunction;
+		this.bitLength = bitLength;
 		this.byteArrayLength = bitLength / BITS_IN_A_BYTE + ((bitLength % BITS_IN_A_BYTE == 0) ? 0 : 1);
 		lastByteMask = (byte) (BYTE_0XFF << ((bitLength % BITS_IN_A_BYTE == 0) ? 0
 				: BITS_IN_A_BYTE - bitLength % BITS_IN_A_BYTE));
@@ -49,5 +51,10 @@ public class TruncatedStandardHashFunction implements HashFunction {
 		byte[] result = Arrays.copyOf(original, byteArrayLength);
 		result[byteArrayLength - 1] = (byte) (result[byteArrayLength - 1] & lastByteMask);
 		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("TRUNC(%s, %d)", standardHashFunction, bitLength);
 	}
 }

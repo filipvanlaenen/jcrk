@@ -116,4 +116,13 @@ public class SegmentShortConstructorTest {
 			Assert.assertEquals(iae.getMessage(), "The order (-1) is negative.");
 		}
 	}
+	
+	/**
+	 * The short constructor should set the hash function correctly.
+	 */
+	@Test
+	public void shortConstructorSetsHashFunctionCorrectly() {
+		Assert.assertEquals(segment.getHashFunction(), HASH_FUNCTION);
+	}
+
 }

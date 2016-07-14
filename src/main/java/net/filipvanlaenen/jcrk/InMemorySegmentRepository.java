@@ -40,6 +40,19 @@ public class InMemorySegmentRepository implements SegmentRepository {
 
 	@Override
 	public boolean add(Segment segment) throws IllegalArgumentException {
+		if (!segment.isComplete()) {
+			throw new IllegalArgumentException("The segment isn't complete.");
+		}
+		if (segment.getOrder() != order) {
+			throw new IllegalArgumentException(
+					String.format("The order of the segment (%d) isn't the same as the order of the repository (%d).",
+							segment.getOrder(), order));
+		}
+		if (segment.getHashFunction() != hashFunction) {
+			throw new IllegalArgumentException(String.format(
+					"The hash function of the segment (%s) isn't the same as the hash function of the repository (%s).",
+					segment.getHashFunction(), hashFunction));
+		}
 		if (contains(segment)) {
 			return false;
 		} else {
@@ -78,7 +91,7 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	@Override
 	public Set<Segment> getSegmentsWithEndPoint(Point point) {
 		if (endPointMap.containsKey(point)) {
-			return endPointMap.get(point);			
+			return endPointMap.get(point);
 		} else {
 			return Collections.EMPTY_SET;
 		}

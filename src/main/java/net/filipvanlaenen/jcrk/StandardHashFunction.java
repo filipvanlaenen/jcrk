@@ -29,6 +29,7 @@ public enum StandardHashFunction implements HashFunction {
 	SHA1("SHA-1"), SHA256("SHA-256");
 
 	private final MessageDigest digest;
+	
 
 	StandardHashFunction(String algorithm) {
 		digest = getMessageDigest(algorithm);
@@ -45,5 +46,10 @@ public enum StandardHashFunction implements HashFunction {
 	@Override
 	public byte[] hash(byte[] source) {
 		return digest.digest(source);
+	}
+	
+	@Override
+	public String toString() {
+		return digest.getAlgorithm();
 	}
 }

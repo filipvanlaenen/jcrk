@@ -113,6 +113,14 @@ public class SegmentLongConstructorTest {
 	}
 
 	/**
+	 * The long constructor should set the hash function correctly.
+	 */
+	@Test
+	public void longConstructorSetsHashFunctionCorrectly() {
+		Assert.assertEquals(segment.getHashFunction(), HASH_FUNCTION);
+	}
+
+	/**
 	 * The long constructor should set the order correctly.
 	 */
 	@Test

@@ -84,4 +84,8 @@ public class Segment {
 		endPoint = endPoint.hash(hashFunction);
 		length++;
 	}
+
+	HashFunction getHashFunction() {
+		return hashFunction;
+	}
 }

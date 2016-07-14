@@ -54,28 +54,12 @@ public class InMemorySegmentRepositoryTest {
 	}
 
 	/**
-	 * By default, the repository is empty.
-	 */
-	@Test
-	public void byDefaultTheRepositoryIsEmpty() {
-		Assert.assertTrue(repository.isEmpty());
-	}
-
-	/**
 	 * The repository isn't empty after adding a segment.
 	 */
 	@Test
 	public void repositoryIsNotEmptyAfterAddingASegment() {
 		repository.add(SEGMENT_FOR_POINT_ZERO);
 		Assert.assertFalse(repository.isEmpty());
-	}
-
-	/**
-	 * By default, the repository's size is zero.
-	 */
-	@Test
-	public void byDefaultTheRepositoryHasSizeZero() {
-		Assert.assertEquals(repository.size(), 0);
 	}
 
 	/**
@@ -115,42 +99,6 @@ public class InMemorySegmentRepositoryTest {
 	}
 
 	/**
-	 * If there's no segment with the start point, the method
-	 * getSegmentWithStartPoint returns null.
-	 */
-	@Test
-	public void getSegmentWithStartPointReturnsNullIfStartPointIsAbsent() {
-		Assert.assertNull(repository.getSegmentWithStartPoint(POINT_ZERO));
-	}
-
-	/**
-	 * If there's no segment with the start point, the method
-	 * containsSegmentWithStartPoint returns false.
-	 */
-	@Test
-	public void containsSegmentWithStartPointReturnsFalseIfStartPointIsAbsent() {
-		Assert.assertFalse(repository.containsSegmentWithStartPoint(POINT_ZERO));
-	}
-
-	/**
-	 * If there's no segment with the end point, the method
-	 * getSegmentsWithEndPoint returns an empty set.
-	 */
-	@Test
-	public void getSegmentsWithEndPointReturnsEmptySetIfEndPointIsAbsent() {
-		Assert.assertTrue(repository.getSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO).isEmpty());
-	}
-
-	/**
-	 * If there's no segment with the end point, the method
-	 * containsSegmentsWithEndPoint returns false.
-	 */
-	@Test
-	public void containsSegmentsWithEndPointReturnsFalseIfEndPointIsAbsent() {
-		Assert.assertFalse(repository.containsSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO));
-	}
-
-	/**
 	 * After adding a segment, it can be retrieved by its start point.
 	 */
 	@Test
@@ -160,8 +108,8 @@ public class InMemorySegmentRepositoryTest {
 	}
 
 	/**
-	 * After adding a segment, 
-	 * containsSegmentWithStartPoint returns true for its start point.
+	 * After adding a segment, containsSegmentWithStartPoint returns true for
+	 * its start point.
 	 */
 	@Test
 	public void containsSegmentWithStartPointReturnsTrueAfterAddingASegmentWithThePointAsItsStartPoint() {
@@ -175,12 +123,13 @@ public class InMemorySegmentRepositoryTest {
 	@Test
 	public void segmentIsIncludedInResultRetrievedByEndPointAfterAddingIt() {
 		repository.add(SEGMENT_FOR_POINT_ZERO);
-		Assert.assertTrue(repository.getSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO).contains(SEGMENT_FOR_POINT_ZERO));
+		Assert.assertTrue(
+				repository.getSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO).contains(SEGMENT_FOR_POINT_ZERO));
 	}
 
 	/**
-	 * After adding a segment, 
-	 * containsSegmentsWithEndPoint returns true for its end point.
+	 * After adding a segment, containsSegmentsWithEndPoint returns true for its
+	 * end point.
 	 */
 	@Test
 	public void containsSegmentsWithEndPointReturnsTrueAfterAddingASegmentWithThePointAsItsEndPoint() {
@@ -189,10 +138,71 @@ public class InMemorySegmentRepositoryTest {
 	}
 
 	/**
-	 * By default, the repository's order is zero.
+	 * After adding two segments with the same end point, both can be retrieved
+	 * by their end point.
 	 */
 	@Test
-	public void byDefaultTheRepositoryHasOrderZero() {
-		Assert.assertEquals(repository.getOrder(), 0);
+	public void segmentsAreIncludedInResultRetrievedByEndPointAfterAddingThem() {
+		repository.add(SEGMENT_FOR_POINT_ZERO);
+		Segment otherSegment = new Segment(FIRST_POINT_AFTER_POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 0,
+				TRUNCATED_SHA256);
+		repository.add(otherSegment);
+		Assert.assertTrue(
+				repository.getSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO).contains(SEGMENT_FOR_POINT_ZERO));
+		Assert.assertTrue(repository.getSegmentsWithEndPoint(FIRST_POINT_AFTER_POINT_ZERO).contains(otherSegment));
+	}
+
+	/**
+	 * The repository rejects segments with the wrong order.
+	 */
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void repositoryThrowsIllegalArgumentExceptionIfTheSegmentHasTheWrongOrder() {
+		Segment segment = new Segment(FIRST_POINT_AFTER_POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 1,
+				TRUNCATED_SHA256);
+		repository.add(segment);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException when the segment has the
+	 * wrong order is correct.
+	 */
+	@Test
+	public void messageOfIllegalArgumentExceptionWhenWrongOrderMustBeCorrect() {
+		Segment segment = new Segment(FIRST_POINT_AFTER_POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 1,
+				TRUNCATED_SHA256);
+		try {
+			repository.add(segment);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(),
+					"The order of the segment (1) isn't the same as the order of the repository (0).");
+		}
+	}
+
+	/**
+	 * The repository rejects segments with the wrong hash function.
+	 */
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void repositoryThrowsIllegalArgumentExceptionIfTheSegmentHasTheWrongHashFunction() {
+		Segment segment = new Segment(FIRST_POINT_AFTER_POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 0,
+				StandardHashFunction.SHA256);
+		repository.add(segment);
+	}
+
+	/**
+	 * The message of the IllegalArgumentException when the segment has the
+	 * wrong hash function is correct.
+	 */
+	@Test
+	public void messageOfIllegalArgumentExceptionWhenWrongHashFunctionMustBeCorrect() {
+		Segment segment = new Segment(FIRST_POINT_AFTER_POINT_ZERO, FIRST_POINT_AFTER_POINT_ZERO, 1, 0,
+				StandardHashFunction.SHA256);
+		try {
+			repository.add(segment);
+			Assert.fail();
+		} catch (IllegalArgumentException iae) {
+			Assert.assertEquals(iae.getMessage(),
+					"The hash function of the segment (SHA-256) isn't the same as the hash function of the repository (TRUNC(SHA-256, 8)).");
+		}
 	}
 }

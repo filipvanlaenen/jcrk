@@ -39,4 +39,13 @@ public class TruncatedStandardHashFunctionSHA256To8BitsTest {
 	public void sha256CanProduceANewPoint() {
 		Assert.assertEquals(POINT_ZERO.hash(TRUNCATED_SHA256), FIRST_POINT_AFTER_POINT_ZERO);
 	}
+	
+	/**
+	 * The String representation of the hash function must be correct. 
+	 */
+	@Test
+	public void toStringPrintsTheNameCorrectly() {
+		Assert.assertEquals(TRUNCATED_SHA256.toString(), "TRUNC(SHA-256, 8)");
+	}
+	
 }
