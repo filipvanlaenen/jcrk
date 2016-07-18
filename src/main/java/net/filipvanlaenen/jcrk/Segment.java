@@ -35,19 +35,14 @@ public class Segment {
 		this(startPoint, startPoint, 0, order, hashFunction);
 	}
 
-	Segment(Point startPoint, Point endPoint, long length, int order,
-			HashFunction hashFunction) {
+	Segment(Point startPoint, Point endPoint, long length, int order, HashFunction hashFunction) {
 		if (startPoint.order() < order) {
-			throw new IllegalArgumentException(
-					String.format(
-							"The start point's order (%d) is less than the provided order (%d).",
-							startPoint.order(), order));
+			throw new IllegalArgumentException(String.format(
+					"The start point's order (%d) is less than the provided order (%d).", startPoint.order(), order));
 		} else if (length < 0) {
-			throw new IllegalArgumentException(String.format(
-					"The length (%d) is negative.", length));
+			throw new IllegalArgumentException(String.format("The length (%d) is negative.", length));
 		} else if (order < 0) {
-			throw new IllegalArgumentException(String.format(
-					"The order (%d) is negative.", order));
+			throw new IllegalArgumentException(String.format("The order (%d) is negative.", order));
 		}
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
@@ -78,8 +73,7 @@ public class Segment {
 
 	void extend() {
 		if (isComplete()) {
-			throw new IllegalStateException(
-					"A complete segment cannot be extended.");
+			throw new IllegalStateException("A complete segment cannot be extended.");
 		}
 		endPoint = endPoint.hash(hashFunction);
 		length++;
@@ -87,5 +81,15 @@ public class Segment {
 
 	HashFunction getHashFunction() {
 		return hashFunction;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return other instanceof Segment && isEqual((Segment) other);
+	}
+
+	private boolean isEqual(Segment other) {
+		return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length
+				&& order == other.order && hashFunction == other.hashFunction;
 	}
 }
