@@ -114,7 +114,28 @@ public class InMemorySegmentRepository implements SegmentRepository {
 
 	@Override
 	public void compressToNextOrder() {
+		Map<Point, Segment> lowerOrderStartPointMap = new HashMap<Point, Segment>(startPointMap);
 		order++;
+		startPointMap.clear();
+		endPointMap.clear();
+		for (Segment segment : lowerOrderStartPointMap.values()) {
+			if (segment.getStartPoint().order() >= order) {
+				Segment lastSegment = segment;
+				long newLength = segment.getLength();
+				while (lastSegment.getEndPoint().order() < order
+						&& lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
+					if (lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
+						lastSegment = lowerOrderStartPointMap.get(lastSegment.getEndPoint());
+						newLength += lastSegment.getLength();
+					}
+				}
+				if (lastSegment.getEndPoint().order() >= order) {
+					Segment newSegment = new Segment(segment.getStartPoint(), lastSegment.getEndPoint(), newLength,
+							order, hashFunction);
+					add(newSegment);
+				}
+			}
+		}
 	}
 
 	@Override

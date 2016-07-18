@@ -40,22 +40,22 @@ public class SegmentEqualityTest {
 	}
 
 	/**
-	 * A segment is not equal with the empty string (as an example of an object
+	 * A segment is not equal with a point (as an example of an object
 	 * of another type).
 	 */
 	@Test
-	public void segmentNotEqualWithEmptyString() {
-		Assert.assertFalse(segment.equals(""));
+	public void segmentNotEqualWithPoint() {
+		Assert.assertFalse(segment.equals(new Point(BYTE_0X00)));
 	}
 
 	/**
-	 * A segment is equal with itself
+	 * A segment is equal with itself.
 	 */
 	@Test
 	public void segmentIsEqualWithItself() {
 		Assert.assertEquals(segment, segment);
 	}
-
+	
 	/**
 	 * Two segments with the same start and end point, length, order and hash
 	 * function are equal.
@@ -65,6 +65,16 @@ public class SegmentEqualityTest {
 		Segment otherSegment = new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01), 1, 1,
 				StandardHashFunction.SHA256);
 		Assert.assertEquals(segment, otherSegment);
+	}
+	
+	/**
+	 * Equal segments have the same hashCode.
+	 */
+	@Test
+	public void equalSegmentsHaveSameHashCode() {
+		Segment otherSegment = new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01), 1, 1,
+				StandardHashFunction.SHA256);
+		Assert.assertEquals(segment.hashCode(), otherSegment.hashCode());		
 	}
 
 	/**

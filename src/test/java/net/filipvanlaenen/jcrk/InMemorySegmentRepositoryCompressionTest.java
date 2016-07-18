@@ -27,9 +27,11 @@ import org.testng.annotations.Test;
  * Unit tests on InMemorySegmentRepository related to the compression method.
  */
 public class InMemorySegmentRepositoryCompressionTest {
+	private static final int THREE = 3;
 	private static final StandardHashFunction SHA256 = StandardHashFunction.SHA256;
 	private static final Point POINT_00 = new Point((byte) 0x00);
 	private static final Point POINT_01 = new Point((byte) 0x01);
+	private static final Point POINT_FD = new Point((byte) 0xFD);
 	private static final Point POINT_FE = new Point((byte) 0xFE);
 	private static final Point POINT_FF = new Point((byte) 0xFF);
 	private SegmentRepository repository;
@@ -76,8 +78,8 @@ public class InMemorySegmentRepositoryCompressionTest {
 	@Test
 	public void lowerOrderSegmentsAreRemovedDuringCompression() {
 		repository.add(new Segment(POINT_00, POINT_FF, 1, 0, SHA256));
-		repository.add(new Segment(POINT_FF, POINT_00, 1, 0, SHA256));
-		repository.add(new Segment(POINT_FE, POINT_FF, 1, 0, SHA256));
+		repository.add(new Segment(POINT_FE, POINT_00, 1, 0, SHA256));
+		repository.add(new Segment(POINT_FD, POINT_FF, 1, 0, SHA256));
 		repository.compressToNextOrder();
 		Assert.assertTrue(repository.isEmpty());
 	}
@@ -102,6 +104,6 @@ public class InMemorySegmentRepositoryCompressionTest {
 		repository.add(new Segment(POINT_FF, POINT_FE, 1, 0, SHA256));
 		repository.add(new Segment(POINT_FE, POINT_01, 1, 0, SHA256));
 		repository.compressToNextOrder();
-		Assert.assertTrue(repository.contains(new Segment(POINT_00, POINT_01, 3, 1, SHA256)));
+		Assert.assertTrue(repository.contains(new Segment(POINT_00, POINT_01, THREE, 1, SHA256)));
 	}
 }

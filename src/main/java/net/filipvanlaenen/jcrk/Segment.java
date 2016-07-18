@@ -25,6 +25,7 @@ package net.filipvanlaenen.jcrk;
  */
 public class Segment {
 
+	private static final int THIRTY_ONE = 31;
 	private final Point startPoint;
 	private Point endPoint;
 	private long length;
@@ -89,7 +90,21 @@ public class Segment {
 	}
 
 	private boolean isEqual(Segment other) {
-		return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length
-				&& order == other.order && hashFunction == other.hashFunction;
+		return isSpatiallyEqual(other) && order == other.order && hashFunction == other.hashFunction;
+	}
+
+	private boolean isSpatiallyEqual(Segment other) {
+		return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
+	}
+
+	@Override
+	public int hashCode() {
+		int hashCode = 1;
+		hashCode = THIRTY_ONE * hashCode + startPoint.hashCode();
+		hashCode = THIRTY_ONE * hashCode + endPoint.hashCode();
+		hashCode = THIRTY_ONE * hashCode + (int) length;
+		hashCode = THIRTY_ONE * hashCode + order;
+		hashCode = THIRTY_ONE * hashCode + hashFunction.hashCode();
+		return hashCode;
 	}
 }
