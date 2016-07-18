@@ -47,6 +47,19 @@ public class PointTest {
 	}
 
 	/**
+	 * The constructor should make sure that the internal state of the point
+	 * can't be changed by keeping a reference to the byte array used as the
+	 * constructor parameter.
+	 */
+	@Test
+	public void constructorDetachesTheInternalBytesFromTheParameter() {
+		byte[] byteArray = new byte[]{BYTE_0X00};
+		Point point = new Point(byteArray);
+		byteArray[0] = BYTE_0X01;
+		Assert.assertEquals(point.byteAt(0), BYTE_0X00);
+	}
+
+	/**
 	 * Produces the data to test the method asBinaryString and
 	 * asHexadecimalString.
 	 * 
@@ -115,7 +128,7 @@ public class PointTest {
 	public void pointWithEightZeroesHasOrderEight() {
 		Assert.assertEquals(new Point(BYTE_0X00).order(), EIGHT);
 	}
-	
+
 	/**
 	 * A Point is not equal to a String.
 	 */
@@ -123,7 +136,7 @@ public class PointTest {
 	public void aPointIsNotEqualToAString() {
 		Assert.assertFalse(new Point().equals(""));
 	}
-	
+
 	/**
 	 * A Point is equal to itself.
 	 */
@@ -132,7 +145,7 @@ public class PointTest {
 		Point point = new Point();
 		Assert.assertEquals(point, point);
 	}
-	
+
 	/**
 	 * A Point is equal to a Point with the same byte array.
 	 */
@@ -142,7 +155,7 @@ public class PointTest {
 		Point b = new Point((byte) 0, (byte) 1, (byte) 2);
 		Assert.assertEquals(a, b);
 	}
-	
+
 	/**
 	 * A Point is not equal to a Point with a different byte array.
 	 */
@@ -152,7 +165,7 @@ public class PointTest {
 		Point b = new Point((byte) 2, (byte) 1, (byte) 0);
 		Assert.assertFalse(a.equals(b));
 	}
-	
+
 	/**
 	 * A Point has the same hash code as itself.
 	 */
@@ -171,9 +184,10 @@ public class PointTest {
 		Point b = new Point((byte) 0, (byte) 1, (byte) 2);
 		Assert.assertEquals(a.hashCode(), b.hashCode());
 	}
-	
+
 	/**
-	 * A Point should (in general) not have the same hash code as a Point with a different byte array.
+	 * A Point should (in general) not have the same hash code as a Point with a
+	 * different byte array.
 	 */
 	@Test
 	public void aPointShouldNotHaveTheSameHashcodeAsAPointWithADifferentByteArray() {

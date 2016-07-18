@@ -28,7 +28,7 @@ public class Point {
 	private final byte[] bytes;
 
 	Point(byte... bytes) {
-		this.bytes = bytes;
+		this.bytes = bytes.clone();
 	}
 
 	byte byteAt(int i) {
