@@ -124,10 +124,8 @@ public class InMemorySegmentRepository implements SegmentRepository {
 				long newLength = segment.getLength();
 				while (lastSegment.getEndPoint().order() < order
 						&& lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
-					if (lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
-						lastSegment = lowerOrderStartPointMap.get(lastSegment.getEndPoint());
-						newLength += lastSegment.getLength();
-					}
+					lastSegment = lowerOrderStartPointMap.get(lastSegment.getEndPoint());
+					newLength += lastSegment.getLength();
 				}
 				if (lastSegment.getEndPoint().order() >= order) {
 					Segment newSegment = new Segment(segment.getStartPoint(), lastSegment.getEndPoint(), newLength,
