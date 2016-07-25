@@ -57,4 +57,14 @@ public class TruncatedStandardHashFunction implements HashFunction {
 	public String toString() {
 		return String.format("TRUNC(%s, %d)", standardHashFunction, bitLength);
 	}
+
+	@Override
+	public int getBitLength() {
+		return bitLength;
+	}
+
+	@Override
+	public int getByteLength() {
+		return byteArrayLength;
+	}
 }

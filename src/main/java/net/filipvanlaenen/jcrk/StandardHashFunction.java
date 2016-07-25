@@ -52,4 +52,14 @@ public enum StandardHashFunction implements HashFunction {
 	public String toString() {
 		return digest.getAlgorithm();
 	}
+
+	@Override
+	public int getBitLength() {
+		return getByteLength() * 8;
+	}
+
+	@Override
+	public int getByteLength() {
+		return digest.getDigestLength();
+	}
 }
