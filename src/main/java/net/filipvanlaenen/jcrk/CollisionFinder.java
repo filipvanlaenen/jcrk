@@ -31,7 +31,7 @@ public class CollisionFinder {
 			segmentRepository.add(newSegment);
 			Set<Segment> segmentsWithNewEndPoint = segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
 			if (segmentsWithNewEndPoint.size() > 1) {
-				CollidingSegments collidingSegments = new CollidingSegments(segmentsWithNewEndPoint);
+				PairOfCollidingSegments collidingSegments = new PairOfCollidingSegments(segmentsWithNewEndPoint);
 				collision = collidingSegments.resolveCollidingSegmentsToCollision();
 			}
 		}
