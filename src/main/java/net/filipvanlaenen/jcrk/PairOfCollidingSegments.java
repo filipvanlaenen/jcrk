@@ -3,10 +3,13 @@ package net.filipvanlaenen.jcrk;
 import java.util.Set;
 
 /**
- * Class representing a pair of colliding segments.
+ * Class representing a pair of colliding segments. The pair consists of exactly
+ * two segments, which have to produced with the same hash function and share
+ * the same end point, but have different start points.
  */
 public class PairOfCollidingSegments {
 	private final Point endPoint;
+	private final HashFunction hashFunction;
 
 	PairOfCollidingSegments(Set<Segment> segments) {
 		if (segments.size() != 2) {
@@ -15,21 +18,35 @@ public class PairOfCollidingSegments {
 		}
 		Segment[] pair = segments.toArray(new Segment[] {});
 		if (!pair[0].getEndPoint().equals(pair[1].getEndPoint())) {
-			String endPoint1Hex = pair[0].getEndPoint().asHexadecimalString();
-			String endPoint2Hex = pair[1].getEndPoint().asHexadecimalString();
-			String exceptionMessage = String.format("The end points of the two segments aren't equal (0x%s ≠ 0x%s).",
-					(endPoint1Hex.compareTo(endPoint2Hex) < 0) ? endPoint1Hex : endPoint2Hex,
-					(endPoint1Hex.compareTo(endPoint2Hex) > 0) ? endPoint1Hex : endPoint2Hex);
-			throw new IllegalArgumentException(exceptionMessage);
+			throw new IllegalArgumentException(
+					createExceptionMessage(pair, "The end points of the two segments aren't equal (0x%s ≠ 0x%s).",
+							(SegmentFieldExtraction) ((Segment s) -> s.getEndPoint().asHexadecimalString())));
 		}
-		this.endPoint = pair[0].getEndPoint();
 		if (pair[0].getStartPoint().equals(pair[1].getStartPoint())) {
-			String startPoint1Hex = pair[0].getStartPoint().asHexadecimalString();
-			String startPoint2Hex = pair[1].getStartPoint().asHexadecimalString();
-			String exceptionMessage = String.format("The start points of the two segments are equal (0x%s = 0x%s).",
-					startPoint1Hex, startPoint2Hex);
-			throw new IllegalArgumentException(exceptionMessage);
+			throw new IllegalArgumentException(
+					createExceptionMessage(pair, "The start points of the two segments are equal (0x%s = 0x%s).",
+							(SegmentFieldExtraction) ((Segment s) -> s.getStartPoint().asHexadecimalString())));
 		}
+		if (!pair[0].getHashFunction().equals(pair[1].getHashFunction())) {
+			throw new IllegalArgumentException(
+					createExceptionMessage(pair, "The hash functions of the two segments aren't equal (%s ≠ %s).",
+							(SegmentFieldExtraction) ((Segment s) -> s.getHashFunction().toString())));
+		}
+		this.hashFunction = pair[0].getHashFunction();
+		this.endPoint = pair[0].getEndPoint();
+	}
+
+	interface SegmentFieldExtraction {
+		String operation(Segment s);
+	}
+
+	private String createExceptionMessage(Segment[] pair, String messageFormat,
+			SegmentFieldExtraction segmentFieldExtraction) {
+		String segment1Field = segmentFieldExtraction.operation(pair[0]);
+		String segment2Field = segmentFieldExtraction.operation(pair[1]);
+		return String.format(messageFormat,
+				(segment1Field.compareTo(segment2Field) < 0) ? segment1Field : segment2Field,
+				(segment1Field.compareTo(segment2Field) > 0) ? segment1Field : segment2Field);
 	}
 
 	Collision resolveCollidingSegmentsToCollision() {
@@ -38,5 +55,9 @@ public class PairOfCollidingSegments {
 
 	Point getEndPoint() {
 		return endPoint;
+	}
+
+	HashFunction getHashFunction() {
+		return hashFunction;
 	}
 }
