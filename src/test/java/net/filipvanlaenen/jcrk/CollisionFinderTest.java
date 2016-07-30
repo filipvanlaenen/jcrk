@@ -16,7 +16,7 @@ public class CollisionFinderTest {
 	/**
 	 * Runs the CollisionFinder for SHA-1 truncated to 8 bits.
 	 */
-	@BeforeTest(enabled = false)
+	@BeforeTest
 	public void findCollision() {
 		segmentRepository = new InMemorySegmentRepository(TRUNCATED_SHA1);
 		CollisionFinder finder = new CollisionFinder(segmentRepository,
@@ -27,7 +27,7 @@ public class CollisionFinderTest {
 	/**
 	 * Verifies that the collision found is correct.
 	 */
-	@Test(enabled = false)
+	@Test
 	public void collisionFinderMustFindCorrectCollision() {
 		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, new Point((byte) 0x01), new Point((byte) 0x02)));
 	}
@@ -35,7 +35,7 @@ public class CollisionFinderTest {
 	/**
 	 * Verifies that the repository was compressed while searching for a collision.
 	 */
-	@Test(enabled = false)
+	@Test
 	public void segmentRepositoryWasCompressed() {
 		Assert.assertEquals(segmentRepository.getOrder(), 2);
 	}

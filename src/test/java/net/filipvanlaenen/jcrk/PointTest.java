@@ -53,7 +53,7 @@ public class PointTest {
 	 */
 	@Test
 	public void constructorDetachesTheInternalBytesFromTheParameter() {
-		byte[] byteArray = new byte[]{BYTE_0X00};
+		byte[] byteArray = new byte[] { BYTE_0X00 };
 		Point point = new Point(byteArray);
 		byteArray[0] = BYTE_0X01;
 		Assert.assertEquals(point.byteAt(0), BYTE_0X00);

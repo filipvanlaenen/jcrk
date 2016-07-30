@@ -10,6 +10,10 @@ import java.util.Set;
 public class PairOfCollidingSegments {
 	private final Point endPoint;
 	private final HashFunction hashFunction;
+	private final Point longSegmentStartPoint;
+	private final long longSegmentLength;
+	private final Point shortSegmentStartPoint;
+	private final long shortSegmentLength;
 
 	PairOfCollidingSegments(Set<Segment> segments) {
 		if (segments.size() != 2) {
@@ -34,6 +38,12 @@ public class PairOfCollidingSegments {
 		}
 		this.hashFunction = pair[0].getHashFunction();
 		this.endPoint = pair[0].getEndPoint();
+		Segment longSegment = (pair[0].getLength() < pair[1].getLength()) ? pair[1] : pair[0];
+		this.longSegmentLength = longSegment.getLength();
+		this.longSegmentStartPoint = longSegment.getStartPoint();
+		Segment shortSegment = (pair[0].getLength() < pair[1].getLength()) ? pair[0] : pair[1];
+		this.shortSegmentLength = shortSegment.getLength();
+		this.shortSegmentStartPoint = shortSegment.getStartPoint();
 	}
 
 	interface SegmentFieldExtraction {
@@ -50,7 +60,25 @@ public class PairOfCollidingSegments {
 	}
 
 	Collision resolveCollidingSegmentsToCollision() {
-		return null;
+		long longSegmentHead = longSegmentLength - shortSegmentLength;
+		Point p = longSegmentStartPoint;
+		for (int i = 0; i < longSegmentHead; i++) {
+			p = p.hash(hashFunction);
+		}
+		Point shortenedLongSegmentStartPoint = p;
+		Point longSegmentPoint = shortenedLongSegmentStartPoint;
+		Point nextLongSegmentPoint = longSegmentPoint.hash(hashFunction);
+		Point shortSegmentPoint = shortSegmentStartPoint;
+		Point nextShortSegmentPoint = shortSegmentPoint.hash(hashFunction);
+		long remainingLength = shortSegmentLength;
+		while ((!nextLongSegmentPoint.equals(nextShortSegmentPoint)) && (remainingLength > 0)) {
+			longSegmentPoint = nextLongSegmentPoint;
+			nextLongSegmentPoint = longSegmentPoint.hash(hashFunction);
+			shortSegmentPoint = nextShortSegmentPoint;
+			nextShortSegmentPoint = shortSegmentPoint.hash(hashFunction);
+			remainingLength--;
+		}
+		return new Collision(hashFunction, longSegmentPoint, shortSegmentPoint);
 	}
 
 	Point getEndPoint() {
