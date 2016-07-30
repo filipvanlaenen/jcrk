@@ -34,7 +34,7 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	private final Map<Point, Set<Segment>> endPointMap = new HashMap<Point, Set<Segment>>();
 	private int order;
 
-	InMemorySegmentRepository(HashFunction hashFunction) {
+	public InMemorySegmentRepository(HashFunction hashFunction) {
 		this.hashFunction = hashFunction;
 	}
 

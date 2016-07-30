@@ -7,7 +7,7 @@ public class CollisionFinder {
 	private final SegmentProducer segmentProducer;
 	private final SegmentRepositoryCompressionCondition segmentRepositoryCompressionCondition;
 
-	CollisionFinder(
+	public CollisionFinder(
 			SegmentRepository segmentRepository,
 			SegmentProducer segmentProducer,
 			SegmentRepositoryCompressionCondition segmentRepositoryCompressionCondition) {
@@ -16,7 +16,7 @@ public class CollisionFinder {
 		this.segmentRepositoryCompressionCondition = segmentRepositoryCompressionCondition;
 	}
 
-	Collision findCollision() {
+	public Collision findCollision() {
 		Collision collision = null;
 		while (collision == null) {
 			if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {

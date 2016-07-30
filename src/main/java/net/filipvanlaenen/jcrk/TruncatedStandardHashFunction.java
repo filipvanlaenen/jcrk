@@ -34,7 +34,7 @@ public class TruncatedStandardHashFunction implements HashFunction {
 	private final int byteArrayLength;
 	private final byte lastByteMask;
 
-	TruncatedStandardHashFunction(StandardHashFunction standardHashFunction, int bitLength) {
+	public TruncatedStandardHashFunction(StandardHashFunction standardHashFunction, int bitLength) {
 		this.standardHashFunction = standardHashFunction;
 		this.bitLength = bitLength;
 		this.byteArrayLength = bitLength / BITS_IN_A_BYTE + ((bitLength % BITS_IN_A_BYTE == 0) ? 0 : 1);

@@ -35,7 +35,7 @@ public class Collision {
 		return hashFunction;
 	}
 
-	Set<Point> getPoints() {
+	public Set<Point> getPoints() {
 		return Collections.unmodifiableSet(points);
 	}
 

@@ -18,6 +18,7 @@ public class CollisionTest {
 	private static final Point POINT_02 = new Point((byte) 0x02);
 	private static final Point POINT_3C = new Point((byte) 0x3c);
 	private static final Point POINT_8C = new Point((byte) 0x8c);
+	private static final Point POINT_90 = new Point((byte) 0x90);
 	private static final Point POINT_9D = new Point((byte) 0x9d);
 	private static final Point HASH_VALUE = new Point((byte) 0xC4);
 	private Collision collision;
@@ -152,6 +153,6 @@ public class CollisionTest {
 	 */
 	@Test
 	public void collisionNotEqualToCollisionWithSameHashFunctionButDifferentPoints() {
-		Assert.assertFalse(collision.equals(new Collision(TRUNCATED_SHA1, POINT_02, POINT_3C, HASH_VALUE)));
+		Assert.assertFalse(collision.equals(new Collision(TRUNCATED_SHA1, POINT_3C, POINT_90)));
 	}
 }

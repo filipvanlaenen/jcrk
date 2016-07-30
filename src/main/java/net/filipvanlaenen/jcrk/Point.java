@@ -35,11 +35,11 @@ public class Point {
 		return bytes[i];
 	}
 
-	Point hash(HashFunction hashFunction) {
+	public Point hash(HashFunction hashFunction) {
 		return new Point(hashFunction.hash(bytes));
 	}
 	
-	String asHexadecimalString() {
+	public String asHexadecimalString() {
 		return String.format(String.format("%%0%dx", bytes.length * 2), new java.math.BigInteger(1, bytes));
 	}
 	

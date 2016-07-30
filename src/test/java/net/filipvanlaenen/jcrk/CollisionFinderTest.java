@@ -12,7 +12,7 @@ public class CollisionFinderTest {
 			StandardHashFunction.SHA1, 8);
 	private static final Point POINT_02 = new Point((byte) 0x02);
 	private static final Point POINT_3C = new Point((byte) 0x3c);
-	private InMemorySegmentRepository segmentRepository;
+	private SegmentRepository segmentRepository;
 	private Collision collision;
 
 	/**
