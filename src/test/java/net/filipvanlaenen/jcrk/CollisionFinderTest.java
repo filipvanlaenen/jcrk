@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 public class CollisionFinderTest {
 	private static final TruncatedStandardHashFunction TRUNCATED_SHA1 = new TruncatedStandardHashFunction(
 			StandardHashFunction.SHA1, 8);
+	private static final Point POINT_02 = new Point((byte) 0x02);
+	private static final Point POINT_3C = new Point((byte) 0x3c);
 	private InMemorySegmentRepository segmentRepository;
 	private Collision collision;
 
@@ -19,8 +21,8 @@ public class CollisionFinderTest {
 	@BeforeTest
 	public void findCollision() {
 		segmentRepository = new InMemorySegmentRepository(TRUNCATED_SHA1);
-		CollisionFinder finder = new CollisionFinder(segmentRepository,
-				SegmentProducer.ZeroPointSegmentChainExtension, SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+		CollisionFinder finder = new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
+				SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
 		collision = finder.findCollision();
 	}
 
@@ -29,14 +31,15 @@ public class CollisionFinderTest {
 	 */
 	@Test
 	public void collisionFinderMustFindCorrectCollision() {
-		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, new Point((byte) 0x01), new Point((byte) 0x02)));
+		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, POINT_02, POINT_3C));
 	}
-	
+
 	/**
-	 * Verifies that the repository was compressed while searching for a collision.
+	 * Verifies that the repository was compressed while searching for a
+	 * collision.
 	 */
 	@Test
 	public void segmentRepositoryWasCompressed() {
-		Assert.assertEquals(segmentRepository.getOrder(), 2);
+		Assert.assertEquals(segmentRepository.getOrder(), 4);
 	}
 }

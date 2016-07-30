@@ -1,11 +1,10 @@
 package net.filipvanlaenen.jcrk;
 
 public enum SegmentRepositoryCompressionCondition {
-	SizeLargerThanHalfOrderPowerOfTwo
-	;
+	SizeLargerThanHalfOrderPowerOfTwo;
 
 	boolean evaluate(SegmentRepository segmentRepository) {
-		return false;
+		return segmentRepository.size() > Math.pow(2, (segmentRepository.getOrder() / 2));
 	}
 
 }

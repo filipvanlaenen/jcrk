@@ -38,4 +38,17 @@ public class Collision {
 	Set<Point> getPoints() {
 		return Collections.unmodifiableSet(points);
 	}
+
+	Point getHashValue() {
+		return hashValue;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return other instanceof Collision && isEqual((Collision) other);
+	}
+
+	private boolean isEqual(Collision other) {
+		return hashFunction.equals(other.getHashFunction()) && points.equals(other.getPoints());
+	}
 }
