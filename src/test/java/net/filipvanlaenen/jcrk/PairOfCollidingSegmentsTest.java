@@ -14,9 +14,13 @@ public class PairOfCollidingSegmentsTest {
 			StandardHashFunction.SHA1, 8);
 	private static final TruncatedStandardHashFunction TRUNCATED_SHA256 = new TruncatedStandardHashFunction(
 			StandardHashFunction.SHA256, 8);
-	private static final Point START_POINT_02 = new Point((byte) 0x02);
-	private static final Point START_POINT_3C = new Point((byte) 0x3c);
-	private static final Point END_POINT = new Point((byte) 0xC4);
+	private static final Point POINT_02 = new Point((byte) 0x02);
+	private static final Point POINT_0A = new Point((byte) 0x0A);
+	private static final Point POINT_3C = new Point((byte) 0x3c);
+	private static final Point POINT_C4 = new Point((byte) 0xC4);
+	private static final int FOUR = 4;
+	private static final int SEVEN = 7;
+	private static final int TEN = 10;
 
 	private PairOfCollidingSegments createPairOfCollidingSegments(Segment... segments) {
 		Set<Segment> segmentSet = new HashSet<Segment>();
@@ -27,7 +31,7 @@ public class PairOfCollidingSegmentsTest {
 	}
 
 	private void createPairOfCollingsSegmentsWithOneSegment() {
-		Segment segment = new Segment(START_POINT_02, END_POINT, 1, 1, TRUNCATED_SHA1);
+		Segment segment = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1);
 		createPairOfCollidingSegments(segment);
 	}
 
@@ -59,18 +63,18 @@ public class PairOfCollidingSegmentsTest {
 	 */
 	@Test
 	public void constructorExtractsTheEndPointCorrectly() {
-		Assert.assertEquals(createCorrectPairOfCollidingSegments().getEndPoint(), END_POINT);
+		Assert.assertEquals(createCorrectPairOfCollidingSegments().getEndPoint(), POINT_C4);
 	}
 
 	private PairOfCollidingSegments createCorrectPairOfCollidingSegments() {
-		Segment s1 = new Segment(START_POINT_02, END_POINT, 1, 1, TRUNCATED_SHA1);
-		Segment s2 = new Segment(START_POINT_3C, END_POINT, 1, 1, TRUNCATED_SHA1);
+		Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1);
+		Segment s2 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA1);
 		return createPairOfCollidingSegments(s1, s2);
 	}
 
 	private void createPairOfCollidingSegmentsWithDifferentEndPoints() {
-		Segment s1 = new Segment(START_POINT_02, END_POINT, 1, 1, TRUNCATED_SHA1);
-		Segment s2 = new Segment(START_POINT_3C, START_POINT_02, 1, 1, TRUNCATED_SHA1);
+		Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1);
+		Segment s2 = new Segment(POINT_3C, POINT_02, 1, 1, TRUNCATED_SHA1);
 		createPairOfCollidingSegments(s1, s2);
 	}
 
@@ -98,8 +102,8 @@ public class PairOfCollidingSegmentsTest {
 	}
 
 	private void createPairOfCollidingSegmentsWithSameStartPoints() {
-		Segment s1 = new Segment(START_POINT_02, END_POINT, 1, 1, TRUNCATED_SHA1);
-		Segment s2 = new Segment(START_POINT_02, END_POINT, 2, 1, TRUNCATED_SHA1);
+		Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1);
+		Segment s2 = new Segment(POINT_02, POINT_C4, 2, 1, TRUNCATED_SHA1);
 		createPairOfCollidingSegments(s1, s2);
 	}
 
@@ -136,8 +140,8 @@ public class PairOfCollidingSegmentsTest {
 	}
 
 	private void createPairOfCollidingSegmentsWithDifferentHashFunctions() {
-		Segment s1 = new Segment(START_POINT_02, END_POINT, 1, 1, TRUNCATED_SHA1);
-		Segment s2 = new Segment(START_POINT_3C, END_POINT, 1, 1, TRUNCATED_SHA256);
+		Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1);
+		Segment s2 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA256);
 		createPairOfCollidingSegments(s1, s2);
 	}
 
@@ -166,12 +170,26 @@ public class PairOfCollidingSegmentsTest {
 	}
 
 	/**
-	 * The CollisionFinder finds the collision.
+	 * The CollisionFinder finds the collision for a pair of colliding segments
+	 * of order 0.
 	 */
 	@Test
-	public void findsCollisionCorrectly() {
+	public void findsCollisionCorrectlyForPairOfCollidingSegmentsOfOrder0() {
 		PairOfCollidingSegments pair = createCorrectPairOfCollidingSegments();
 		Collision collision = pair.resolveCollidingSegmentsToCollision();
-		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, START_POINT_02, START_POINT_3C));
+		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, POINT_02, POINT_3C));
+	}
+
+	/**
+	 * The CollisionFinder finds the collision for a pair of colliding segments
+	 * of order 4.
+	 */
+	@Test
+	public void findsCollisionCorrectlyForPairOfCollidingSegmentsOfOrder4() {
+		Segment s1 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1);
+		Segment s2 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1);
+		PairOfCollidingSegments pair = createPairOfCollidingSegments(s1, s2);
+		Collision collision = pair.resolveCollidingSegmentsToCollision();
+		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, POINT_02, POINT_3C));
 	}
 }
