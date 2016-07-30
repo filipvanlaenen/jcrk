@@ -9,6 +9,7 @@ import java.util.Set;
  * A hash function collision between two or more points.
  */
 public class Collision {
+	private static final int THIRTY_ONE = 31;
 	private final HashFunction hashFunction;
 	private final Set<Point> points;
 	private final Point hashValue;
@@ -39,10 +40,10 @@ public class Collision {
 		return Collections.unmodifiableSet(points);
 	}
 
-	Point getHashValue() {
+	public Point getHashValue() {
 		return hashValue;
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		return other instanceof Collision && isEqual((Collision) other);
@@ -50,5 +51,15 @@ public class Collision {
 
 	private boolean isEqual(Collision other) {
 		return hashFunction.equals(other.getHashFunction()) && points.equals(other.getPoints());
+	}
+
+	private int addValueToHashCode(int hashCode, int value) {
+		return THIRTY_ONE * hashCode + value;
+	}
+
+	@Override
+	public int hashCode() {
+		int hashCode = addValueToHashCode(1, hashFunction.hashCode());
+		return addValueToHashCode(hashCode, points.hashCode());
 	}
 }

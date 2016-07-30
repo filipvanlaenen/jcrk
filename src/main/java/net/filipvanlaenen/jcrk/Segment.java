@@ -24,7 +24,6 @@ package net.filipvanlaenen.jcrk;
  * point, an end point, a length, an order and a hash function.
  */
 public class Segment {
-
 	private static final int THIRTY_ONE = 31;
 	private final Point startPoint;
 	private Point endPoint;
@@ -97,14 +96,16 @@ public class Segment {
 		return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
 	}
 
+	private int addValueToHashCode(int hashCode, int value) {
+		return THIRTY_ONE * hashCode + value;
+	}
+
 	@Override
 	public int hashCode() {
-		int hashCode = 1;
-		hashCode = THIRTY_ONE * hashCode + startPoint.hashCode();
-		hashCode = THIRTY_ONE * hashCode + endPoint.hashCode();
-		hashCode = THIRTY_ONE * hashCode + (int) length;
-		hashCode = THIRTY_ONE * hashCode + order;
-		hashCode = THIRTY_ONE * hashCode + hashFunction.hashCode();
-		return hashCode;
+		int hashCode = addValueToHashCode(1, startPoint.hashCode());
+		hashCode = addValueToHashCode(hashCode, endPoint.hashCode());
+		hashCode = addValueToHashCode(hashCode, (int) length);
+		hashCode = addValueToHashCode(hashCode, order);
+		return addValueToHashCode(hashCode, hashFunction.hashCode());
 	}
 }
