@@ -9,8 +9,10 @@ import org.testng.annotations.Test;
  */
 public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	private static final Point ZERO_POINT = new Point((byte) 0x00);
-	private static final TruncatedStandardHashFunction TRUNCATED_SHA1 = new TruncatedStandardHashFunction(
+	private static final TruncatedStandardHashFunction TRUNCATED_8_SHA1 = new TruncatedStandardHashFunction(
 			StandardHashFunction.SHA1, 8);
+	private static final TruncatedStandardHashFunction TRUNCATED_9_SHA1 = new TruncatedStandardHashFunction(
+			StandardHashFunction.SHA1, 9);
 	private SegmentRepository repository;
 
 	/**
@@ -18,7 +20,7 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	 */
 	@BeforeMethod
 	public void createEmptyInMemorySegmentRepository() {
-		repository = new InMemorySegmentRepository(TRUNCATED_SHA1);
+		repository = new InMemorySegmentRepository(TRUNCATED_8_SHA1);
 	}
 
 	/**
@@ -38,10 +40,8 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	@Test
 	public void produceTwoByteZeroPointIfTruncationIsNineBits() {
 		Point twoByteZeroPoint = new Point((byte) 0x00, (byte) 0x00);
-		TruncatedStandardHashFunction nineBitTruncationOfSha1 = new TruncatedStandardHashFunction(
-				StandardHashFunction.SHA1, 9);
-		SegmentRepository repository = new InMemorySegmentRepository(nineBitTruncationOfSha1);
-		Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
+		SegmentRepository repositoryForNineBits = new InMemorySegmentRepository(TRUNCATED_9_SHA1);
+		Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repositoryForNineBits);
 		Assert.assertEquals(point, twoByteZeroPoint);
 	}
 
@@ -51,7 +51,7 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	 */
 	@Test
 	public void produceZeroPointIfSegmentRepositoryDoesNotContainZeroPointSegment() {
-		Segment segment = new Segment(new Point((byte) 0x01), 0, TRUNCATED_SHA1);
+		Segment segment = new Segment(new Point((byte) 0x01), 0, TRUNCATED_8_SHA1);
 		segment.extend();
 		repository.add(segment);
 		Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
@@ -64,7 +64,7 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	 */
 	@Test
 	public void produceNewPointIfSegmentRepositoryContainsZeroPointSegment() {
-		Segment segment = new Segment(ZERO_POINT, 0, TRUNCATED_SHA1);
+		Segment segment = new Segment(ZERO_POINT, 0, TRUNCATED_8_SHA1);
 		segment.extend();
 		Point expectedNewStartPoint = segment.getEndPoint();
 		repository.add(segment);
@@ -79,10 +79,10 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	 */
 	@Test
 	public void produceNewPointIfSegmentRepositoryContainsZeroPointSegmentChain() {
-		Segment segment1 = new Segment(ZERO_POINT, 0, TRUNCATED_SHA1);
+		Segment segment1 = new Segment(ZERO_POINT, 0, TRUNCATED_8_SHA1);
 		segment1.extend();
 		repository.add(segment1);
-		Segment segment2 = new Segment(segment1.getEndPoint(), 0, TRUNCATED_SHA1);
+		Segment segment2 = new Segment(segment1.getEndPoint(), 0, TRUNCATED_8_SHA1);
 		segment2.extend();
 		repository.add(segment2);
 		Point expectedNewStartPoint = segment2.getEndPoint();

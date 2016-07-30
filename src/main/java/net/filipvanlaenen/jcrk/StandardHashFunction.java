@@ -28,9 +28,9 @@ import java.security.NoSuchAlgorithmException;
 public enum StandardHashFunction implements HashFunction {
 	SHA1("SHA-1"), SHA256("SHA-256");
 
+	private static final int EIGHT = 8;
 	private final MessageDigest digest;
 	
-
 	StandardHashFunction(String algorithm) {
 		digest = getMessageDigest(algorithm);
 	}
@@ -55,7 +55,7 @@ public enum StandardHashFunction implements HashFunction {
 
 	@Override
 	public int getBitLength() {
-		return getByteLength() * 8;
+		return getByteLength() * EIGHT;
 	}
 
 	@Override

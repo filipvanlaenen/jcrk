@@ -1,5 +1,9 @@
 package net.filipvanlaenen.jcrk;
 
+/**
+ * Enumeration holding different types of conditions to determine whether a
+ * segment repository should be compressed or not.
+ */
 public enum SegmentRepositoryCompressionCondition {
 	SizeLargerThanHalfOrderPowerOfTwo;
 

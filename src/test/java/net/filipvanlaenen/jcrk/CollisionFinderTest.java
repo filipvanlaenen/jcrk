@@ -12,6 +12,7 @@ public class CollisionFinderTest {
 			StandardHashFunction.SHA1, 8);
 	private static final Point POINT_02 = new Point((byte) 0x02);
 	private static final Point POINT_3C = new Point((byte) 0x3c);
+	private static final int SEGMENT_REPOSITORY_ORDER_AT_COLLISION = 4;
 	private SegmentRepository segmentRepository;
 	private Collision collision;
 
@@ -40,6 +41,6 @@ public class CollisionFinderTest {
 	 */
 	@Test
 	public void segmentRepositoryWasCompressed() {
-		Assert.assertEquals(segmentRepository.getOrder(), 4);
+		Assert.assertEquals(segmentRepository.getOrder(), SEGMENT_REPOSITORY_ORDER_AT_COLLISION);
 	}
 }

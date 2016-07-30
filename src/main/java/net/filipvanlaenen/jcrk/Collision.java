@@ -36,10 +36,20 @@ public class Collision {
 		return hashFunction;
 	}
 
+	/**
+	 * Returns an unmodifiable set with the points having the same hash value.
+	 * 
+	 * @return An unmodifiable set with the points having the same hash value.
+	 */
 	public Set<Point> getPoints() {
 		return Collections.unmodifiableSet(points);
 	}
 
+	/**
+	 * Returns the hash value of the collision.
+	 * 
+	 * @return The hash value of the collision.
+	 */
 	public Point getHashValue() {
 		return hashValue;
 	}

@@ -34,6 +34,15 @@ public class TruncatedStandardHashFunction implements HashFunction {
 	private final int byteArrayLength;
 	private final byte lastByteMask;
 
+	/**
+	 * Constructor using a standard hash function and a bit length to create a
+	 * truncated standard hash function.
+	 * 
+	 * @param standardHashFunction
+	 *            The standard hash function to truncate.
+	 * @param bitLength
+	 *            The length of the truncation in bits.
+	 */
 	public TruncatedStandardHashFunction(StandardHashFunction standardHashFunction, int bitLength) {
 		this.standardHashFunction = standardHashFunction;
 		this.bitLength = bitLength;
@@ -52,7 +61,7 @@ public class TruncatedStandardHashFunction implements HashFunction {
 		result[byteArrayLength - 1] = (byte) (result[byteArrayLength - 1] & lastByteMask);
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("TRUNC(%s, %d)", standardHashFunction, bitLength);

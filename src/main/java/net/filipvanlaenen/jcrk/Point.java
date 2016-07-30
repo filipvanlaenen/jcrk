@@ -35,19 +35,35 @@ public class Point {
 		return bytes[i];
 	}
 
+	/**
+	 * Produces a new point with the hash value of this point under the given
+	 * hash function.
+	 * 
+	 * @param hashFunction
+	 *            The hash function that should be used to hash this point.
+	 * 
+	 * @return A new point that's the hash value of this point under the given
+	 *         hash function.
+	 */
 	public Point hash(HashFunction hashFunction) {
 		return new Point(hashFunction.hash(bytes));
 	}
-	
+
+	/**
+	 * Returns a hexadecimal representation of the point.
+	 * 
+	 * @return A string representing the point in hexadecimal notation.
+	 */
 	public String asHexadecimalString() {
 		return String.format(String.format("%%0%dx", bytes.length * 2), new java.math.BigInteger(1, bytes));
 	}
-	
+
 	String asBinaryString() {
-		return asHexadecimalString().replaceAll("0", "0000").replaceAll("1", "0001").replaceAll("2", "0010").replaceAll("3", "0011")
-				.replaceAll("4", "0100").replaceAll("5", "0101").replaceAll("6", "0110").replaceAll("7", "0111")
-				.replaceAll("8", "1000").replaceAll("9", "1001").replaceAll("a", "1010").replaceAll("b", "1011")
-				.replaceAll("c", "1100").replaceAll("d", "1101").replaceAll("e", "1110").replaceAll("f", "1111");
+		return asHexadecimalString().replaceAll("0", "0000").replaceAll("1", "0001").replaceAll("2", "0010")
+				.replaceAll("3", "0011").replaceAll("4", "0100").replaceAll("5", "0101").replaceAll("6", "0110")
+				.replaceAll("7", "0111").replaceAll("8", "1000").replaceAll("9", "1001").replaceAll("a", "1010")
+				.replaceAll("b", "1011").replaceAll("c", "1100").replaceAll("d", "1101").replaceAll("e", "1110")
+				.replaceAll("f", "1111");
 	}
 
 	int order() {
@@ -58,12 +74,12 @@ public class Point {
 		}
 		return order;
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		return other instanceof Point && Arrays.equals(bytes, ((Point) other).bytes);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Arrays.hashCode(bytes);

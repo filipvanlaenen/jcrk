@@ -34,6 +34,12 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	private final Map<Point, Set<Segment>> endPointMap = new HashMap<Point, Set<Segment>>();
 	private int order;
 
+	/**
+	 * Constructor creating an empty in-memory repository for a hash function.
+	 * 
+	 * @param hashFunction
+	 *            The hash function for the in-memory segment repository.
+	 */
 	public InMemorySegmentRepository(HashFunction hashFunction) {
 		this.hashFunction = hashFunction;
 	}
