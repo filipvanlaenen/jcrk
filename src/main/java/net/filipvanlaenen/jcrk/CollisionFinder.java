@@ -2,11 +2,15 @@ package net.filipvanlaenen.jcrk;
 
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 /**
  * Class that can find a collision in a hash function provided enough time and
  * that there is a collision.
  */
 public class CollisionFinder {
+	private static final Logger LOGGER = Logger
+			.getLogger(CollisionFinder.class);
 	private final SegmentRepository segmentRepository;
 	private final SegmentProducer segmentProducer;
 	private final SegmentRepositoryCompressionCondition segmentRepositoryCompressionCondition;
@@ -43,7 +47,13 @@ public class CollisionFinder {
 		Collision collision = null;
 		while (collision == null && !segmentRepository.isFull()) {
 			if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {
+				LOGGER.info(String.format(
+						"The segment repository has %d segments of order %d -- going to compress it to the next order.",
+						segmentRepository.size(), segmentRepository.getOrder()));
 				segmentRepository.compressToNextOrder();
+				LOGGER.info(String.format(
+						"Compressed the segment repository to order %d -- %d segments were retained and/or created.",
+						segmentRepository.getOrder(), segmentRepository.size()));
 			}
 			Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
 			if (newStartPoint == null) {

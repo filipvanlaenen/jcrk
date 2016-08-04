@@ -3,6 +3,9 @@
 # Maven target files
 target/
 
+# Log4j log file
+jCRK.log
+
 # Eclipse files
 .classpath
 .project
