@@ -102,4 +102,13 @@ public class InMemorySegmentRepositoryEmptyRepositoryTest {
 	public void byDefaultTheRepositoryHasOrderZero() {
 		Assert.assertEquals(repository.getOrder(), 0);
 	}
+	
+	/**
+	 * An empty repository isn't full.
+	 */
+	@Test
+	public void emptyRepositoryIsNotFull() {
+		Assert.assertFalse(repository.isFull());
+	}
+
 }

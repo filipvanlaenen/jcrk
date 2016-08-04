@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
  */
 public class SegmentProducerZeroPointSegmentChainExtensionTest {
 	private static final Point ZERO_POINT = new Point((byte) 0x00);
+	private static final TruncatedStandardHashFunction TRUNCATED_1_SHA1 = new TruncatedStandardHashFunction(
+			StandardHashFunction.SHA1, 1);
 	private static final TruncatedStandardHashFunction TRUNCATED_8_SHA1 = new TruncatedStandardHashFunction(
 			StandardHashFunction.SHA1, 8);
 	private static final TruncatedStandardHashFunction TRUNCATED_9_SHA1 = new TruncatedStandardHashFunction(
@@ -88,5 +90,16 @@ public class SegmentProducerZeroPointSegmentChainExtensionTest {
 		Point expectedNewStartPoint = segment2.getEndPoint();
 		Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
 		Assert.assertEquals(point, expectedNewStartPoint);
+	}
+	
+	/**
+	 * If point zero is part of a loop, return null.
+	 */
+	@Test
+	public void returnNullIfPointZeroIsPartOfALoop() {
+		SegmentRepository repositoryForOneBit = new InMemorySegmentRepository(TRUNCATED_1_SHA1);
+		repositoryForOneBit.add(new Segment(ZERO_POINT, ZERO_POINT, 1, 0, TRUNCATED_1_SHA1));
+		Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repositoryForOneBit);
+		Assert.assertNull(point);
 	}
 }

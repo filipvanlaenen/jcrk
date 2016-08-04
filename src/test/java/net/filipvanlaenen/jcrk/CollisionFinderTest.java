@@ -8,7 +8,9 @@ import org.testng.annotations.Test;
  * An integration test on the CollisionFinder class.
  */
 public class CollisionFinderTest {
-	private static final TruncatedStandardHashFunction TRUNCATED_SHA1 = new TruncatedStandardHashFunction(
+	private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_1_BITS = new TruncatedStandardHashFunction(
+			StandardHashFunction.SHA1, 1);
+	private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_8_BITS = new TruncatedStandardHashFunction(
 			StandardHashFunction.SHA1, 8);
 	private static final Point POINT_02 = new Point((byte) 0x02);
 	private static final Point POINT_3C = new Point((byte) 0x3c);
@@ -21,10 +23,22 @@ public class CollisionFinderTest {
 	 */
 	@BeforeTest
 	public void findCollision() {
-		segmentRepository = new InMemorySegmentRepository(TRUNCATED_SHA1);
+		segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_8_BITS);
 		CollisionFinder finder = new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
 				SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
 		collision = finder.findCollision();
+	}
+
+	/**
+	 * Verifies that if the segment producer can't produce a collision, null is
+	 * returned.
+	 */
+	@Test
+	public void collisionFinderReturnsNullIfSegmentProducerCanNotProduceACollision() {
+		SegmentRepository repository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_1_BITS);
+		CollisionFinder finder = new CollisionFinder(repository, SegmentProducer.ZeroPointSegmentChainExtension,
+				SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+		Assert.assertNull(finder.findCollision());
 	}
 
 	/**
@@ -32,7 +46,7 @@ public class CollisionFinderTest {
 	 */
 	@Test
 	public void collisionFinderMustFindCorrectCollision() {
-		Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1, POINT_02, POINT_3C));
+		Assert.assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_8_BITS, POINT_02, POINT_3C));
 	}
 
 	/**

@@ -141,4 +141,13 @@ public interface SegmentRepository {
 	 * @return The hash function of the repository.
 	 */
 	HashFunction getHashFunction();
+
+	/**
+	 * Returns true if the segment repository is full, i.e. it contains all
+	 * segments of the given order.
+	 * 
+	 * @return True if the segment repository contains all segments of the given
+	 *         order.
+	 */
+	boolean isFull();
 }

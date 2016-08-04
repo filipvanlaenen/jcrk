@@ -41,11 +41,14 @@ public class CollisionFinder {
 	 */
 	public Collision findCollision() {
 		Collision collision = null;
-		while (collision == null) {
+		while (collision == null && !segmentRepository.isFull()) {
 			if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {
 				segmentRepository.compressToNextOrder();
 			}
 			Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
+			if (newStartPoint == null) {
+				return null;
+			}
 			Segment newSegment = new Segment(newStartPoint, segmentRepository.getOrder(),
 					segmentRepository.getHashFunction());
 			while (!newSegment.isComplete()) {

@@ -19,6 +19,7 @@
  */
 package net.filipvanlaenen.jcrk;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +34,7 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	private final Map<Point, Segment> startPointMap = new HashMap<Point, Segment>();
 	private final Map<Point, Set<Segment>> endPointMap = new HashMap<Point, Set<Segment>>();
 	private int order;
+	private BigDecimal maxSize;
 
 	/**
 	 * Constructor creating an empty in-memory repository for a hash function.
@@ -42,6 +44,7 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	 */
 	public InMemorySegmentRepository(HashFunction hashFunction) {
 		this.hashFunction = hashFunction;
+		this.maxSize = new BigDecimal(2).pow(hashFunction.getBitLength());
 	}
 
 	@Override
@@ -122,6 +125,7 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	public void compressToNextOrder() {
 		Map<Point, Segment> lowerOrderStartPointMap = new HashMap<Point, Segment>(startPointMap);
 		order++;
+		maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
 		startPointMap.clear();
 		endPointMap.clear();
 		for (Segment segment : lowerOrderStartPointMap.values()) {
@@ -145,5 +149,10 @@ public class InMemorySegmentRepository implements SegmentRepository {
 	@Override
 	public HashFunction getHashFunction() {
 		return hashFunction;
+	}
+
+	@Override
+	public boolean isFull() {
+		return maxSize.equals(new BigDecimal(size()));
 	}
 }
