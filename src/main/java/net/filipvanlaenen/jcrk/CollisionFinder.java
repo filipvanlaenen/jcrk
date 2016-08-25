@@ -59,18 +59,26 @@ public class CollisionFinder {
 			if (newStartPoint == null) {
 				return null;
 			}
+			LOGGER.info(String.format("Starting on a new segment of order %d with start point %s.",
+					segmentRepository.getOrder(), newStartPoint.asHexadecimalString()));
 			Segment newSegment = new Segment(newStartPoint, segmentRepository.getOrder(),
 					segmentRepository.getHashFunction());
 			while (!newSegment.isComplete()) {
 				newSegment.extend();
 			}
+			LOGGER.info(
+					String.format("Completed a segment of order %d with start point %s, end point %s and length %d.",
+							segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
+							newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
 			segmentRepository.add(newSegment);
 			Set<Segment> segmentsWithNewEndPoint = segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
 			if (segmentsWithNewEndPoint.size() > 1) {
 				PairOfCollidingSegments collidingSegments = new PairOfCollidingSegments(segmentsWithNewEndPoint);
+				LOGGER.info(String.format("Found two colliding segments with end point %s.", newSegment.getEndPoint().asHexadecimalString()));
 				collision = collidingSegments.resolveCollidingSegmentsToCollision();
 			}
 		}
+		LOGGER.info(String.format("Found a collision."));
 		return collision;
 	}
 }
