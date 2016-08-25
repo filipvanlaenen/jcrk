@@ -70,13 +70,11 @@ public class PairOfCollidingSegments {
 		Point nextLongSegmentPoint = longSegmentPoint.hash(hashFunction);
 		Point shortSegmentPoint = shortSegmentStartPoint;
 		Point nextShortSegmentPoint = shortSegmentPoint.hash(hashFunction);
-		long remainingLength = shortSegmentLength;
-		while ((!nextLongSegmentPoint.equals(nextShortSegmentPoint)) && (remainingLength > 0)) {
+		while (!nextLongSegmentPoint.equals(nextShortSegmentPoint)) {
 			longSegmentPoint = nextLongSegmentPoint;
 			nextLongSegmentPoint = longSegmentPoint.hash(hashFunction);
 			shortSegmentPoint = nextShortSegmentPoint;
 			nextShortSegmentPoint = shortSegmentPoint.hash(hashFunction);
-			remainingLength--;
 		}
 		return new Collision(hashFunction, longSegmentPoint, shortSegmentPoint);
 	}
