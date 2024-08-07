@@ -19,9 +19,10 @@ public class SegmentRepositoryCompressionConditionSizeLargerThanHalfOrderPowerOf
 	 */
 	@Test
 	public void emptyRepositoryShouldNotBeCompressed() {
-		SegmentRepository repository = new InMemorySegmentRepository(TRUNCATED_SHA1);
-		Assert.assertFalse(
-				SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo.evaluate(repository));
+		SegmentRepository repository = new InMemorySegmentRepository(
+				TRUNCATED_SHA1);
+		Assert.assertFalse(SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo
+				.evaluate(repository));
 	}
 
 	/**
@@ -29,10 +30,12 @@ public class SegmentRepositoryCompressionConditionSizeLargerThanHalfOrderPowerOf
 	 */
 	@Test
 	public void atOrderZeroARepositoryWithOneSegmentShouldNotBeCompressed() {
-		SegmentRepository repository = new InMemorySegmentRepository(TRUNCATED_SHA1);
-		repository.add(new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01), 1, 0, TRUNCATED_SHA1));
-		Assert.assertFalse(
-				SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo.evaluate(repository));
+		SegmentRepository repository = new InMemorySegmentRepository(
+				TRUNCATED_SHA1);
+		repository.add(new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01),
+				1, 0, TRUNCATED_SHA1));
+		Assert.assertFalse(SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo
+				.evaluate(repository));
 	}
 
 	/**
@@ -40,9 +43,13 @@ public class SegmentRepositoryCompressionConditionSizeLargerThanHalfOrderPowerOf
 	 */
 	@Test
 	public void atOrderZeroARepositoryWithTwoSegmentsShouldBeCompressed() {
-		SegmentRepository repository = new InMemorySegmentRepository(TRUNCATED_SHA1);
-		repository.add(new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01), 1, 0, TRUNCATED_SHA1));
-		repository.add(new Segment(new Point(BYTE_0X01), new Point(BYTE_0X02), 1, 0, TRUNCATED_SHA1));
-		Assert.assertTrue(SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo.evaluate(repository));
+		SegmentRepository repository = new InMemorySegmentRepository(
+				TRUNCATED_SHA1);
+		repository.add(new Segment(new Point(BYTE_0X00), new Point(BYTE_0X01),
+				1, 0, TRUNCATED_SHA1));
+		repository.add(new Segment(new Point(BYTE_0X01), new Point(BYTE_0X02),
+				1, 0, TRUNCATED_SHA1));
+		Assert.assertTrue(SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo
+				.evaluate(repository));
 	}
 }
