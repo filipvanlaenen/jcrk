@@ -55,6 +55,23 @@
       <version>6.9.10</version>
       <scope>test</scope>
     </dependency>
+        <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+    </dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-runner</artifactId>
+      <version>${junit.platform.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <prerequisites>
     <maven>3.0.1</maven>
@@ -65,6 +82,8 @@
     <project.build.javaVersion>${java.version}</project.build.javaVersion>
     <maven.compile.sourceLevel>${java.version}</maven.compile.sourceLevel>
     <maven.compile.targetLevel>${java.version}</maven.compile.targetLevel>
+    		<junit.jupiter.version>5.5.0</junit.jupiter.version>
+		<junit.platform.version>1.1.0</junit.platform.version>
   </properties>
   <build>
     <plugins>

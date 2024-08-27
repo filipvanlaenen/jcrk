@@ -21,7 +21,7 @@ public record Collision(HashFunction hashFunction, Set<Point> points) {
             throw new IllegalArgumentException(
                     String.format("There should be at least two points, but found only %d.", points.length));
         }
-        Point hashValue = getHashValue();
+        Point hashValue = points[0].hash(hashFunction);
         for (Point point : points) {
             if (!point.hash(hashFunction).equals(hashValue)) {
                 throw new IllegalArgumentException(String.format(
@@ -30,14 +30,5 @@ public record Collision(HashFunction hashFunction, Set<Point> points) {
                         point.hash(hashFunction).asHexadecimalString(), hashValue.asHexadecimalString()));
             }
         }
-    }
-
-    /**
-     * Returns the hash value of the collision.
-     *
-     * @return The hash value of the collision.
-     */
-    public Point getHashValue() {
-        return points.iterator().next().hash(hashFunction);
     }
 }
