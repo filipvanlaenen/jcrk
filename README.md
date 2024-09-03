@@ -59,8 +59,8 @@ This should produce a short report displaying how to use the program.
 | 11         | `0000` and `7040`                     | `1480`           |
 | 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
 | 13         | `8FD8` and `F790`                     | `2338`           |
-| 14         |                                       |                  |
-| 15         |                                       |                  |
+| 14         | `4DC4` and `C0DC`                     | `79F8`           |
+| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
 | 16         | `0DF7` and `298F`                     | `484D`           |
 | 17         |                                       |                  |
 | 18         |                                       |                  |
@@ -107,9 +107,12 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                | Hash Value       |
 |------------|---------------------------------------|------------------|
-| 3          |                                       |                  |
-| 4          |                                       |                  |
+| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
+| 4          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
 | 5          | `A0` and `C8`                         | `38`             |
+| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
+| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
+| 8          | `38` and `FD`                         | `52`             |
 
 ### SHA-256
 
