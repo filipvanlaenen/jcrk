@@ -54,11 +54,11 @@ This should produce a short report displaying how to use the program.
 | 6          | `58` and `E0`                         | `C0`             |
 | 7          | `3C` and `90`                         | `C4`             |
 | 8          | `02` and `3C`                         | `C4`             |
-| 9          |                                       |                  |
+| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
 | 10         | `B9C0` and `E500`                     | `4E40`           |
 | 11         | `0000` and `7040`                     | `1480`           |
-| 12         |                                       |                  |
-| 13         |                                       |                  |
+| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
+| 13         | `8FD8` and `F790`                     | `2338`           |
 | 14         |                                       |                  |
 | 15         |                                       |                  |
 | 16         | `0DF7` and `298F`                     | `484D`           |
