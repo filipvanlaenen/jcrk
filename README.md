@@ -3,11 +3,11 @@
 - [Cracking cryptographic hash functions in Java](#cracking-cryptographic-hash-functions-in-java)
 - [Getting Started](#getting-started)
 - [Results](#results)
-  - [SHA-1](#sha1)
-  - [SHA-224](#sha224)
-  - [SHA-256](#sha256)
-  - [SHA-384](#sha384)
-  - [SHA-512](#sha512)
+  - [SHA-1](#sha-1)
+  - [SHA-224](#sha-224)
+  - [SHA-256](#sha-256)
+  - [SHA-384](#sha-384)
+  - [SHA-512](#sha-512)
 
 ## Cracking cryptographic hash functions in Java
 
