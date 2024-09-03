@@ -34,4 +34,4 @@ out, using no input parameters:
 java -jar jcrk-1.0-jar-with-dependencies.jar
 ```
 
-This should produce a short a collision for the SHA-1 hash function truncated to 8 bits.
+This should produce a short report displaying how to use the program.
