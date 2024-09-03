@@ -4,7 +4,9 @@
 - [Getting Started](#getting-started)
 - [Results](#results)
   - [SHA-1](#sha1)
+  - [SHA-224](#sha224)
   - [SHA-256](#sha256)
+  - [SHA-384](#sha384)
   - [SHA-512](#sha512)
 
 ## Cracking cryptographic hash functions in Java
@@ -101,11 +103,25 @@ This should produce a short report displaying how to use the program.
 | 55         |                               |              |
 | 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99` | `345D67FC70AE2A` |
 
+### SHA-224
+
+| Bit Length | Points                        | Hash Value   |
+|------------|-------------------------------|--------------|
+| 3          |                               |              |
+| 4          |                               |              |
+| 5          | `A0` and `C8`                 | `38`         |
+
 ### SHA-256
 
 | Bit Length | Points                        | Hash Value   |
 |------------|-------------------------------|--------------|
 | 3          | `00` and `80`                 | `60`         |
+
+### SHA-384
+
+| Bit Length | Points                        | Hash Value   |
+|------------|-------------------------------|--------------|
+| 3          | `00` and `60`                 | `A0`         |
 
 ### SHA-512
 
