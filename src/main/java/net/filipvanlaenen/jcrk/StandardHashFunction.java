@@ -26,40 +26,40 @@ import java.security.NoSuchAlgorithmException;
  * Enumeration with some standard hash functions.
  */
 public enum StandardHashFunction implements HashFunction {
-	SHA1("SHA-1"), SHA256("SHA-256");
+    SHA1("SHA-1"), SHA256("SHA-256"), SHA512("SHA-512");
 
-	private static final int EIGHT = 8;
-	private final MessageDigest digest;
-	
-	StandardHashFunction(String algorithm) {
-		digest = getMessageDigest(algorithm);
-	}
+    private static final int EIGHT = 8;
+    private final MessageDigest digest;
 
-	private MessageDigest getMessageDigest(String algorithm) {
-		try {
-			return MessageDigest.getInstance(algorithm);
-		} catch (NoSuchAlgorithmException e) {
-			return null;
-		}
-	}
+    StandardHashFunction(String algorithm) {
+        digest = getMessageDigest(algorithm);
+    }
 
-	@Override
-	public byte[] hash(byte[] source) {
-		return digest.digest(source);
-	}
-	
-	@Override
-	public String toString() {
-		return digest.getAlgorithm();
-	}
+    private MessageDigest getMessageDigest(String algorithm) {
+        try {
+            return MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public int getBitLength() {
-		return getByteLength() * EIGHT;
-	}
+    @Override
+    public byte[] hash(byte[] source) {
+        return digest.digest(source);
+    }
 
-	@Override
-	public int getByteLength() {
-		return digest.getDigestLength();
-	}
+    @Override
+    public String toString() {
+        return digest.getAlgorithm();
+    }
+
+    @Override
+    public int getBitLength() {
+        return getByteLength() * EIGHT;
+    }
+
+    @Override
+    public int getByteLength() {
+        return digest.getDigestLength();
+    }
 }

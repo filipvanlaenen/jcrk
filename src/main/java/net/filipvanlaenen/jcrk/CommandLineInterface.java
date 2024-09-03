@@ -37,7 +37,7 @@ public final class CommandLineInterface {
      */
     private static void printUsage() {
         System.out.println("Usage:");
-        System.out.println("  analyze [<number-of-bits>]");
+        System.out.println("  analyze [<hash-function> [<number-of-bits>]]");
     }
 
     /**
@@ -51,11 +51,15 @@ public final class CommandLineInterface {
         ANALYZE {
             @Override
             void execute(final String[] args) {
-                int numberOfBits = EIGHT;
+                StandardHashFunction baseHashFunction = StandardHashFunction.SHA1;
                 if (args.length > 1) {
-                    numberOfBits = Integer.parseInt(args[1]);
+                    baseHashFunction = StandardHashFunction.valueOf(args[1].toUpperCase());
                 }
-                HashFunction hashFunction = new TruncatedStandardHashFunction(StandardHashFunction.SHA1, numberOfBits);
+                int numberOfBits = EIGHT;
+                if (args.length > 2) {
+                    numberOfBits = Integer.parseInt(args[2]);
+                }
+                HashFunction hashFunction = new TruncatedStandardHashFunction(baseHashFunction, numberOfBits);
                 SegmentRepository segmentRepository = new InMemorySegmentRepository(hashFunction);
                 CollisionFinder finder =
                         new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
