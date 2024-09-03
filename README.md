@@ -2,6 +2,7 @@
 
 - [Cracking cryptographic hash functions in Java](#cracking-cryptographic-hash-functions-in-java)
 - [Getting Started](#getting-started)
+- [Results](#results)
 
 ## Cracking cryptographic hash functions in Java
 
@@ -35,3 +36,19 @@ java -jar jcrk-1.0-jar-with-dependencies.jar
 ```
 
 This should produce a short report displaying how to use the program.
+
+## Results
+
+### SHA-1
+
+| Bit Length | Points            | Hash Value |
+|------------|-------------------|------------|
+| 3          | `80` and `A0`     | `C0`       |
+| 4          | `00` and `50`     | `50`       |
+| 5          | `58` and `E0`     | `C0`       |
+| 6          | `58` and `E0`     | `C0`       |
+| 7          | `3C` and `90`     | `C4`       |
+| 8          | `02` and `3C`     | `C4`       |
+| 9          |                   |            |
+| 10         | `B9C0` and `E500` | `4E40`     |
+| 11         | `0000` and `7040` | `1480`     |

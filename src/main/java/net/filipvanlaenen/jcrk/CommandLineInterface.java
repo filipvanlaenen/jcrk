@@ -64,7 +64,8 @@ public final class CommandLineInterface {
                 System.out.println(
                         "The following points have the same hash value under the hash function " + hashFunction + ":");
                 for (Point point : collision.points()) {
-                    System.out.println(point.asHexadecimalString());
+                    System.out.println(point.asHexadecimalString() + ", hash value: "
+                            + point.hash(hashFunction).asHexadecimalString());
                 }
             }
         };
