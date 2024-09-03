@@ -5,7 +5,7 @@ package net.filipvanlaenen.jcrk;
  */
 public final class CommandLineInterface {
     /**
-     * The integer number eight.
+     * The magic number eight.
      */
     private static final int EIGHT = 8;
 
