@@ -119,6 +119,11 @@ This should produce a short report displaying how to use the program.
 | Bit Length | Points                                | Hash Value       |
 |------------|---------------------------------------|------------------|
 | 3          | `00` and `80`                         | `60`             |
+| 4          | `80` and `E0`                         | `70`             |
+| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
+| 6          | `6C` and `D8`                         | `AC`             |
+| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
+| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
 
 ### SHA-384
 
