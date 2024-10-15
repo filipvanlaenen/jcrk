@@ -75,7 +75,8 @@ public final class CommandLineInterface {
                         "The following points have the same hash value under the hash function " + hashFunction + ":");
                 for (Point point : collision.points()) {
                     LOGGER.info(point.asHexadecimalString() + ", hash value: "
-                            + point.hash(hashFunction).asHexadecimalString());
+                            + point.hash(hashFunction).asHexadecimalString() + " "
+                            + point.hash(baseHashFunction).asHexadecimalString());
                 }
             }
         };
