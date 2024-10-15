@@ -86,13 +86,13 @@ This should produce a short report displaying how to use the program.
 | 38         | `CF528F70F0` and `E1B78EC250`         | `1D84F5E36C`     |
 | 39         | `432C523A9C` and `65A2D6A508`         | `638856A48A`     |
 | 40         | `3399BD40DC` and `A7F7B62182`         | `4FFDC01CB7`     |
-| 41         |                                       |                  |
-| 42         |                                       |                  |
-| 43         |                                       |                  |
-| 44         |                                       |                  |
-| 45         |                                       |                  |
-| 46         |                                       |                  |
-| 47         |                                       |                  |
+| 41         | `A44815DC6280` and `BB809E886400`     | `C5C45F01F300`   |
+| 42         | `365369F50E80` and `41D83DFF1740`     | `C48B1A1075C0`   |
+| 43         | `512B5B3652C0` and `70785ED19D40`     | `F77C498F7180`   |
+| 44         | `68E4A2DA8FD0` and `D5850D48F390`     | `FBBA72E3B310`   |
+| 45         | `03DA927D0EF0` and `5E3D28A5CED0`     | `4EAE7B87DA60`   |
+| 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`     | `EBE7781A0E38`   |
+| 47         | `9D962B47E0FA` and `F8B57FB5C90E`     | `49F9475CA84E`   |
 | 48         | `41A6BA9A6C45` and `4B95CCEF416B`     | `DC3CD50087EF`   |
 | 49         |                                       |                  |
 | 50         |                                       |                  |
