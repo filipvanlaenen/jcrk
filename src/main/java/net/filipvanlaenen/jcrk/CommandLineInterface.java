@@ -1,5 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
+import org.apache.log4j.Logger;
+
 /**
  * Class implementing a command line interface.
  */
@@ -8,6 +10,10 @@ public final class CommandLineInterface {
      * The magic number eight.
      */
     private static final int EIGHT = 8;
+    /**
+     * Logger instance.
+     */
+    private static final Logger LOGGER = Logger.getLogger(CommandLineInterface.class);
 
     /**
      * Private constructor to prevent instantiation of this utility class.
@@ -65,10 +71,10 @@ public final class CommandLineInterface {
                         new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
                                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
-                System.out.println(
+                LOGGER.info(
                         "The following points have the same hash value under the hash function " + hashFunction + ":");
                 for (Point point : collision.points()) {
-                    System.out.println(point.asHexadecimalString() + ", hash value: "
+                    LOGGER.info(point.asHexadecimalString() + ", hash value: "
                             + point.hash(hashFunction).asHexadecimalString());
                 }
             }
