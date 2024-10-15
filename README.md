@@ -63,20 +63,20 @@ This should produce a short report displaying how to use the program.
 | 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
 | 16         | `0DF7` and `298F`                     | `484D`           |
 | 17         |                                       |                  |
-| 18         |                                       |                  |
-| 19         |                                       |                  |
+| 18         | `A48BC0` and `E21940`                 | `4FA900`         |
+| 19         | `0510A0` and `A58460`                 | `2FC8A0`         |
 | 20         |                                       |                  |
-| 21         |                                       |                  |
-| 22         |                                       |                  |
-| 23         |                                       |                  |
+| 21         | `44CE30` and `BBFB70`                 | `FD6750`         |
+| 22         | `35507C` and `E08504`                 | `3D0514`         |
+| 23         | `BC1BF0` and `DBF6B0`                 | `8FE7CE`         |
 | 24         | `9B8FD1` and `FDA184`                 | `D760BE`         |
-| 25         |                                       |                  |
-| 26         |                                       |                  |
-| 27         |                                       |                  |
-| 28         |                                       |                  |
-| 29         |                                       |                  |
-| 30         |                                       |                  |
-| 31         |                                       |                  |
+| 25         | `4A0CD180` and `8553E680`             | `119BCF00`       |
+| 26         | `A035A140` and `AC30F200`             | `DEA50900`       |
+| 27         | `6182AE40` and `C1D96340`             | `43BC9CA0`       |
+| 28         | `08A2F0C0` and `4FA0E450`             | `992B8720`       |
+| 29         | `5488F588` and `FA2D1CB8`             | `D55352B8`       |
+| 30         | `9D4D5B10` and `9F95172C`             | `93F85F54`       |
+| 31         | `ACB23AEA` and `C7E8735C`             | `8F603976`       |
 | 32         | `21E72897` and `28670599`             | `D8C2E59B`       |
 | 33         |                                       |                  |
 | 34         |                                       |                  |
