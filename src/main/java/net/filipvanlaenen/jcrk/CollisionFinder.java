@@ -1,8 +1,8 @@
 package net.filipvanlaenen.jcrk;
 
-import java.util.Set;
-
 import org.apache.log4j.Logger;
+
+import net.filipvanlaenen.kolektoj.Collection;
 
 /**
  * Class that can find a collision in a hash function provided enough time and that there is a collision.
@@ -73,7 +73,8 @@ public class CollisionFinder {
                             segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
                             newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
             segmentRepository.add(newSegment);
-            Set<Segment> segmentsWithNewEndPoint = segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
+            Collection<Segment> segmentsWithNewEndPoint =
+                    segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
             if (segmentsWithNewEndPoint.size() > 1) {
                 PairOfCollidingSegments collidingSegments = new PairOfCollidingSegments(segmentsWithNewEndPoint);
                 LOGGER.info(String.format("Found two colliding segments with end point %s.",

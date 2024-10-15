@@ -1,10 +1,9 @@
 package net.filipvanlaenen.jcrk;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import net.filipvanlaenen.kolektoj.Collection;
 
 /**
  * Unit tests on the class PairOfCollidingSegments.
@@ -24,18 +23,29 @@ public class PairOfCollidingSegmentsTest {
     private static final Point POINT_58 = new Point((byte) 0x58);
     private static final Point POINT_C4 = new Point((byte) 0xC4);
     private static final Point POINT_E0 = new Point((byte) 0xE0);
+    /**
+     * The magic number two.
+     */
     private static final int TWO = 2;
+    /**
+     * The magic number three.
+     */
     private static final int THREE = 3;
+    /**
+     * The magic number four.
+     */
     private static final int FOUR = 4;
+    /**
+     * The magic number seven.
+     */
     private static final int SEVEN = 7;
+    /**
+     * The magic number ten.
+     */
     private static final int TEN = 10;
 
-    private PairOfCollidingSegments createPairOfCollidingSegments(Segment... segments) {
-        Set<Segment> segmentSet = new HashSet<Segment>();
-        for (Segment segment : segments) {
-            segmentSet.add(segment);
-        }
-        return new PairOfCollidingSegments(segmentSet);
+    private PairOfCollidingSegments createPairOfCollidingSegments(final Segment... segments) {
+        return new PairOfCollidingSegments(Collection.of(segments));
     }
 
     private void createPairOfCollingsSegmentsWithOneSegment() {

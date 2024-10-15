@@ -1,158 +1,153 @@
-/**
- * jCRK – Cracking cryptographic hash functions implemented in Java.
- * Copyright © 2016 Filip van Laenen <f.a.vanlaenen@ieee.org>
- * 
- * This file is part of jCRK.
- *
- * jCRK is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *  
- * jCRK is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *  
- * You can find a copy of the GNU General Public License in /doc/gpl.txt
- * 
- */
 package net.filipvanlaenen.jcrk;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+
+import net.filipvanlaenen.kolektoj.Collection;
+import net.filipvanlaenen.kolektoj.ModifiableCollection;
 
 /**
  * An in-memory implementation of the segment repository.
  */
-public class InMemorySegmentRepository implements SegmentRepository {
-	private final HashFunction hashFunction;
-	private final Map<Point, Segment> startPointMap = new HashMap<Point, Segment>();
-	private final Map<Point, Set<Segment>> endPointMap = new HashMap<Point, Set<Segment>>();
-	private int order;
-	private BigDecimal maxSize;
+public final class InMemorySegmentRepository implements SegmentRepository {
+    /**
+     * The hash function for this segment repository.
+     */
+    private final HashFunction hashFunction;
+    /**
+     * The segments mapped by their starting point.
+     */
+    private final Map<Point, Segment> startPointMap = new HashMap<Point, Segment>();
+    /**
+     * The segments mapped by their ending point.
+     */
+    private final Map<Point, ModifiableCollection<Segment>> endPointMap =
+            new HashMap<Point, ModifiableCollection<Segment>>();
+    /**
+     * The order of the segment repository.
+     */
+    private int order;
+    /**
+     * The maximum size of the segment repository.
+     */
+    private BigDecimal maxSize;
 
-	/**
-	 * Constructor creating an empty in-memory repository for a hash function.
-	 * 
-	 * @param hashFunction
-	 *            The hash function for the in-memory segment repository.
-	 */
-	public InMemorySegmentRepository(HashFunction hashFunction) {
-		this.hashFunction = hashFunction;
-		this.maxSize = new BigDecimal(2).pow(hashFunction.getBitLength());
-	}
+    /**
+     * Constructor creating an empty in-memory repository for a hash function.
+     *
+     * @param hashFunction The hash function for the in-memory segment repository.
+     */
+    public InMemorySegmentRepository(final HashFunction hashFunction) {
+        this.hashFunction = hashFunction;
+        this.maxSize = new BigDecimal(2).pow(hashFunction.getBitLength());
+    }
 
-	@Override
-	public boolean add(Segment segment) throws IllegalArgumentException {
-		if (!segment.isComplete()) {
-			throw new IllegalArgumentException("The segment isn't complete.");
-		}
-		if (segment.getOrder() != order) {
-			throw new IllegalArgumentException(
-					String.format("The order of the segment (%d) isn't the same as the order of the repository (%d).",
-							segment.getOrder(), order));
-		}
-		if (segment.getHashFunction() != hashFunction) {
-			throw new IllegalArgumentException(String.format(
-					"The hash function of the segment (%s) isn't the same as the hash function of the repository (%s).",
-					segment.getHashFunction(), hashFunction));
-		}
-		if (contains(segment)) {
-			return false;
-		} else {
-			startPointMap.put(segment.getStartPoint(), segment);
-			if (endPointMap.containsKey(segment.getEndPoint())) {
-				endPointMap.get(segment.getEndPoint()).add(segment);
-			} else {
-				Set<Segment> segments = new HashSet<Segment>();
-				segments.add(segment);
-				endPointMap.put(segment.getEndPoint(), segments);
-			}
-			return true;
-		}
-	}
+    @Override
+    public boolean add(final Segment segment) throws IllegalArgumentException {
+        if (!segment.isComplete()) {
+            throw new IllegalArgumentException("The segment isn't complete.");
+        }
+        if (segment.getOrder() != order) {
+            throw new IllegalArgumentException(
+                    String.format("The order of the segment (%d) isn't the same as the order of the repository (%d).",
+                            segment.getOrder(), order));
+        }
+        if (segment.getHashFunction() != hashFunction) {
+            throw new IllegalArgumentException(String.format(
+                    "The hash function of the segment (%s) isn't the same as the hash function of the repository (%s).",
+                    segment.getHashFunction(), hashFunction));
+        }
+        if (contains(segment)) {
+            return false;
+        } else {
+            startPointMap.put(segment.getStartPoint(), segment);
+            if (endPointMap.containsKey(segment.getEndPoint())) {
+                endPointMap.get(segment.getEndPoint()).add(segment);
+            } else {
+                ModifiableCollection<Segment> segments = ModifiableCollection.of(segment);
+                endPointMap.put(segment.getEndPoint(), segments);
+            }
+            return true;
+        }
+    }
 
-	@Override
-	public boolean contains(Segment segment) {
-		return startPointMap.containsValue(segment);
-	}
+    @Override
+    public boolean contains(final Segment segment) {
+        return startPointMap.containsValue(segment);
+    }
 
-	@Override
-	public boolean containsSegmentWithStartPoint(Point point) {
-		return startPointMap.containsKey(point);
-	}
+    @Override
+    public boolean containsSegmentWithStartPoint(final Point point) {
+        return startPointMap.containsKey(point);
+    }
 
-	@Override
-	public boolean containsSegmentsWithEndPoint(Point point) {
-		return endPointMap.containsKey(point);
-	}
+    @Override
+    public boolean containsSegmentsWithEndPoint(final Point point) {
+        return endPointMap.containsKey(point);
+    }
 
-	@Override
-	public Segment getSegmentWithStartPoint(Point point) {
-		return startPointMap.get(point);
-	}
+    @Override
+    public Segment getSegmentWithStartPoint(final Point point) {
+        return startPointMap.get(point);
+    }
 
-	@Override
-	public Set<Segment> getSegmentsWithEndPoint(Point point) {
-		if (endPointMap.containsKey(point)) {
-			return endPointMap.get(point);
-		} else {
-			return Collections.EMPTY_SET;
-		}
-	}
+    @Override
+    public Collection<Segment> getSegmentsWithEndPoint(final Point point) {
+        if (endPointMap.containsKey(point)) {
+            return endPointMap.get(point);
+        } else {
+            return Collection.of();
+        }
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return startPointMap.isEmpty();
-	}
+    @Override
+    public boolean isEmpty() {
+        return startPointMap.isEmpty();
+    }
 
-	@Override
-	public int size() {
-		return startPointMap.size();
-	}
+    @Override
+    public int size() {
+        return startPointMap.size();
+    }
 
-	@Override
-	public int getOrder() {
-		return order;
-	}
+    @Override
+    public int getOrder() {
+        return order;
+    }
 
-	@Override
-	public void compressToNextOrder() {
-		Map<Point, Segment> lowerOrderStartPointMap = new HashMap<Point, Segment>(startPointMap);
-		order++;
-		maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
-		startPointMap.clear();
-		endPointMap.clear();
-		for (Segment segment : lowerOrderStartPointMap.values()) {
-			if (segment.getStartPoint().order() >= order) {
-				Segment lastSegment = segment;
-				long newLength = segment.getLength();
-				while (lastSegment.getEndPoint().order() < order
-						&& lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
-					lastSegment = lowerOrderStartPointMap.get(lastSegment.getEndPoint());
-					newLength += lastSegment.getLength();
-				}
-				if (lastSegment.getEndPoint().order() >= order) {
-					Segment newSegment = new Segment(segment.getStartPoint(), lastSegment.getEndPoint(), newLength,
-							order, hashFunction);
-					add(newSegment);
-				}
-			}
-		}
-	}
+    @Override
+    public void compressToNextOrder() {
+        Map<Point, Segment> lowerOrderStartPointMap = new HashMap<Point, Segment>(startPointMap);
+        order++;
+        maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
+        startPointMap.clear();
+        endPointMap.clear();
+        for (Segment segment : lowerOrderStartPointMap.values()) {
+            if (segment.getStartPoint().order() >= order) {
+                Segment lastSegment = segment;
+                long newLength = segment.getLength();
+                while (lastSegment.getEndPoint().order() < order
+                        && lowerOrderStartPointMap.containsKey(lastSegment.getEndPoint())) {
+                    lastSegment = lowerOrderStartPointMap.get(lastSegment.getEndPoint());
+                    newLength += lastSegment.getLength();
+                }
+                if (lastSegment.getEndPoint().order() >= order) {
+                    Segment newSegment = new Segment(segment.getStartPoint(), lastSegment.getEndPoint(), newLength,
+                            order, hashFunction);
+                    add(newSegment);
+                }
+            }
+        }
+    }
 
-	@Override
-	public HashFunction getHashFunction() {
-		return hashFunction;
-	}
+    @Override
+    public HashFunction getHashFunction() {
+        return hashFunction;
+    }
 
-	@Override
-	public boolean isFull() {
-		return maxSize.equals(new BigDecimal(size()));
-	}
+    @Override
+    public boolean isFull() {
+        return maxSize.equals(new BigDecimal(size()));
+    }
 }
