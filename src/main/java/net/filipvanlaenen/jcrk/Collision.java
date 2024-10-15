@@ -1,6 +1,6 @@
 package net.filipvanlaenen.jcrk;
 
-import java.util.Set;
+import net.filipvanlaenen.kolektoj.ValueCollection;
 
 /**
  * A hash function collision between two or more points.
@@ -8,7 +8,7 @@ import java.util.Set;
  * @param hashFunction The hash function.
  * @param points       The points.
  */
-public record Collision(HashFunction hashFunction, Set<Point> points) {
+public record Collision(HashFunction hashFunction, ValueCollection<Point> points) {
     /**
      * Constructor with the hash function and the points as its parameters.
      *
@@ -16,7 +16,7 @@ public record Collision(HashFunction hashFunction, Set<Point> points) {
      * @param points       The points.
      */
     public Collision(final HashFunction hashFunction, final Point... points) {
-        this(hashFunction, Set.of(points));
+        this(hashFunction, ValueCollection.of(points));
         if (points.length < 2) {
             throw new IllegalArgumentException(
                     String.format("There should be at least two points, but found only %d.", points.length));
