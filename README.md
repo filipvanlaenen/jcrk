@@ -78,13 +78,13 @@ This should produce a short report displaying how to use the program.
 | 30         | `9D4D5B10` and `9F95172C`             | `93F85F54`       |
 | 31         | `ACB23AEA` and `C7E8735C`             | `8F603976`       |
 | 32         | `21E72897` and `28670599`             | `D8C2E59B`       |
-| 33         |                                       |                  |
-| 34         |                                       |                  |
-| 35         |                                       |                  |
-| 36         |                                       |                  |
-| 37         |                                       |                  |
-| 38         |                                       |                  |
-| 39         |                                       |                  |
+| 33         | `05B4E6B680` and `C01BB31600`         | `207C0B8D00`     |
+| 34         | `2981ED9A40` and `E693204780`         | `F5F08989C0`     |
+| 35         | `47334C4080` and `E8B39B1BC0`         | `2BEFC6AEE0`     |
+| 36         | `333BCBDC00` and `E81CE75AA0`         | `2A7ADCF5E0`     |
+| 37         | `80B94985F8` and `DEB3D00688`         | `A2D429C9C8`     |
+| 38         | `CF528F70F0` and `E1B78EC250`         | `1D84F5E36C`     |
+| 39         | `432C523A9C` and `65A2D6A508`         | `638856A48A`     |
 | 40         | `3399BD40DC` and `A7F7B62182`         | `4FFDC01CB7`     |
 | 41         |                                       |                  |
 | 42         |                                       |                  |
