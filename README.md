@@ -46,62 +46,62 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-1
 
-| Bit Length | Points                                | Hash Value       |
-|------------|---------------------------------------|------------------|
-| 3          | `80` and `A0`                         | `C0`             |
-| 4          | `00` and `50`                         | `50`             |
-| 5          | `58` and `E0`                         | `C0`             |
-| 6          | `58` and `E0`                         | `C0`             |
-| 7          | `3C` and `90`                         | `C4`             |
-| 8          | `02` and `3C`                         | `C4`             |
-| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
-| 10         | `B9C0` and `E500`                     | `4E40`           |
-| 11         | `0000` and `7040`                     | `1480`           |
-| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
-| 13         | `8FD8` and `F790`                     | `2338`           |
-| 14         | `4DC4` and `C0DC`                     | `79F8`           |
-| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
-| 16         | `0DF7` and `298F`                     | `484D`           |
-| 17         |                                       |                  |
-| 18         | `A48BC0` and `E21940`                 | `4FA900`         |
-| 19         | `0510A0` and `A58460`                 | `2FC8A0`         |
-| 20         |                                       |                  |
-| 21         | `44CE30` and `BBFB70`                 | `FD6750`         |
-| 22         | `35507C` and `E08504`                 | `3D0514`         |
-| 23         | `BC1BF0` and `DBF6B0`                 | `8FE7CE`         |
-| 24         | `9B8FD1` and `FDA184`                 | `D760BE`         |
-| 25         | `4A0CD180` and `8553E680`             | `119BCF00`       |
-| 26         | `A035A140` and `AC30F200`             | `DEA50900`       |
-| 27         | `6182AE40` and `C1D96340`             | `43BC9CA0`       |
-| 28         | `08A2F0C0` and `4FA0E450`             | `992B8720`       |
-| 29         | `5488F588` and `FA2D1CB8`             | `D55352B8`       |
-| 30         | `9D4D5B10` and `9F95172C`             | `93F85F54`       |
-| 31         | `ACB23AEA` and `C7E8735C`             | `8F603976`       |
-| 32         | `21E72897` and `28670599`             | `D8C2E59B`       |
-| 33         | `05B4E6B680` and `C01BB31600`         | `207C0B8D00`     |
-| 34         | `2981ED9A40` and `E693204780`         | `F5F08989C0`     |
-| 35         | `47334C4080` and `E8B39B1BC0`         | `2BEFC6AEE0`     |
-| 36         | `333BCBDC00` and `E81CE75AA0`         | `2A7ADCF5E0`     |
-| 37         | `80B94985F8` and `DEB3D00688`         | `A2D429C9C8`     |
-| 38         | `CF528F70F0` and `E1B78EC250`         | `1D84F5E36C`     |
-| 39         | `432C523A9C` and `65A2D6A508`         | `638856A48A`     |
-| 40         | `3399BD40DC` and `A7F7B62182`         | `4FFDC01CB7`     |
-| 41         | `A44815DC6280` and `BB809E886400`     | `C5C45F01F300`   |
-| 42         | `365369F50E80` and `41D83DFF1740`     | `C48B1A1075C0`   |
-| 43         | `512B5B3652C0` and `70785ED19D40`     | `F77C498F7180`   |
-| 44         | `68E4A2DA8FD0` and `D5850D48F390`     | `FBBA72E3B310`   |
-| 45         | `03DA927D0EF0` and `5E3D28A5CED0`     | `4EAE7B87DA60`   |
-| 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`     | `EBE7781A0E38`   |
-| 47         | `9D962B47E0FA` and `F8B57FB5C90E`     | `49F9475CA84E`   |
-| 48         | `41A6BA9A6C45` and `4B95CCEF416B`     | `DC3CD50087EF`   |
-| 49         |                                       |                  |
-| 50         |                                       |                  |
-| 51         |                                       |                  |
-| 52         |                                       |                  |
-| 53         |                                       |                  |
-| 54         |                                       |                  |
-| 55         |                                       |                  |
-| 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99` | `345D67FC70AE2A` |
+| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
+|------------|---------------------------------------|------------------|-----------------------------------------------|
+| 3          | `80` and `A0`                         | `C0`             | 80                                            |
+| 4          | `00` and `50`                         | `50`             | 81                                            |
+| 5          | `58` and `E0`                         | `C0`             | 75                                            |
+| 6          | `58` and `E0`                         | `C0`             | 75                                            |
+| 7          | `3C` and `90`                         | `C4`             | 82                                            |
+| 8          | `02` and `3C`                         | `C4`             | 83                                            |
+| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 10         | `B9C0` and `E500`                     | `4E40`           | 65                                            |
+| 11         | `0000` and `7040`                     | `1480`           | 71                                            |
+| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 13         | `8FD8` and `F790`                     | `2338`           | 73                                            |
+| 14         | `4DC4` and `C0DC`                     | `79F8`           | 74                                            |
+| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 16         | `0DF7` and `298F`                     | `484D`           | 75                                            |
+| 17         |                                       |                  |                                               |
+| 18         | `A48BC0` and `E21940`                 | `4FA900`         | 70                                            |
+| 19         | `0510A0` and `A58460`                 | `2FC8A0`         | 62                                            |
+| 20         |                                       |                  |                                               |
+| 21         | `44CE30` and `BBFB70`                 | `FD6750`         | 73                                            |
+| 22         | `35507C` and `E08504`                 | `3D0514`         | 68                                            |
+| 23         | `BC1BF0` and `DBF6B0`                 | `8FE7CE`         | 73                                            |
+| 24         | `9B8FD1` and `FDA184`                 | `D760BE`         | 74                                            |
+| 25         | `4A0CD180` and `8553E680`             | `119BCF00`       |                                               |
+| 26         | `A035A140` and `AC30F200`             | `DEA50900`       |                                               |
+| 27         | `6182AE40` and `C1D96340`             | `43BC9CA0`       |                                               |
+| 28         | `08A2F0C0` and `4FA0E450`             | `992B8720`       |                                               |
+| 29         | `5488F588` and `FA2D1CB8`             | `D55352B8`       |                                               |
+| 30         | `9D4D5B10` and `9F95172C`             | `93F85F54`       |                                               |
+| 31         | `ACB23AEA` and `C7E8735C`             | `8F603976`       |                                               |
+| 32         | `21E72897` and `28670599`             | `D8C2E59B`       |                                               |
+| 33         | `05B4E6B680` and `C01BB31600`         | `207C0B8D00`     |                                               |
+| 34         | `2981ED9A40` and `E693204780`         | `F5F08989C0`     |                                               |
+| 35         | `47334C4080` and `E8B39B1BC0`         | `2BEFC6AEE0`     |                                               |
+| 36         | `333BCBDC00` and `E81CE75AA0`         | `2A7ADCF5E0`     |                                               |
+| 37         | `80B94985F8` and `DEB3D00688`         | `A2D429C9C8`     |                                               |
+| 38         | `CF528F70F0` and `E1B78EC250`         | `1D84F5E36C`     |                                               |
+| 39         | `432C523A9C` and `65A2D6A508`         | `638856A48A`     |                                               |
+| 40         | `3399BD40DC` and `A7F7B62182`         | `4FFDC01CB7`     |                                               |
+| 41         | `A44815DC6280` and `BB809E886400`     | `C5C45F01F300`   |                                               |
+| 42         | `365369F50E80` and `41D83DFF1740`     | `C48B1A1075C0`   |                                               |
+| 43         | `512B5B3652C0` and `70785ED19D40`     | `F77C498F7180`   |                                               |
+| 44         | `68E4A2DA8FD0` and `D5850D48F390`     | `FBBA72E3B310`   |                                               |
+| 45         | `03DA927D0EF0` and `5E3D28A5CED0`     | `4EAE7B87DA60`   |                                               |
+| 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`     | `EBE7781A0E38`   |                                               |
+| 47         | `9D962B47E0FA` and `F8B57FB5C90E`     | `49F9475CA84E`   |                                               |
+| 48         | `41A6BA9A6C45` and `4B95CCEF416B`     | `DC3CD50087EF`   |                                               |
+| 49         |                                       |                  |                                               |
+| 50         |                                       |                  |                                               |
+| 51         |                                       |                  |                                               |
+| 52         |                                       |                  |                                               |
+| 53         |                                       |                  |                                               |
+| 54         |                                       |                  |                                               |
+| 55         |                                       |                  |                                               |
+| 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99` | `345D67FC70AE2A` |                                               |
 
 ### SHA-224
 

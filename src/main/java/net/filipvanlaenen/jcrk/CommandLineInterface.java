@@ -73,10 +73,18 @@ public final class CommandLineInterface {
                 Collision collision = finder.findCollision();
                 LOGGER.info(
                         "The following points have the same hash value under the hash function " + hashFunction + ":");
+                Point firstPointFullHash = null;
                 for (Point point : collision.points()) {
-                    LOGGER.info(point.asHexadecimalString() + ", hash value: "
-                            + point.hash(hashFunction).asHexadecimalString() + " "
-                            + point.hash(baseHashFunction).asHexadecimalString());
+                    Point fullHash = point.hash(baseHashFunction);
+                    LOGGER.info(" - Point: " + point.asHexadecimalString());
+                    LOGGER.info("   Truncated hash value: " + point.hash(hashFunction).asHexadecimalString());
+                    LOGGER.info("   Full hash value: " + fullHash.asHexadecimalString());
+                    if (firstPointFullHash == null) {
+                        firstPointFullHash = fullHash;
+                    } else {
+                        LOGGER.info("   Hamming distance of the full hash value to the first point’s full hash value: "
+                                + firstPointFullHash.hammingDistanceTo(fullHash));
+                    }
                 }
             }
         };
