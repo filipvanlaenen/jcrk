@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>net.filipvanlaenen.jcrk</groupId>
    <artifactId>jcrk</artifactId>
@@ -24,14 +24,14 @@
       <maven.compile.sourceLevel>${java.version}</maven.compile.sourceLevel>
       <maven.compile.targetLevel>${java.version}</maven.compile.targetLevel>
       <junit.jupiter.version>5.5.0</junit.jupiter.version>
-	<junit.platform.version>1.1.0</junit.platform.version>
+      <junit.platform.version>1.1.0</junit.platform.version>
    </properties>
    <dependencies>
       <dependency>
          <groupId>net.filipvanlaenen</groupId>
          <artifactId>kolektoj</artifactId>
          <version>1.0-SNAPSHOT</version>
-      </dependency> 	   
+      </dependency>
       <dependency>
          <groupId>net.filipvanlaenen</groupId>
          <artifactId>laconic</artifactId>
@@ -53,12 +53,12 @@
          <artifactId>junit-jupiter-engine</artifactId>
          <version>${junit.jupiter.version}</version>
       </dependency>
-	<dependency>
-	   <groupId>org.junit.platform</groupId>
-	   <artifactId>junit-platform-launcher</artifactId>
-	   <version>${junit.platform.version}</version>
-	   <scope>test</scope>
-	</dependency>
+      <dependency>
+         <groupId>org.junit.platform</groupId>
+         <artifactId>junit-platform-launcher</artifactId>
+         <version>${junit.platform.version}</version>
+         <scope>test</scope>
+      </dependency>
       <dependency>
          <groupId>org.junit.platform</groupId>
          <artifactId>junit-platform-runner</artifactId>
@@ -89,7 +89,7 @@
                   <descriptorRef>jar-with-dependencies</descriptorRef>
                </descriptorRefs>
             </configuration>
-         </plugin>         
+         </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
