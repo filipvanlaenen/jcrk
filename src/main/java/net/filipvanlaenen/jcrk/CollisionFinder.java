@@ -1,17 +1,12 @@
 package net.filipvanlaenen.jcrk;
 
-import org.apache.log4j.Logger;
-
 import net.filipvanlaenen.kolektoj.Collection;
+import net.filipvanlaenen.laconic.Laconic;
 
 /**
  * Class that can find a collision in a hash function provided enough time and that there is a collision.
  */
 public class CollisionFinder {
-    /**
-     * Logger instance.
-     */
-    private static final Logger LOGGER = Logger.getLogger(CollisionFinder.class);
     /**
      * The segment repository.
      */
@@ -49,11 +44,11 @@ public class CollisionFinder {
         Collision collision = null;
         while (collision == null && !segmentRepository.isFull()) {
             if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {
-                LOGGER.info(String.format(
+                Laconic.LOGGER.logProgress(String.format(
                         "The segment repository has %d segments of order %d -- going to compress it to the next order.",
                         segmentRepository.size(), segmentRepository.getOrder()));
                 segmentRepository.compressToNextOrder();
-                LOGGER.info(String.format(
+                Laconic.LOGGER.logProgress(String.format(
                         "Compressed the segment repository to order %d -- %d segments were retained and/or created.",
                         segmentRepository.getOrder(), segmentRepository.size()));
             }
@@ -61,14 +56,14 @@ public class CollisionFinder {
             if (newStartPoint == null) {
                 return null;
             }
-            LOGGER.info(String.format("Starting on a new segment of order %d with start point %s.",
+            Laconic.LOGGER.logProgress(String.format("Starting on a new segment of order %d with start point %s.",
                     segmentRepository.getOrder(), newStartPoint.asHexadecimalString()));
             Segment newSegment =
                     new Segment(newStartPoint, segmentRepository.getOrder(), segmentRepository.getHashFunction());
             while (!newSegment.isComplete()) {
                 newSegment.extend();
             }
-            LOGGER.info(
+            Laconic.LOGGER.logProgress(
                     String.format("Completed a segment of order %d with start point %s, end point %s and length %d.",
                             segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
                             newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
@@ -77,12 +72,12 @@ public class CollisionFinder {
                     segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
             if (segmentsWithNewEndPoint.size() > 1) {
                 PairOfCollidingSegments collidingSegments = new PairOfCollidingSegments(segmentsWithNewEndPoint);
-                LOGGER.info(String.format("Found two colliding segments with end point %s.",
-                        newSegment.getEndPoint().asHexadecimalString()));
+                Laconic.LOGGER.logProgress("Found two colliding segments with end point %s.",
+                        newSegment.getEndPoint().asHexadecimalString());
                 collision = collidingSegments.resolveCollidingSegmentsToCollision();
             }
         }
-        LOGGER.info(String.format("Found a collision."));
+        Laconic.LOGGER.logProgress(String.format("Found a collision."));
         return collision;
     }
 }

@@ -1,6 +1,6 @@
 package net.filipvanlaenen.jcrk;
 
-import org.apache.log4j.Logger;
+import net.filipvanlaenen.laconic.Laconic;
 
 /**
  * Class implementing a command line interface.
@@ -10,10 +10,6 @@ public final class CommandLineInterface {
      * The magic number eight.
      */
     private static final int EIGHT = 8;
-    /**
-     * Logger instance.
-     */
-    private static final Logger LOGGER = Logger.getLogger(CommandLineInterface.class);
 
     /**
      * Private constructor to prevent instantiation of this utility class.
@@ -71,19 +67,21 @@ public final class CommandLineInterface {
                         new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
                                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
-                LOGGER.info(
-                        "The following points have the same hash value under the hash function " + hashFunction + ":");
+                Laconic.LOGGER.logProgress("The following points have the same hash value under the hash function %s:",
+                        hashFunction.toString());
                 Point firstPointFullHash = null;
                 for (Point point : collision.points()) {
                     Point fullHash = point.hash(baseHashFunction);
-                    LOGGER.info(" - Point: " + point.asHexadecimalString());
-                    LOGGER.info("   Truncated hash value: " + point.hash(hashFunction).asHexadecimalString());
-                    LOGGER.info("   Full hash value: " + fullHash.asHexadecimalString());
+                    Laconic.LOGGER.logProgress(" - Point: %s", point.asHexadecimalString());
+                    Laconic.LOGGER.logProgress("   Truncated hash value: %s",
+                            point.hash(hashFunction).asHexadecimalString());
+                    Laconic.LOGGER.logProgress("   Full hash value: %s", fullHash.asHexadecimalString());
                     if (firstPointFullHash == null) {
                         firstPointFullHash = fullHash;
                     } else {
-                        LOGGER.info("   Hamming distance of the full hash value to the first point’s full hash value: "
-                                + firstPointFullHash.hammingDistanceTo(fullHash));
+                        Laconic.LOGGER.logProgress(
+                                "   Hamming distance of the full hash value to the first point’s full hash value: %d",
+                                firstPointFullHash.hammingDistanceTo(fullHash));
                     }
                 }
             }
