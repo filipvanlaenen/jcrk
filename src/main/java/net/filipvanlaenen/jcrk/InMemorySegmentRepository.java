@@ -1,11 +1,11 @@
 package net.filipvanlaenen.jcrk;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.filipvanlaenen.kolektoj.Collection;
 import net.filipvanlaenen.kolektoj.ModifiableCollection;
+import net.filipvanlaenen.kolektoj.ModifiableMap;
+import net.filipvanlaenen.kolektoj.hash.ModifiableHashMap;
 
 /**
  * An in-memory implementation of the segment repository.
@@ -18,12 +18,12 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     /**
      * The segments mapped by their starting point.
      */
-    private final Map<Point, Segment> startPointMap = new HashMap<Point, Segment>();
+    private final ModifiableMap<Point, Segment> startPointMap = new ModifiableHashMap<Point, Segment>();
     /**
      * The segments mapped by their ending point.
      */
-    private final Map<Point, ModifiableCollection<Segment>> endPointMap =
-            new HashMap<Point, ModifiableCollection<Segment>>();
+    private final ModifiableMap<Point, ModifiableCollection<Segment>> endPointMap =
+            new ModifiableHashMap<Point, ModifiableCollection<Segment>>();
     /**
      * The order of the segment repository.
      */
@@ -89,7 +89,11 @@ public final class InMemorySegmentRepository implements SegmentRepository {
 
     @Override
     public Segment getSegmentWithStartPoint(final Point point) {
-        return startPointMap.get(point);
+        if (startPointMap.containsKey(point)) {
+            return startPointMap.get(point);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -118,12 +122,12 @@ public final class InMemorySegmentRepository implements SegmentRepository {
 
     @Override
     public void compressToNextOrder() {
-        Map<Point, Segment> lowerOrderStartPointMap = new HashMap<Point, Segment>(startPointMap);
+        ModifiableMap<Point, Segment> lowerOrderStartPointMap = new ModifiableHashMap<Point, Segment>(startPointMap);
         order++;
         maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
         startPointMap.clear();
         endPointMap.clear();
-        for (Segment segment : lowerOrderStartPointMap.values()) {
+        for (Segment segment : lowerOrderStartPointMap.getValues()) {
             if (segment.getStartPoint().order() >= order) {
                 Segment lastSegment = segment;
                 long newLength = segment.getLength();
