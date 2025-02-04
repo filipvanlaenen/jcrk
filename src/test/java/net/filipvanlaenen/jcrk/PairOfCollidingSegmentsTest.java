@@ -13,8 +13,6 @@ public class PairOfCollidingSegmentsTest {
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 5);
     private static final TruncatedStandardHashFunction TRUNCATED_SHA1_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 8);
-    private static final TruncatedStandardHashFunction TRUNCATED_SHA256_8_BITS =
-            new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
     private static final Point POINT_00 = new Point((byte) 0x00);
     private static final Point POINT_02 = new Point((byte) 0x02);
     private static final Point POINT_0A = new Point((byte) 0x0A);
@@ -54,33 +52,6 @@ public class PairOfCollidingSegmentsTest {
         return createPairOfCollidingSegments(s1, s2);
     }
 
-    private void createPairOfCollidingSegmentsWithDifferentEndPoints() {
-        Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        Segment s2 = new Segment(POINT_3C, POINT_02, 1, 1, TRUNCATED_SHA1_8_BITS);
-        createPairOfCollidingSegments(s1, s2);
-    }
-
-    /**
-     * The constructor throws an IllegalArgumentException if the two segments don't have the same end point.
-     */
-    @Test(expectedExceptions = {IllegalArgumentException.class})
-    public void constructorThrowsIllegalArgumentExceptionIfEndPointsDiffer() {
-        createPairOfCollidingSegmentsWithDifferentEndPoints();
-    }
-
-    /**
-     * The message of the IllegalArgumentException thrown when the two segments have different end points is correct.
-     */
-    @Test
-    public void illegalArgumentExceptionMessageCorrectIfSegmentsHaveDifferentEndPoints() {
-        try {
-            createPairOfCollidingSegmentsWithDifferentEndPoints();
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {
-            Assert.assertEquals(iae.getMessage(), "The end points of the two segments aren't equal (0x02 ≠ 0xc4).");
-        }
-    }
-
     private void createPairOfCollidingSegmentsWithSameStartPoints() {
         Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
         Segment s2 = new Segment(POINT_02, POINT_C4, 2, 1, TRUNCATED_SHA1_8_BITS);
@@ -114,35 +85,6 @@ public class PairOfCollidingSegmentsTest {
     @Test
     public void constructorExtractsTheHashFunctionCorrectly() {
         Assert.assertEquals(createCorrectPairOfCollidingSegments().getHashFunction(), TRUNCATED_SHA1_8_BITS);
-    }
-
-    private void createPairOfCollidingSegmentsWithDifferentHashFunctions() {
-        Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        Segment s2 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA256_8_BITS);
-        createPairOfCollidingSegments(s1, s2);
-    }
-
-    /**
-     * The constructor throws an IllegalArgumentException if the two segments don't have the same hash function.
-     */
-    @Test(expectedExceptions = {IllegalArgumentException.class})
-    public void constructorThrowsIllegalArgumentExceptionIfHashFunctionsDiffer() {
-        createPairOfCollidingSegmentsWithDifferentHashFunctions();
-    }
-
-    /**
-     * The message of the IllegalArgumentException thrown when the two segments have different hash functions is
-     * correct.
-     */
-    @Test
-    public void illegalArgumentExceptionMessageCorrectIfSegmentsHaveDifferentHashFunctions() {
-        try {
-            createPairOfCollidingSegmentsWithDifferentHashFunctions();
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {
-            Assert.assertEquals(iae.getMessage(),
-                    "The hash functions of the two segments aren't equal (TRUNC(SHA-1, 8) ≠ TRUNC(SHA-256, 8)).");
-        }
     }
 
     /**

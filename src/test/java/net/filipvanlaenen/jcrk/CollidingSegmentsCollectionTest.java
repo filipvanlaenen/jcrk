@@ -2,6 +2,7 @@ package net.filipvanlaenen.jcrk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,11 @@ public class CollidingSegmentsCollectionTest {
      */
     private static final TruncatedStandardHashFunction TRUNCATED_SHA1_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 8);
+    /**
+     * The hash function SHA-256 truncated to 8 bits.
+     */
+    private static final TruncatedStandardHashFunction TRUNCATED_SHA256_8_BITS =
+            new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
     /**
      * The point 0x02.
      */
@@ -33,9 +39,17 @@ public class CollidingSegmentsCollectionTest {
      */
     private static final Segment SEGMENT_02_C4 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
     /**
+     * The segment going from point 0x3C to point 0x02.
+     */
+    private static final Segment SEGMENT_3C_02 = new Segment(POINT_3C, POINT_02, 1, 1, TRUNCATED_SHA1_8_BITS);
+    /**
      * The segment going from point 0x3C to point 0xC4.
      */
     private static final Segment SEGMENT_3C_C4 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
+    /**
+     * The segment going from point 0x3C to point 0xC4, but with the truncated SHA-256 hash function.
+     */
+    private static final Segment SEGMENT_3C_C4_SHA256 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA256_8_BITS);
 
     /**
      * Verifies that the constructor throws an IllegalArgumentException if only one segment is provided.
@@ -46,6 +60,33 @@ public class CollidingSegmentsCollectionTest {
                 () -> new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4)));
         assertEquals("There should be at least two segments provided to the constructor, but found only 1.",
                 exception.getMessage());
+    }
+
+    /**
+     * Verifies that the constructor throws an IllegalArgumentException if the segments have different end points.
+     */
+    @Test
+    public void constructorShouldThrowIllegalArgumentExceptionIfTheSegmentsHaveDifferentEndPoints() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_02)));
+        assertTrue(
+                Collection
+                        .of("Not all segments have the same end point (0x02 ≠ 0xc4).",
+                                "Not all segments have the same end point (0xc4 ≠ 0x02).")
+                        .contains(exception.getMessage()));
+    }
+
+    /**
+     * Verifies that the constructor throws an IllegalArgumentException if the segments have different hash functions.
+     */
+    @Test
+    public void constructorShouldThrowIllegalArgumentExceptionIfTheSegmentsHaveDifferentHashFunctions() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_C4_SHA256)));
+        assertTrue(Collection
+                .of("Not all segments have the same hash function (TRUNC(SHA-1, 8) ≠ TRUNC(SHA-256, 8)).",
+                        "Not all segments have the same hash function (TRUNC(SHA-256, 8) ≠ TRUNC(SHA-1, 8)).")
+                .contains(exception.getMessage()));
     }
 
     /**
