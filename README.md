@@ -132,30 +132,30 @@ This should produce a short report displaying how to use the program.
 | 1          | `00` and `80`                         | `80`             | 190                                           |
 | 2          | `00` and `80`                         | `80`             | 190                                           |
 | 3          | `00` and `60`                         | `A0`             | 192                                           |
-| 4          |                                       |                  |                                               |
-| 5          |                                       |                  |                                               |
+| 4          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 6          | `1C` and `5C`                         | `C8`             | 195                                           |
-| 7          |                                       |                  |                                               |
-| 8          |                                       |                  |                                               |
+| 7          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 9          | `0400` and `1280`                     | `A880`           | 190                                           |
 | 10         | `3D80` and `7680`                     | `6E80`           | 191                                           |
 | 11         | `8C80` and `EBA0`                     | `2140`           | 181                                           |
 | 12         | `68B0` and `C580`                     | `1A60`           | 188                                           |
 | 13         | `C098` and `C4F0`                     | `D700`           | 181                                           |
 | 14         | `21EC` and `7820`                     | `C7BC`           | 179                                           |
-| 15         |                                       |                  |                                               |
+| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 16         | `A352` and `A876`                     | `8607`           | 198                                           |
 | 17         | `1D9280` and `E77B80`                 | `ED2D80`         | 186                                           |
 | 18         | `845C80` and `E239C0`                 | `F4D800`         | 170                                           |
 | 19         | `13AEC0` and `3C1A60`                 | `7159E0`         | 194                                           |
-| 20         |                                       |                  |                                               |
+| 20         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 21         | `575148` and `6B5C18`                 | `D18E78`         | 181                                           |
 | 22         | `07D394` and `8E7D7C`                 | `DBF490`         | 173                                           |
 | 23         | `D43A22` and `DF81F0`                 | `A6038C`         | 185                                           |
 | 24         | `763F9E` and `DA2ABE`                 | `D493BE`         | 199                                           |
 | 25         | `02609280` and `7403FD00`             | `7977DE00`       | 177                                           |
-| 26         |                                       |                  |                                               |
-| 27         |                                       |                  |                                               |
+| 26         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 27         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 28         | `11868EE0` and `9F14AE70`             | `CBE9BA20`       | 177                                           |
 | 29         | `12411C68` and `95CF1778`             | `09436C00`       | 154                                           |
 | 30         | `1A871A38` and `26ED083C`             | `0ED962B4`       | 171                                           |
