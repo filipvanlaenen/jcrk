@@ -159,6 +159,16 @@ This should produce a short report displaying how to use the program.
 | 28         | `11868EE0` and `9F14AE70`             | `CBE9BA20`       | 177                                           |
 | 29         | `12411C68` and `95CF1778`             | `09436C00`       | 154                                           |
 | 30         | `1A871A38` and `26ED083C`             | `0ED962B4`       | 171                                           |
+| 31         | `C29A1EE4` and `DB364166`             | `C45BAFE0`       | 177                                           |
+| 32         | `B2E89556` and `CE9C28C1`             | `77EFF04A`       | 173                                           |
+| 33         | `EEA55CDF80` and `F333C07480`         | `3504172580`     | 175                                           |
+| 34         | `00692D74C0` and `C642B36AC0`         | `1C359B8A40`     | 177                                           |
+| 35         | `32D27C53A0` and `CC9A1621A0`         | `1B8E6D9600`     | 186                                           |
+| 36         | `BAE53B69D0` and `C9C9E5CB00`         | `6518814D40`     | 175                                           |
+| 37         | `0131C7F0D0` and `91A14512B0`         | `C9A900B890`     | 174                                           |
+| 38         | `451C2195F8` and `53A570372C`         | `25B2E98EC0`     | 165                                           |
+| 39         | `69BAB2F3AE` and `A3C4EEEA00`         | `6E7BBB22D2`     | 163                                           |
+| 40         | `CC7B481271` and `F6D2CF640C`         | `BDF8CA50B1`     | 161                                           |
 
 ### SHA-512
 
