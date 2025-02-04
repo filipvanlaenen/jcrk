@@ -179,6 +179,11 @@ This should produce a short report displaying how to use the program.
 | 48         | `025BA0250892` and `46BE11BF4CA2`     | `7A39A0A5C4F9`   | 162                                           |
 | 49         | `4CA693F0210780` and `764D1D0255CB00` | `2F779ABD6B9900` | 166                                           |
 | 50         | `122BBE2AD42840` and `BE98601F8F8FC0` | `9D9ABBAD441CC0` | 170                                           |
+| 51         | `09339662817140` and `240EF4D7527360` | `6A9F057EADDAA0` | 158                                           |
+| 52         | `951DDDEDAD78B0` and `E109500EFD6300` | `9D05360304C610` | 158                                           |
+| 53         | `70649AD8C683E0` and `C2813A1FC1CD70` | `2FF804F4911010` | 171                                           |
+| 54         | `642CBEA6310260` and `A3426997143CD0` | `9391906B5C8E44` | 154                                           |
+| 55         | `1733D209B6F0DA` and `D66FD950BDE27C` | `2888A74143C4D4` | 161                                           |
 
 ### SHA-512
 
