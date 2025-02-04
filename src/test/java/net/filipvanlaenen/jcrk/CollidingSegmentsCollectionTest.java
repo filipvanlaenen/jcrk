@@ -55,12 +55,10 @@ public class CollidingSegmentsCollectionTest {
      * The point 0x02.
      */
     private static final Point POINT_02 = new Point((byte) 0x02);
-    private static final Segment SEGMENT_02_02 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1_8_BITS);
     /**
      * The point 0x0A.
      */
     private static final Point POINT_0A = new Point((byte) 0x0A);
-    private static final Segment SEGMENT_0A_02 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1_8_BITS);
     /**
      * The point 0x20.
      */
@@ -82,9 +80,17 @@ public class CollidingSegmentsCollectionTest {
      */
     private static final Point POINT_E0 = new Point((byte) 0xE0);
     /**
+     * The segment going from point 0x02 to point 0x02.
+     */
+    private static final Segment SEGMENT_02_02 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1_8_BITS);
+    /**
      * The segment going from point 0x02 to point 0xC4.
      */
     private static final Segment SEGMENT_02_C4 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
+    /**
+     * The segment going from point 0x0A to point 0x02.
+     */
+    private static final Segment SEGMENT_0A_02 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1_8_BITS);
     /**
      * The segment going from point 0x3C to point 0x02.
      */
