@@ -129,6 +129,8 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
 |------------|---------------------------------------|------------------|-----------------------------------------------|
+| 1          | `00` and `80`                         | `80`             | 190                                           |
+| 2          | `00` and `80`                         | `80`             | 190                                           |
 | 3          | `00` and `60`                         | `A0`             | 192                                           |
 | 4          |                                       |                  |                                               |
 | 5          |                                       |                  |                                               |
@@ -143,6 +145,8 @@ This should produce a short report displaying how to use the program.
 | 14         | `21EC` and `7820`                     | `C7BC`           | 179                                           |
 | 15         |                                       |                  |                                               |
 | 16         | `A352` and `A876`                     | `8607`           | 198                                           |
+| 17         | `1D9280` and `E77B80`                 | `ED2D80`         | 186                                           |
+| 18         | `845C80` and `E239C0`                 | `F4D800`         | 170                                           |
 
 ### SHA-512
 
