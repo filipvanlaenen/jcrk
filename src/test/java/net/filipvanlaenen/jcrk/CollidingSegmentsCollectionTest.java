@@ -25,6 +25,14 @@ public class CollidingSegmentsCollectionTest {
      */
     private static final int FOUR = 4;
     /**
+     * The magic number seven.
+     */
+    private static final int SEVEN = 7;
+    /**
+     * The magic number ten.
+     */
+    private static final int TEN = 10;
+    /**
      * The hash function SHA-1 truncated to 5 bits.
      */
     private static final TruncatedStandardHashFunction TRUNCATED_SHA1_5_BITS =
@@ -47,6 +55,10 @@ public class CollidingSegmentsCollectionTest {
      * The point 0x02.
      */
     private static final Point POINT_02 = new Point((byte) 0x02);
+    /**
+     * The point 0x0A.
+     */
+    private static final Point POINT_0A = new Point((byte) 0x0A);
     /**
      * The point 0x20.
      */
@@ -174,5 +186,17 @@ public class CollidingSegmentsCollectionTest {
         CollidingSegmentsCollection collidingSegments = new CollidingSegmentsCollection(Collection.of(s1, s2));
         Collision collision = collidingSegments.findCollision();
         assertEquals(collision, new Collision(TRUNCATED_SHA1_5_BITS, POINT_E0, POINT_58));
+    }
+
+    /**
+     * Verifies that for a pair of colliding segments of order 4, the collision can be found.
+     */
+    @Test
+    public void findCollisionShouldFindCollisionOfOrder4() {
+        Segment s1 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1_8_BITS);
+        Segment s2 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1_8_BITS);
+        CollidingSegmentsCollection collidingSegments = new CollidingSegmentsCollection(Collection.of(s1, s2));
+        Collision collision = collidingSegments.findCollision();
+        assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
     }
 }

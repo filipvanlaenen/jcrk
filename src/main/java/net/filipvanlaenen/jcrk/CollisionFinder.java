@@ -71,10 +71,11 @@ public class CollisionFinder {
             Collection<Segment> segmentsWithNewEndPoint =
                     segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
             if (segmentsWithNewEndPoint.size() > 1) {
-                PairOfCollidingSegments collidingSegments = new PairOfCollidingSegments(segmentsWithNewEndPoint);
+                CollidingSegmentsCollection collidingSegments =
+                        new CollidingSegmentsCollection(segmentsWithNewEndPoint);
                 Laconic.LOGGER.logProgress("Found two colliding segments with end point %s.",
                         newSegment.getEndPoint().asHexadecimalString());
-                collision = collidingSegments.resolveCollidingSegmentsToCollision();
+                collision = collidingSegments.findCollision();
             }
         }
         Laconic.LOGGER.logProgress(String.format("Found a collision."));
