@@ -9,25 +9,11 @@ import net.filipvanlaenen.kolektoj.Collection;
  * Unit tests on the class PairOfCollidingSegments.
  */
 public class PairOfCollidingSegmentsTest {
-    private static final TruncatedStandardHashFunction TRUNCATED_SHA1_5_BITS =
-            new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 5);
     private static final TruncatedStandardHashFunction TRUNCATED_SHA1_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 8);
-    private static final Point POINT_00 = new Point((byte) 0x00);
     private static final Point POINT_02 = new Point((byte) 0x02);
     private static final Point POINT_0A = new Point((byte) 0x0A);
-    private static final Point POINT_20 = new Point((byte) 0x20);
     private static final Point POINT_3C = new Point((byte) 0x3C);
-    private static final Point POINT_58 = new Point((byte) 0x58);
-    private static final Point POINT_E0 = new Point((byte) 0xE0);
-    /**
-     * The magic number two.
-     */
-    private static final int TWO = 2;
-    /**
-     * The magic number three.
-     */
-    private static final int THREE = 3;
     /**
      * The magic number four.
      */
@@ -55,17 +41,5 @@ public class PairOfCollidingSegmentsTest {
         PairOfCollidingSegments pair = createPairOfCollidingSegments(s1, s2);
         Collision collision = pair.resolveCollidingSegmentsToCollision();
         Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
-    }
-
-    /**
-     * The CollisionFinder finds the collision for a pair of colliding segments for which it has to iterate in the loop.
-     */
-    @Test
-    public void findsCollisionCorrectlyForPairOfCollidingSegmentsOfOrder2() {
-        Segment s1 = new Segment(POINT_00, POINT_20, THREE, TWO, TRUNCATED_SHA1_5_BITS);
-        Segment s2 = new Segment(POINT_20, POINT_20, FOUR, TWO, TRUNCATED_SHA1_5_BITS);
-        PairOfCollidingSegments pair = createPairOfCollidingSegments(s1, s2);
-        Collision collision = pair.resolveCollidingSegmentsToCollision();
-        Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1_5_BITS, POINT_E0, POINT_58));
     }
 }

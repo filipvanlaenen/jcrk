@@ -13,6 +13,23 @@ import net.filipvanlaenen.kolektoj.Collection;
  */
 public class CollidingSegmentsCollectionTest {
     /**
+     * The magic number two.
+     */
+    private static final int TWO = 2;
+    /**
+     * The magic number three.
+     */
+    private static final int THREE = 3;
+    /**
+     * The magic number four.
+     */
+    private static final int FOUR = 4;
+    /**
+     * The hash function SHA-1 truncated to 5 bits.
+     */
+    private static final TruncatedStandardHashFunction TRUNCATED_SHA1_5_BITS =
+            new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 5);
+    /**
      * The hash function SHA-1 truncated to 8 bits.
      */
     private static final TruncatedStandardHashFunction TRUNCATED_SHA1_8_BITS =
@@ -23,17 +40,33 @@ public class CollidingSegmentsCollectionTest {
     private static final TruncatedStandardHashFunction TRUNCATED_SHA256_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
     /**
+     * The point 0x00.
+     */
+    private static final Point POINT_00 = new Point((byte) 0x00);
+    /**
      * The point 0x02.
      */
     private static final Point POINT_02 = new Point((byte) 0x02);
+    /**
+     * The point 0x20.
+     */
+    private static final Point POINT_20 = new Point((byte) 0x20);
     /**
      * The point 0x3C.
      */
     private static final Point POINT_3C = new Point((byte) 0x3C);
     /**
+     * The point 0x58.
+     */
+    private static final Point POINT_58 = new Point((byte) 0x58);
+    /**
      * The point 0xC4.
      */
     private static final Point POINT_C4 = new Point((byte) 0xC4);
+    /**
+     * The point 0xE0.
+     */
+    private static final Point POINT_E0 = new Point((byte) 0xE0);
     /**
      * The segment going from point 0x02 to point 0xC4.
      */
@@ -131,4 +164,15 @@ public class CollidingSegmentsCollectionTest {
         assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
     }
 
+    /**
+     * Verifies that for a pair of colliding segments of order 2, the collision can be found.
+     */
+    @Test
+    public void findCollisionShouldFindCollisionOfOrder2() {
+        Segment s1 = new Segment(POINT_00, POINT_20, THREE, TWO, TRUNCATED_SHA1_5_BITS);
+        Segment s2 = new Segment(POINT_20, POINT_20, FOUR, TWO, TRUNCATED_SHA1_5_BITS);
+        CollidingSegmentsCollection collidingSegments = new CollidingSegmentsCollection(Collection.of(s1, s2));
+        Collision collision = collidingSegments.findCollision();
+        assertEquals(collision, new Collision(TRUNCATED_SHA1_5_BITS, POINT_E0, POINT_58));
+    }
 }
