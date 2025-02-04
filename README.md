@@ -169,6 +169,16 @@ This should produce a short report displaying how to use the program.
 | 38         | `451C2195F8` and `53A570372C`         | `25B2E98EC0`     | 165                                           |
 | 39         | `69BAB2F3AE` and `A3C4EEEA00`         | `6E7BBB22D2`     | 163                                           |
 | 40         | `CC7B481271` and `F6D2CF640C`         | `BDF8CA50B1`     | 161                                           |
+| 41         | `A426C941AA80` and `DAF95F3AD880`     | `8C1295427200`   | 173                                           |
+| 42         | `A74A82DDCE40` and `EA273A84C200`     | `346D2BE12880`   | 163                                           |
+| 43         | `4BD5D1951200` and `686D61AD9100`     | `92D323AE39A0`   | 160                                           |
+| 44         | `40122E9FD6E0` and `C4C620D4FC70`     | `F452B2340FC0`   | 174                                           |
+| 45         | `952EB7DD6150` and `EC2B196B5A08`     | `993879023068`   | 182                                           |
+| 46         | `0F4A383A54F4` and `E5DB5291E43C`     | `D708B5F98974`   | 174                                           |
+| 47         | `23AFD2C49554` and `93B24DA2EF98`     | `F2D6F326BBCA`   | 182                                           |
+| 48         | `025BA0250892` and `46BE11BF4CA2`     | `7A39A0A5C4F9`   | 162                                           |
+| 49         | `4CA693F0210780` and `764D1D0255CB00` | `2F779ABD6B9900` | 166                                           |
+| 50         | `122BBE2AD42840` and `BE98601F8F8FC0` | `9D9ABBAD441CC0` | 170                                           |
 
 ### SHA-512
 
