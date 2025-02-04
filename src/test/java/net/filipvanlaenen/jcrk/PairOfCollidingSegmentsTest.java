@@ -19,7 +19,6 @@ public class PairOfCollidingSegmentsTest {
     private static final Point POINT_20 = new Point((byte) 0x20);
     private static final Point POINT_3C = new Point((byte) 0x3C);
     private static final Point POINT_58 = new Point((byte) 0x58);
-    private static final Point POINT_C4 = new Point((byte) 0xC4);
     private static final Point POINT_E0 = new Point((byte) 0xE0);
     /**
      * The magic number two.
@@ -44,22 +43,6 @@ public class PairOfCollidingSegmentsTest {
 
     private PairOfCollidingSegments createPairOfCollidingSegments(final Segment... segments) {
         return new PairOfCollidingSegments(Collection.of(segments));
-    }
-
-    private PairOfCollidingSegments createCorrectPairOfCollidingSegments() {
-        Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        Segment s2 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        return createPairOfCollidingSegments(s1, s2);
-    }
-
-    /**
-     * The CollisionFinder finds the collision for a pair of colliding segments of order 0.
-     */
-    @Test
-    public void findsCollisionCorrectlyForPairOfCollidingSegmentsOfOrder0() {
-        PairOfCollidingSegments pair = createCorrectPairOfCollidingSegments();
-        Collision collision = pair.resolveCollidingSegmentsToCollision();
-        Assert.assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
     }
 
     /**

@@ -75,6 +75,34 @@ public final class CollidingSegmentsCollection {
     }
 
     /**
+     * Finds a collision.
+     *
+     * @return A collision.
+     */
+    Collision findCollision() {
+        Segment segment0 = segments.getAt(0);
+        Segment segment1 = segments.getAt(1);
+        long segmentLength0 = segment0.getLength();
+        long segmentLength1 = segment1.getLength();
+        long lengthDifference = segmentLength1 - segmentLength0;
+        Point p = segment1.getStartPoint();
+        for (int i = 0; i < lengthDifference; i++) {
+            p = p.hash(hashFunction);
+        }
+        Point segment0Point = segment0.getStartPoint();
+        Point nextSegment0Point = segment0Point.hash(hashFunction);
+        Point segment1Point = p;
+        Point nextSegment1Point = segment1Point.hash(hashFunction);
+        while (!nextSegment0Point.equals(nextSegment1Point)) {
+            segment0Point = nextSegment0Point;
+            nextSegment0Point = segment0Point.hash(hashFunction);
+            segment1Point = nextSegment1Point;
+            nextSegment1Point = segment1Point.hash(hashFunction);
+        }
+        return new Collision(hashFunction, segment0Point, segment1Point);
+    }
+
+    /**
      * Returns the end point of the segments.
      *
      * @return The end point of the segments.
@@ -91,4 +119,5 @@ public final class CollidingSegmentsCollection {
     HashFunction getHashFunction() {
         return hashFunction;
     }
+
 }

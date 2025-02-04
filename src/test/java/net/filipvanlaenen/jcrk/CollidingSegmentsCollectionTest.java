@@ -119,4 +119,16 @@ public class CollidingSegmentsCollectionTest {
                 new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_C4));
         assertEquals(TRUNCATED_SHA1_8_BITS, collidingSegments.getHashFunction());
     }
+
+    /**
+     * Verifies that for a pair of colliding segments of order 0, the collision can be found.
+     */
+    @Test
+    public void findCollisionShouldFindCollisionOfOrder0() {
+        CollidingSegmentsCollection collidingSegments =
+                new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_C4));
+        Collision collision = collidingSegments.findCollision();
+        assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
+    }
+
 }
