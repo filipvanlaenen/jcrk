@@ -77,6 +77,17 @@ public class CollidingSegmentsCollectionTest {
     }
 
     /**
+     * Verifies that the constructor throws an IllegalArgumentException if some of the segments have the same start
+     * points.
+     */
+    @Test
+    public void constructorShouldThrowIllegalArgumentExceptionIfSomeOfTheSegmentsHaveTheSameStartPoints() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_02_C4)));
+        assertEquals("Some segments have the same start point (0x02).", exception.getMessage());
+    }
+
+    /**
      * Verifies that the constructor throws an IllegalArgumentException if the segments have different hash functions.
      */
     @Test
@@ -97,5 +108,15 @@ public class CollidingSegmentsCollectionTest {
         CollidingSegmentsCollection collidingSegments =
                 new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_C4));
         assertEquals(POINT_C4, collidingSegments.getEndPoint());
+    }
+
+    /**
+     * Verifies that the hash function of two segments is extracted correctly.
+     */
+    @Test
+    public void getHashFunctionShouldExtractedTheHashFunctionCorrectly() {
+        CollidingSegmentsCollection collidingSegments =
+                new CollidingSegmentsCollection(Collection.of(SEGMENT_02_C4, SEGMENT_3C_C4));
+        assertEquals(TRUNCATED_SHA1_8_BITS, collidingSegments.getHashFunction());
     }
 }

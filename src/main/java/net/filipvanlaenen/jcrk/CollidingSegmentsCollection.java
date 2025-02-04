@@ -3,6 +3,7 @@ package net.filipvanlaenen.jcrk;
 import java.util.Comparator;
 
 import net.filipvanlaenen.kolektoj.Collection;
+import net.filipvanlaenen.kolektoj.ModifiableCollection;
 import net.filipvanlaenen.kolektoj.SortedCollection;
 
 /**
@@ -51,6 +52,7 @@ public final class CollidingSegmentsCollection {
         Segment segment = segments.get();
         endPoint = segment.getEndPoint();
         hashFunction = segment.getHashFunction();
+        ModifiableCollection<Point> startPoints = ModifiableCollection.empty();
         for (Segment s : segments) {
             if (!s.getEndPoint().equals(endPoint)) {
                 throw new IllegalArgumentException(
@@ -61,6 +63,13 @@ public final class CollidingSegmentsCollection {
                 throw new IllegalArgumentException(
                         String.format("Not all segments have the same hash function (%s ≠ %s).",
                                 s.getHashFunction().toString(), hashFunction.toString()));
+            }
+            Point startPoint = s.getStartPoint();
+            if (startPoints.contains(startPoint)) {
+                throw new IllegalArgumentException(String.format("Some segments have the same start point (0x%s).",
+                        startPoint.asHexadecimalString()));
+            } else {
+                startPoints.add(startPoint);
             }
         }
     }

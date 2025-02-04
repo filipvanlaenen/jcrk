@@ -52,41 +52,6 @@ public class PairOfCollidingSegmentsTest {
         return createPairOfCollidingSegments(s1, s2);
     }
 
-    private void createPairOfCollidingSegmentsWithSameStartPoints() {
-        Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        Segment s2 = new Segment(POINT_02, POINT_C4, 2, 1, TRUNCATED_SHA1_8_BITS);
-        createPairOfCollidingSegments(s1, s2);
-    }
-
-    /**
-     * The constructor throws an IllegalArgumentException if the two segments have the same start point.
-     */
-    @Test(expectedExceptions = {IllegalArgumentException.class})
-    public void constructorThrowsIllegalArgumentExceptionIfSegmentsHaveSameStartEndPoint() {
-        createPairOfCollidingSegmentsWithSameStartPoints();
-    }
-
-    /**
-     * The message of the IllegalArgumentException thrown when the two segments have the same start point is correct.
-     */
-    @Test
-    public void illegalArgumentExceptionMessageCorrectIfSegmentsHaveSameStartEndPoint() {
-        try {
-            createPairOfCollidingSegmentsWithSameStartPoints();
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {
-            Assert.assertEquals(iae.getMessage(), "The start points of the two segments are equal (0x02 = 0x02).");
-        }
-    }
-
-    /**
-     * The constructor extracts the hash function correctly from the two segments.
-     */
-    @Test
-    public void constructorExtractsTheHashFunctionCorrectly() {
-        Assert.assertEquals(createCorrectPairOfCollidingSegments().getHashFunction(), TRUNCATED_SHA1_8_BITS);
-    }
-
     /**
      * The CollisionFinder finds the collision for a pair of colliding segments of order 0.
      */
