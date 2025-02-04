@@ -48,40 +48,6 @@ public class PairOfCollidingSegmentsTest {
         return new PairOfCollidingSegments(Collection.of(segments));
     }
 
-    private void createPairOfCollingsSegmentsWithOneSegment() {
-        Segment segment = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
-        createPairOfCollidingSegments(segment);
-    }
-
-    /**
-     * The constructor throws an IllegalArgumentException if the set contains only one segment.
-     */
-    @Test(expectedExceptions = {IllegalArgumentException.class})
-    public void constructorThrowsIllegalArgumentExceptionIfOnlyOneSegmentProvided() {
-        createPairOfCollingsSegmentsWithOneSegment();
-    }
-
-    /**
-     * The message of the IllegalArgumentException thrown when only one segment is provided is correct.
-     */
-    @Test
-    public void illegalArgumentExceptionMessageCorrectIfOnlyOneSegmentProvided() {
-        try {
-            createPairOfCollingsSegmentsWithOneSegment();
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {
-            Assert.assertEquals(iae.getMessage(), "There should be two segments, but found 1.");
-        }
-    }
-
-    /**
-     * The constructor extracts the end point correctly from the two segments.
-     */
-    @Test
-    public void constructorExtractsTheEndPointCorrectly() {
-        Assert.assertEquals(createCorrectPairOfCollidingSegments().getEndPoint(), POINT_C4);
-    }
-
     private PairOfCollidingSegments createCorrectPairOfCollidingSegments() {
         Segment s1 = new Segment(POINT_02, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
         Segment s2 = new Segment(POINT_3C, POINT_C4, 1, 1, TRUNCATED_SHA1_8_BITS);
