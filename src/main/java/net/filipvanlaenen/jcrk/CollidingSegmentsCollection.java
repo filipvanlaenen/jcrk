@@ -12,6 +12,24 @@ import net.filipvanlaenen.kolektoj.SortedCollection;
  */
 public final class CollidingSegmentsCollection {
     /**
+     * Comparator to sort segments from shortest to longest.
+     */
+    static final Comparator<Segment> SEGMENT_COMPARATOR = new Comparator<Segment>() {
+        @Override
+        public int compare(final Segment s0, final Segment s1) {
+            long l0 = s0.getLength();
+            long l1 = s1.getLength();
+            if (l0 < l1) {
+                return -1;
+            } else if (l0 > l1) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    /**
      * The end point of the segments.
      */
     private final Point endPoint;
@@ -35,20 +53,7 @@ public final class CollidingSegmentsCollection {
                     "There should be at least two segments provided to the constructor, but found only %d.",
                     segments.size()));
         }
-        this.segments = SortedCollection.of(new Comparator<Segment>() {
-            @Override
-            public int compare(final Segment s0, final Segment s1) {
-                long l0 = s0.getLength();
-                long l1 = s1.getLength();
-                if (l0 < l1) {
-                    return -1;
-                } else if (l0 > l1) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }, segments.toArray(new Segment[segments.size()]));
+        this.segments = SortedCollection.of(SEGMENT_COMPARATOR, segments.toArray(new Segment[segments.size()]));
         Segment segment = segments.get();
         endPoint = segment.getEndPoint();
         hashFunction = segment.getHashFunction();

@@ -55,10 +55,12 @@ public class CollidingSegmentsCollectionTest {
      * The point 0x02.
      */
     private static final Point POINT_02 = new Point((byte) 0x02);
+    private static final Segment SEGMENT_02_02 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1_8_BITS);
     /**
      * The point 0x0A.
      */
     private static final Point POINT_0A = new Point((byte) 0x0A);
+    private static final Segment SEGMENT_0A_02 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1_8_BITS);
     /**
      * The point 0x20.
      */
@@ -193,10 +195,33 @@ public class CollidingSegmentsCollectionTest {
      */
     @Test
     public void findCollisionShouldFindCollisionOfOrder4() {
-        Segment s1 = new Segment(POINT_02, POINT_02, SEVEN, FOUR, TRUNCATED_SHA1_8_BITS);
-        Segment s2 = new Segment(POINT_0A, POINT_02, TEN, FOUR, TRUNCATED_SHA1_8_BITS);
-        CollidingSegmentsCollection collidingSegments = new CollidingSegmentsCollection(Collection.of(s1, s2));
+        CollidingSegmentsCollection collidingSegments =
+                new CollidingSegmentsCollection(Collection.of(SEGMENT_02_02, SEGMENT_0A_02));
         Collision collision = collidingSegments.findCollision();
         assertEquals(collision, new Collision(TRUNCATED_SHA1_8_BITS, POINT_02, POINT_3C));
+    }
+
+    /**
+     * Verifies that the comparator returns that a shorter segment is shorter than a long one.
+     */
+    @Test
+    public void segmentComparatorReturnsNegativeNumberWhenComparingShortSegmentToLongSegment() {
+        assertTrue(CollidingSegmentsCollection.SEGMENT_COMPARATOR.compare(SEGMENT_02_02, SEGMENT_0A_02) < 0);
+    }
+
+    /**
+     * Verifies that the comparator returns that a segment is equally long to itself.
+     */
+    @Test
+    public void segmentComparatorReturnsZeroWhenComparingSegmentWithItself() {
+        assertEquals(0, CollidingSegmentsCollection.SEGMENT_COMPARATOR.compare(SEGMENT_02_02, SEGMENT_02_02));
+    }
+
+    /**
+     * Verifies that the comparator returns that a longer segment is longer than a short one.
+     */
+    @Test
+    public void segmentComparatorReturnsPositiveNumberWhenComparingLongSegmentToShortSegment() {
+        assertTrue(CollidingSegmentsCollection.SEGMENT_COMPARATOR.compare(SEGMENT_0A_02, SEGMENT_02_02) > 0);
     }
 }
