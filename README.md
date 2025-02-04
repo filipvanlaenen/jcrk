@@ -184,6 +184,7 @@ This should produce a short report displaying how to use the program.
 | 53         | `70649AD8C683E0` and `C2813A1FC1CD70` | `2FF804F4911010` | 171                                           |
 | 54         | `642CBEA6310260` and `A3426997143CD0` | `9391906B5C8E44` | 154                                           |
 | 55         | `1733D209B6F0DA` and `D66FD950BDE27C` | `2888A74143C4D4` | 161                                           |
+| 56         | `8819474D63E685` and `FA09E326DBA0A2` | `3041d7827d5161` | 178                                           |
 
 ### SHA-512
 
