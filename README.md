@@ -147,6 +147,10 @@ This should produce a short report displaying how to use the program.
 | 16         | `A352` and `A876`                     | `8607`           | 198                                           |
 | 17         | `1D9280` and `E77B80`                 | `ED2D80`         | 186                                           |
 | 18         | `845C80` and `E239C0`                 | `F4D800`         | 170                                           |
+| 19         | `13AEC0` and `3C1A60`                 | `7159E0`         | 194                                           |
+| 20         |                                       |                  |                                               |
+| 21         | `575148` and `6B5C18`                 | `D18E78`         | 181                                           |
+| 22         | `07D394` and `8E7D7C`                 | `DBF490`         | 173                                           |
 
 ### SHA-512
 
