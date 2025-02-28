@@ -156,6 +156,14 @@ This should produce a short report displaying how to use the program.
 | 36         | `AD28DF3140` and `AD5A2EEA80`         | `CA2B61A070`     | 108                                           |
 | 37         | `44A121C0C8` and `ABFB075798`         | `75852B3B60`     | 112                                           |
 | 38         | `5E73C8E22C` and `E0AF51DBBC`         | `76ED034224`     | 109                                           |
+| 39         | `D7FC192B54` and `F2E36F94C6`         | `178831F14E`     | 109                                           |
+| 40         | `8D939755A3` and `CA8E37A8C0`         | `27F458F3A3`     | 106                                           |
+| 41         | `9D250BBDF700` and `E61642EF0480`     | `1A16BCB12580`   | 105                                           |
+| 42         | `63BF99AAE7C0` and `69E4DF067440`     | `C5A27DF4EA40`   | 103                                           |
+| 43         | `05396756D4A0` and `6948A690EAE0`     | `EB2D015C5440`   | 114                                           |
+| 44         | `8347F1AC3720` and `B140C3DAA040`     | `CB994F1318E0`   | 101                                           |
+| 45         | `204A4F4AF348` and `32A4A16EB1B8`     | `BF989B575B60`   | 106                                           |
+| 46         | `867CA345B740` and `E0B784E396F4`     | `95A8287062E4`   | 106                                           |
 
 ### SHA-384
 
