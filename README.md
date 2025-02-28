@@ -116,14 +116,18 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-256
 
-| Bit Length | Points                                | Hash Value       |
-|------------|---------------------------------------|------------------|
-| 3          | `00` and `80`                         | `60`             |
-| 4          | `80` and `E0`                         | `70`             |
-| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
-| 6          | `6C` and `D8`                         | `AC`             |
-| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
-| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
+| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
+|------------|---------------------------------------|------------------|-----------------------------------------------|
+| 1          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 2          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 3          | `00` and `80`                         | `60`             | 120                                           |
+| 4          | `80` and `E0`                         | `70`             | 130                                           |
+| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 6          | `6C` and `D8`                         | `AC`             | 125                                           |
+| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 9          | `6380` and `9680`                     | `E000`           | 119                                           |
+| 10         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 
 ### SHA-384
 
