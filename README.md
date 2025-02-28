@@ -128,6 +128,16 @@ This should produce a short report displaying how to use the program.
 | 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 9          | `6380` and `9680`                     | `E000`           | 119                                           |
 | 10         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 11         | `2EC0` and `B880`                     | `5AA0`           | 126                                           |
+| 12         | `7A20` and `D3A0`                     | `F400`           | 129                                           |
+| 13         | `4F10` and `5A18`                     | `8DD0`           | 132                                           |
+| 14         | `7FE0` and `FE24`                     | `0898`           | 119                                           |
+| 15         | `DC2A` and `E8BA`                     | `CA38`           | 130                                           |
+| 16         | `2B1F` and `393F`                     | `44E0`           | 124                                           |
+| 17         | `79DB80` and `C7C680`                 | `2B5680`         | 117                                           |
+| 18         | `021C80` and `1F53C0`                 | `010BC0`         | 117                                           |
+| 19         | `143B20` and `B0FBE0`                 | `645CC0`         | 123                                           |
+| 20         | `2A0EB0` and `3A7660`                 | `207940`         | 113                                           |
 
 ### SHA-384
 
