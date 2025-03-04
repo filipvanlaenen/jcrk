@@ -240,6 +240,13 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-512
 
-| Bit Length | Points                                | Hash Value       |
-|------------|---------------------------------------|------------------|
-| 3          | `60` and `A0`                         | `60`             |
+| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
+|------------|---------------------------------------|------------------|-----------------------------------------------|
+| 1          | `00` and `80`                         | `80`             | 256                                           |
+| 2          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 3          | `60` and `A0`                         | `60`             | 249                                           |
+| 4          | `30` and `B0`                         | `30`             | 253                                           |
+| 5          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 6          | `A0` and `DC`                         | `70`             | 264                                           |
+| 7          | `72` and `E8`                         | `A8`             | 236                                           |
+| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
