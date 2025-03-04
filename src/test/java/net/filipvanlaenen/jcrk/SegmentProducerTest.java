@@ -1,6 +1,8 @@
 package net.filipvanlaenen.jcrk;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,7 +40,7 @@ public class SegmentProducerTest {
     public void shouldProduceZeroPointIfSegmentRepositoryIsEmpty() {
         SegmentRepository repository = createEmptyInMemorySegmentRepository();
         Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
-        Assert.assertEquals(ZERO_POINT, point);
+        assertEquals(ZERO_POINT, point);
     }
 
     /**
@@ -53,7 +55,7 @@ public class SegmentProducerTest {
         Point expectedNewStartPoint = segment.getEndPoint();
         repository.add(segment);
         Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
-        Assert.assertEquals(expectedNewStartPoint, point);
+        assertEquals(expectedNewStartPoint, point);
     }
 
     /**
@@ -71,7 +73,7 @@ public class SegmentProducerTest {
         repository.add(segment2);
         Point expectedNewStartPoint = segment2.getEndPoint();
         Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
-        Assert.assertEquals(expectedNewStartPoint, point);
+        assertEquals(expectedNewStartPoint, point);
     }
 
     /**
@@ -85,7 +87,7 @@ public class SegmentProducerTest {
         segment.extend();
         repository.add(segment);
         Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repository);
-        Assert.assertEquals(ZERO_POINT, point);
+        assertEquals(ZERO_POINT, point);
     }
 
     /**
@@ -96,6 +98,6 @@ public class SegmentProducerTest {
         SegmentRepository repositoryForOneBit = new InMemorySegmentRepository(TRUNCATED_1_SHA1);
         repositoryForOneBit.add(new Segment(ZERO_POINT, ZERO_POINT, 1, 0, TRUNCATED_1_SHA1));
         Point point = SegmentProducer.ZeroPointSegmentChainExtension.findNewStartPoint(repositoryForOneBit);
-        Assert.assertNull(point);
+        assertNull(point);
     }
 }
