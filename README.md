@@ -300,3 +300,4 @@ This should produce a short report displaying how to use the program.
 | 56         | `9B4714EF012E06` and `BB81FCF0B54770`     | `DD53F8AEFB44A9`   | 227                                           |
 | 57         | `0E8B8D33147B4F00` and `5DC239145E015A80` | `871B9DA07645BF80` | 208                                           |
 | 58         | `2A3D1262ADCE2580` and `3DB5A1B92A5DC300` | `DE3CDE6687455FC0` | 234                                           |
+| 59         | `1CB4EDD5EBCCE280` and `AEB431C93655D100` | `75B4AA9DD19578C0` | 221                                           |
