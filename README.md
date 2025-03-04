@@ -250,3 +250,11 @@ This should produce a short report displaying how to use the program.
 | 6          | `A0` and `DC`                         | `70`             | 264                                           |
 | 7          | `72` and `E8`                         | `A8`             | 236                                           |
 | 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 9          | `0F80` and `6480`                     | `C100`           | 233                                           |
+| 10         | `0000` and `2240`                     | `5E80`           | 266                                           |
+| 11         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 12         | `9B00` and `AFF0`                     | `3B40`           | 246                                           |
+| 13         | `0970` and `3DC0`                     | `2260`           | 263                                           |
+| 14         | `5EA4` and `E824`                     | `A920`           | 237                                           |
+| 15         | `D7B4` and `F704`                     | `1438`           | 236                                           |
+| 16         | `64B0` and `8AB4`                     | `EE99`           | 256                                           |
