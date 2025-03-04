@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * A point in Pollard's rho collision search.
  */
-public class Point {
+public final class Point {
     /**
      * The bytes of this point.
      */
@@ -16,7 +16,7 @@ public class Point {
      *
      * @param bytes The bytes of this point.
      */
-    Point(byte... bytes) {
+    Point(final byte... bytes) {
         this.bytes = bytes.clone();
     }
 
@@ -35,7 +35,7 @@ public class Point {
 
     /**
      * Returns a hexadecimal representation of the point.
-     * 
+     *
      * @return A string representing the point in hexadecimal notation.
      */
     public String asHexadecimalString() {
@@ -53,7 +53,7 @@ public class Point {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         return other instanceof Point && Arrays.equals(bytes, ((Point) other).bytes);
     }
 
@@ -80,12 +80,11 @@ public class Point {
 
     /**
      * Produces a new point with the hash value of this point under the given hash function.
-     * 
+     *
      * @param hashFunction The hash function that should be used to hash this point.
-     * 
      * @return A new point that's the hash value of this point under the given hash function.
      */
-    public Point hash(HashFunction hashFunction) {
+    public Point hash(final HashFunction hashFunction) {
         return new Point(hashFunction.hash(bytes));
     }
 
@@ -94,10 +93,15 @@ public class Point {
         return Arrays.hashCode(bytes);
     }
 
+    /**
+     * Returns the order of this point.
+     *
+     * @return The order.
+     */
     int order() {
         String binary = asBinaryString();
         int order = 0;
-        while ((order < binary.length() && binary.charAt(order) == '0')) {
+        while (order < binary.length() && binary.charAt(order) == '0') {
             order += 1;
         }
         return order;
