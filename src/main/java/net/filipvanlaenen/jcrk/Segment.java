@@ -30,10 +30,26 @@ public final class Segment {
      */
     private final HashFunction hashFunction;
 
+    /**
+     * Constructs a segment using a start point, order and a hash function, and defaults the other segment values.
+     *
+     * @param startPoint   The start point.
+     * @param order        The order.
+     * @param hashFunction The hash function.
+     */
     Segment(final Point startPoint, final int order, final HashFunction hashFunction) {
         this(startPoint, startPoint, 0, order, hashFunction);
     }
 
+    /**
+     * Constructs a segment using a start point, end point, length, order and hash function.
+     *
+     * @param startPoint   The start point.
+     * @param endPoint     The end point.
+     * @param length       The length.
+     * @param order        The order.
+     * @param hashFunction The hash function.
+     */
     Segment(final Point startPoint, final Point endPoint, final long length, final int order,
             final HashFunction hashFunction) {
         if (startPoint.order() < order) {
@@ -51,26 +67,25 @@ public final class Segment {
         this.hashFunction = hashFunction;
     }
 
-    Point getStartPoint() {
-        return startPoint;
+    /**
+     * Adds a value to the (Java) hash code.
+     *
+     * @param hashCode The original (Java) hash code.
+     * @param value    The value to be added.
+     * @return The new (Java) hash code.
+     */
+    private int addValueToHashCode(final int hashCode, final int value) {
+        return THIRTY_ONE * hashCode + value;
     }
 
-    Point getEndPoint() {
-        return endPoint;
+    @Override
+    public boolean equals(final Object other) {
+        return other instanceof Segment && isEqual((Segment) other);
     }
 
-    long getLength() {
-        return length;
-    }
-
-    int getOrder() {
-        return order;
-    }
-
-    boolean isComplete() {
-        return length > 0 && endPoint.order() >= order;
-    }
-
+    /**
+     * Extends the segment by adding one point to it.
+     */
     void extend() {
         if (isComplete()) {
             throw new IllegalStateException("A complete segment cannot be extended.");
@@ -79,25 +94,49 @@ public final class Segment {
         length++;
     }
 
+    /**
+     * Returns the end point.
+     *
+     * @return The end point.
+     */
+    Point getEndPoint() {
+        return endPoint;
+    }
+
+    /**
+     * Returns the hash function.
+     *
+     * @return The hash function.
+     */
     HashFunction getHashFunction() {
         return hashFunction;
     }
 
-    @Override
-    public boolean equals(final Object other) {
-        return other instanceof Segment && isEqual((Segment) other);
+    /**
+     * Returns the length.
+     *
+     * @return The length.
+     */
+    long getLength() {
+        return length;
     }
 
-    private boolean isEqual(final Segment other) {
-        return isSpatiallyEqual(other) && order == other.order && hashFunction == other.hashFunction;
+    /**
+     * Returns the order.
+     *
+     * @return The order.
+     */
+    int getOrder() {
+        return order;
     }
 
-    private boolean isSpatiallyEqual(final Segment other) {
-        return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
-    }
-
-    private int addValueToHashCode(final int hashCode, final int value) {
-        return THIRTY_ONE * hashCode + value;
+    /**
+     * Returns the start point.
+     *
+     * @return The start point.
+     */
+    Point getStartPoint() {
+        return startPoint;
     }
 
     @Override
@@ -107,5 +146,35 @@ public final class Segment {
         hashCode = addValueToHashCode(hashCode, (int) length);
         hashCode = addValueToHashCode(hashCode, order);
         return addValueToHashCode(hashCode, hashFunction.hashCode());
+    }
+
+    /**
+     * Checks whether the segment is complete. The segment is complete if its length is larger than zero and the order
+     * at least as a the required order.
+     *
+     * @return True if the segment is complete, and false otherwise.
+     */
+    boolean isComplete() {
+        return length > 0 && endPoint.order() >= order;
+    }
+
+    /**
+     * Checks whether a segment is equal to another segment.
+     *
+     * @param other The other segment.
+     * @return True if the segments are equal, and false otherwise.
+     */
+    private boolean isEqual(final Segment other) {
+        return isSpatiallyEqual(other) && order == other.order && hashFunction == other.hashFunction;
+    }
+
+    /**
+     * Checks whether a segment is spatially equal to another segment.
+     *
+     * @param other The other segment.
+     * @return True if the segments are spatially equal, and false otherwise.
+     */
+    private boolean isSpatiallyEqual(final Segment other) {
+        return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
     }
 }
