@@ -274,3 +274,11 @@ This should produce a short report displaying how to use the program.
 | 30         | `26EFC840` and `33F59208`             | `E18617C8`       | 246                                           |
 | 31         | `77B3BD5C` and `8401B934`             | `DDB599B2`       | 223                                           |
 | 32         | `2FCD62A7` and `9D3FFD54`             | `F7C1A3B0`       | 250                                           |
+| 33         | `F383767A00` and `FD44177B00`         | `DADBB95200`     | 257                                           |
+| 34         | `4413258BC0` and `83589C5C00`         | `5AD09B5400`     | 241                                           |
+| 35         | `4B66499FE0` and `7A07C2CFE0`         | `8B723BBD00`     | 248                                           |
+| 36         | `6F72CD4DC0` and `B776EB2650`         | `2B199D43E0`     | 239                                           |
+| 37         | `1B9A2009F0` and `4A83445788`         | `CD3CBE8F50`     | 239                                           |
+| 38         | `887FE97F88` and `C771B730F8`         | `FDCFF4E098`     | 236                                           |
+| 39         | `84FDD556C2` and `B224B8031C`         | `730CBFDB46`     | 231                                           |
+| 40         | `3E3F903B30` and `DD7E3C3445`         | `A09BDD977D`     | 250                                           |
