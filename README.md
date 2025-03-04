@@ -266,3 +266,11 @@ This should produce a short report displaying how to use the program.
 | 22         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 23         | `086E3A` and `77C636`                 | `A06772`         | 255                                           |
 | 24         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 25         | `539A9080` and `F2171900`             | `4A4DB200`       | 245                                           |
+| 26         | `5139E9C0` and `D8641740`             | `F4D546C0`       | 240                                           |
+| 27         | `52BC4FE0` and `84819D40`             | `84BDD0C0`       | 236                                           |
+| 28         | `7B4FF550` and `CCC92A70`             | `C9102DC0`       | 235                                           |
+| 29         | `34575220` and `847876A8`             | `C386E7A0`       | 249                                           |
+| 30         | `26EFC840` and `33F59208`             | `E18617C8`       | 246                                           |
+| 31         | `77B3BD5C` and `8401B934`             | `DDB599B2`       | 223                                           |
+| 32         | `2FCD62A7` and `9D3FFD54`             | `F7C1A3B0`       | 250                                           |
