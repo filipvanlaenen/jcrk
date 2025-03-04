@@ -11,7 +11,7 @@ public enum SegmentRepositoryCompressionCondition {
     SizeLargerThanHalfOrderPowerOfTwo {
         @Override
         boolean evaluate(final SegmentRepository segmentRepository) {
-            return segmentRepository.size() > Math.pow(2, (segmentRepository.getOrder() / 2.0));
+            return segmentRepository.size() > Math.pow(2, segmentRepository.getOrder() / 2.0);
         }
     };
 
