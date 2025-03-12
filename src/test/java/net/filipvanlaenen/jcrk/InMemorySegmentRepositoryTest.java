@@ -2,6 +2,7 @@ package net.filipvanlaenen.jcrk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -256,5 +257,69 @@ public class InMemorySegmentRepositoryTest {
         repository.add(new Segment(POINT_00, POINT_01, 1, SEVEN, SHA256_TRUNCATED_TO_8_BITS));
         repository.add(new Segment(POINT_01, POINT_00, 1, SEVEN, SHA256_TRUNCATED_TO_8_BITS));
         assertTrue(repository.isFull());
+    }
+
+    /**
+     * By default, the repository is empty.
+     */
+    @Test
+    public void byDefaultTheRepositoryIsEmpty() {
+        assertTrue(createNewSegmentRepository().isEmpty());
+    }
+
+    /**
+     * By default, the repository's size is zero.
+     */
+    @Test
+    public void byDefaultTheRepositoryHasSizeZero() {
+        assertEquals(createNewSegmentRepository().size(), 0);
+    }
+
+    /**
+     * If there's no segment with the start point, the method getSegmentWithStartPoint returns null.
+     */
+    @Test
+    public void getSegmentWithStartPointReturnsNullIfStartPointIsAbsent() {
+        assertNull(createNewSegmentRepository().getSegmentWithStartPoint(POINT_00));
+    }
+
+    /**
+     * If there's no segment with the start point, the method containsSegmentWithStartPoint returns false.
+     */
+    @Test
+    public void containsSegmentWithStartPointReturnsFalseIfStartPointIsAbsent() {
+        assertFalse(createNewSegmentRepository().containsSegmentWithStartPoint(POINT_00));
+    }
+
+    /**
+     * If there's no segment with the end point, the method getSegmentsWithEndPoint returns an empty set.
+     */
+    @Test
+    public void getSegmentsWithEndPointReturnsEmptySetIfEndPointIsAbsent() {
+        assertTrue(createNewSegmentRepository().getSegmentsWithEndPoint(POINT_6E).isEmpty());
+    }
+
+    /**
+     * If there's no segment with the end point, the method containsSegmentsWithEndPoint returns false.
+     */
+    @Test
+    public void containsSegmentsWithEndPointReturnsFalseIfEndPointIsAbsent() {
+        assertFalse(createNewSegmentRepository().containsSegmentsWithEndPoint(POINT_6E));
+    }
+
+    /**
+     * By default, the repository's order is zero.
+     */
+    @Test
+    public void byDefaultTheRepositoryHasOrderZero() {
+        assertEquals(createNewSegmentRepository().getOrder(), 0);
+    }
+
+    /**
+     * An empty repository isn't full.
+     */
+    @Test
+    public void emptyRepositoryIsNotFull() {
+        assertFalse(createNewSegmentRepository().isFull());
     }
 }
