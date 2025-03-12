@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static net.filipvanlaenen.jcrk.StandardHashFunction.SHA256;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,14 +15,17 @@ import org.junit.jupiter.api.Test;
  */
 public class InMemorySegmentRepositoryTest {
     /**
+     * The magic number three.
+     */
+    private static final int THREE = 3;
+    /**
      * The magic number seven.
      */
     private static final int SEVEN = 7;
     /**
      * The hash function SHA-256 truncated to 8 bits.
      */
-    private static final HashFunction SHA256_TRUNCATED_TO_8_BITS =
-            new TruncatedStandardHashFunction(StandardHashFunction.SHA256, 8);
+    private static final HashFunction SHA256_TRUNCATED_TO_8_BITS = new TruncatedStandardHashFunction(SHA256, 8);
     /**
      * The point 0x00.
      */
@@ -30,9 +35,33 @@ public class InMemorySegmentRepositoryTest {
      */
     private static final Point POINT_01 = new Point((byte) 0x01);
     /**
+     * The point 0x20.
+     */
+    private static final Point POINT_20 = new Point((byte) 0x20);
+    /**
+     * The point 0x21.
+     */
+    private static final Point POINT_21 = new Point((byte) 0x21);
+    /**
+     * The point 0x40.
+     */
+    private static final Point POINT_40 = new Point((byte) 0x40);
+    /**
+     * The point 0x41.
+     */
+    private static final Point POINT_41 = new Point((byte) 0x41);
+    /**
      * The point 0x6E.
      */
     private static final Point POINT_6E = new Point((byte) 0x6e);
+    /**
+     * The point 0xFD.
+     */
+    private static final Point POINT_FD = new Point((byte) 0xFD);
+    /**
+     * The point 0xFE.
+     */
+    private static final Point POINT_FE = new Point((byte) 0xFE);
     /**
      * The point 0xFF.
      */
@@ -44,11 +73,20 @@ public class InMemorySegmentRepositoryTest {
             new Segment(POINT_00, POINT_6E, 1, 0, SHA256_TRUNCATED_TO_8_BITS);
 
     /**
-     * Creates a new, empty segment repository.
+     * Creates a new, empty segment repository for SHA-256.
      *
-     * @return A new, empty segment repository.
+     * @return A new, empty segment repository for SHA-256.
      */
-    public SegmentRepository createNewSegmentRepository() {
+    public SegmentRepository createNewSha256SegmentRepository() {
+        return new InMemorySegmentRepository(SHA256);
+    }
+
+    /**
+     * Creates a new, empty segment repository for truncated SHA-256.
+     *
+     * @return A new, empty segment repository for truncated SHA-256.
+     */
+    public SegmentRepository createNewTruncatedSha256SegmentRepository() {
         return new InMemorySegmentRepository(SHA256_TRUNCATED_TO_8_BITS);
     }
 
@@ -57,7 +95,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void constructorSetsTheHashFunctionCorrectly() {
-        assertEquals(createNewSegmentRepository().getHashFunction(), SHA256_TRUNCATED_TO_8_BITS);
+        assertEquals(createNewTruncatedSha256SegmentRepository().getHashFunction(), SHA256_TRUNCATED_TO_8_BITS);
     }
 
     /**
@@ -65,7 +103,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryIsNotEmptyAfterAddingASegment() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertFalse(repository.isEmpty());
     }
@@ -75,7 +113,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryIsNotFullAfterAddingASegment() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertFalse(repository.isFull());
     }
@@ -85,7 +123,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryHasSizeOneAfterAddingASegment() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertEquals(repository.size(), 1);
     }
@@ -95,7 +133,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void addReturnsFalseIfSegmentWasAlreadyPresent() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertFalse(repository.add(SEGMENT_FOR_POINT_ZERO));
     }
@@ -105,7 +143,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryHasSizeOneAfterAddingTheSameSegmentTwice() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertEquals(repository.size(), 1);
@@ -116,7 +154,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void addReturnsTrueIfSegmentIsAdded() {
-        assertTrue(createNewSegmentRepository().add(SEGMENT_FOR_POINT_ZERO));
+        assertTrue(createNewTruncatedSha256SegmentRepository().add(SEGMENT_FOR_POINT_ZERO));
     }
 
     /**
@@ -124,7 +162,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void segmentCanBeRetrievedByItsStartPointAfterAddingIt() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertEquals(repository.getSegmentWithStartPoint(POINT_00), SEGMENT_FOR_POINT_ZERO);
     }
@@ -134,7 +172,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void containsSegmentWithStartPointReturnsTrueAfterAddingASegmentWithThePointAsItsStartPoint() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertTrue(repository.containsSegmentWithStartPoint(POINT_00));
     }
@@ -144,7 +182,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void segmentIsIncludedInResultRetrievedByEndPointAfterAddingIt() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertTrue(repository.getSegmentsWithEndPoint(POINT_6E).contains(SEGMENT_FOR_POINT_ZERO));
     }
@@ -154,7 +192,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void containsSegmentsWithEndPointReturnsTrueAfterAddingASegmentWithThePointAsItsEndPoint() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         assertTrue(repository.containsSegmentsWithEndPoint(POINT_6E));
     }
@@ -164,7 +202,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void segmentsAreIncludedInResultRetrievedByEndPointAfterAddingThem() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.add(SEGMENT_FOR_POINT_ZERO);
         Segment otherSegment = new Segment(POINT_6E, POINT_6E, 1, 0, SHA256_TRUNCATED_TO_8_BITS);
         repository.add(otherSegment);
@@ -177,7 +215,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryThrowsIllegalArgumentExceptionIfTheSegmentHasTheWrongOrder() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         Segment segment = new Segment(POINT_6E, POINT_6E, 1, 1, SHA256_TRUNCATED_TO_8_BITS);
         assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
     }
@@ -187,7 +225,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void messageOfIllegalArgumentExceptionWhenWrongOrderMustBeCorrect() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         Segment segment = new Segment(POINT_6E, POINT_6E, 1, 1, SHA256_TRUNCATED_TO_8_BITS);
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
@@ -200,7 +238,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryThrowsIllegalArgumentExceptionIfTheSegmentHasTheWrongHashFunction() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, StandardHashFunction.SHA256);
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
@@ -213,7 +251,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void messageOfIllegalArgumentExceptionWhenWrongHashFunctionMustBeCorrect() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, StandardHashFunction.SHA256);
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
@@ -226,7 +264,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryThrowsIllegalArgumentExceptionIfSegmentIsIncomplete() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.compressToNextOrder();
         Segment segment = new Segment(POINT_00, POINT_FF, 1, 1, SHA256_TRUNCATED_TO_8_BITS);
         assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
@@ -237,7 +275,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void messageOfIllegalArgumentExceptionWhenSegmentIsIncompleteMustBeCorrect() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         repository.compressToNextOrder();
         Segment segment = new Segment(POINT_00, POINT_FF, 1, 1, SHA256_TRUNCATED_TO_8_BITS);
         IllegalArgumentException exception =
@@ -250,7 +288,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void repositoryOfOrderSevenIsFullIfItContainsTwoSegmentsForAnEightBitHashfunction() {
-        SegmentRepository repository = createNewSegmentRepository();
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
         for (int i = 1; i <= SEVEN; i++) {
             repository.compressToNextOrder();
         }
@@ -264,7 +302,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void byDefaultTheRepositoryIsEmpty() {
-        assertTrue(createNewSegmentRepository().isEmpty());
+        assertTrue(createNewTruncatedSha256SegmentRepository().isEmpty());
     }
 
     /**
@@ -272,7 +310,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void byDefaultTheRepositoryHasSizeZero() {
-        assertEquals(createNewSegmentRepository().size(), 0);
+        assertEquals(createNewTruncatedSha256SegmentRepository().size(), 0);
     }
 
     /**
@@ -280,7 +318,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void getSegmentWithStartPointReturnsNullIfStartPointIsAbsent() {
-        assertNull(createNewSegmentRepository().getSegmentWithStartPoint(POINT_00));
+        assertNull(createNewTruncatedSha256SegmentRepository().getSegmentWithStartPoint(POINT_00));
     }
 
     /**
@@ -288,7 +326,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void containsSegmentWithStartPointReturnsFalseIfStartPointIsAbsent() {
-        assertFalse(createNewSegmentRepository().containsSegmentWithStartPoint(POINT_00));
+        assertFalse(createNewTruncatedSha256SegmentRepository().containsSegmentWithStartPoint(POINT_00));
     }
 
     /**
@@ -296,7 +334,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void getSegmentsWithEndPointReturnsEmptySetIfEndPointIsAbsent() {
-        assertTrue(createNewSegmentRepository().getSegmentsWithEndPoint(POINT_6E).isEmpty());
+        assertTrue(createNewTruncatedSha256SegmentRepository().getSegmentsWithEndPoint(POINT_6E).isEmpty());
     }
 
     /**
@@ -304,7 +342,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void containsSegmentsWithEndPointReturnsFalseIfEndPointIsAbsent() {
-        assertFalse(createNewSegmentRepository().containsSegmentsWithEndPoint(POINT_6E));
+        assertFalse(createNewTruncatedSha256SegmentRepository().containsSegmentsWithEndPoint(POINT_6E));
     }
 
     /**
@@ -312,7 +350,7 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void byDefaultTheRepositoryHasOrderZero() {
-        assertEquals(createNewSegmentRepository().getOrder(), 0);
+        assertEquals(createNewTruncatedSha256SegmentRepository().getOrder(), 0);
     }
 
     /**
@@ -320,6 +358,100 @@ public class InMemorySegmentRepositoryTest {
      */
     @Test
     public void emptyRepositoryIsNotFull() {
-        assertFalse(createNewSegmentRepository().isFull());
+        assertFalse(createNewTruncatedSha256SegmentRepository().isFull());
+    }
+
+    /**
+     * Compressing a repository increases its order.
+     */
+    public void compressionIncreasesRepositorysOrder() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.compressToNextOrder();
+        assertEquals(repository.getOrder(), 1);
+    }
+
+    /**
+     * Compressing an empty repository results in an empty repository.
+     */
+    @Test
+    public void compressionOfEmptyRepositoryProducesEmptyRepository() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.compressToNextOrder();
+        assertTrue(repository.isEmpty());
+    }
+
+    /**
+     * Compression keeps segments of a higher order.
+     */
+    @Test
+    public void segmentOfHigherOrderIsKeptDuringCompression() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.compressToNextOrder();
+        repository.add(new Segment(POINT_20, POINT_21, 1, 1, SHA256));
+        repository.compressToNextOrder();
+        assertTrue(repository.contains(new Segment(POINT_20, POINT_21, 1, 2, SHA256)));
+    }
+
+    /**
+     * Compression doesn't keep lower order segments.
+     */
+    @Test
+    public void lowerOrderSegmentsAreRemovedDuringCompression() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.add(new Segment(POINT_40, POINT_FF, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FE, POINT_40, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FD, POINT_FF, 1, 0, SHA256));
+        repository.compressToNextOrder();
+        assertTrue(repository.isEmpty());
+    }
+
+    /**
+     * Compression clears the map with the end points.
+     */
+    @Test
+    public void compressionClearsMapWithEndPoints() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.add(new Segment(POINT_40, POINT_FF, 1, 0, SHA256));
+        repository.compressToNextOrder();
+        assertFalse(repository.containsSegmentsWithEndPoint(POINT_FF));
+    }
+
+    /**
+     * Compression combines two lower order segments into a higher segment if possible.
+     */
+    @Test
+    public void compressionCombinesTwoLowerOrderSegmentsIntoAHigherOrderSegment() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.add(new Segment(POINT_40, POINT_FF, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FF, POINT_41, 1, 0, SHA256));
+        repository.compressToNextOrder();
+        assertTrue(repository.contains(new Segment(POINT_40, POINT_41, 2, 1, SHA256)));
+    }
+
+    /**
+     * Compression combines two lower order segments into a higher segment if possible, but progress after the new
+     * distinguished point.
+     */
+    @Test
+    public void compressionStopsCombiningLowerOrderSegmentsAfterFirstHigherOrderDistinguishedPoint() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.add(new Segment(POINT_40, POINT_FF, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FF, POINT_41, 1, 0, SHA256));
+        repository.add(new Segment(POINT_41, POINT_FE, 1, 0, SHA256));
+        repository.compressToNextOrder();
+        assertTrue(repository.contains(new Segment(POINT_40, POINT_41, 2, 1, SHA256)));
+    }
+
+    /**
+     * Compression combines three lower order segments into a higher segment if possible.
+     */
+    @Test
+    public void compressionCombinesThreeLowerOrderSegmentsIntoAHigherOrderSegment() {
+        SegmentRepository repository = createNewSha256SegmentRepository();
+        repository.add(new Segment(POINT_40, POINT_FF, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FF, POINT_FE, 1, 0, SHA256));
+        repository.add(new Segment(POINT_FE, POINT_41, 1, 0, SHA256));
+        repository.compressToNextOrder();
+        assertTrue(repository.contains(new Segment(POINT_40, POINT_41, THREE, 1, SHA256)));
     }
 }
