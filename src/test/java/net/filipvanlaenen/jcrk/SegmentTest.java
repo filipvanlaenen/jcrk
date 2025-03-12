@@ -33,6 +33,14 @@ public class SegmentTest {
      */
     private static final Point POINT_ZERO = new Point(new byte[THIRTY_TWO]);
     /**
+     * Point 0x00.
+     */
+    private static final Point POINT_00 = new Point((byte) 0);
+    /**
+     * Point 0x01.
+     */
+    private static final Point POINT_01 = new Point((byte) 1);
+    /**
      * Point 0x20.
      */
     private static final Point POINT_20 = new Point(BYTE_0X20);
@@ -268,5 +276,94 @@ public class SegmentTest {
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, POINT_20, 2, -1, SHA256));
         assertEquals("The order (-1) is negative.", exception.getMessage());
+    }
+
+    /**
+     * Creates a segment to run the unit tests on.
+     *
+     * @return A segment to run the unit tests on.
+     */
+    public Segment createSegment() {
+        return new Segment(POINT_00, POINT_01, 1, 1, SHA256);
+    }
+
+    /**
+     * A segment is not equal with a point (as an example of an object of another type).
+     */
+    @Test
+    public void segmentNotEqualWithPoint() {
+        assertFalse(createSegment().equals(POINT_00));
+    }
+
+    /**
+     * A segment is equal with itself.
+     */
+    @Test
+    public void segmentIsEqualWithItself() {
+        Segment segment = createSegment();
+        assertEquals(segment, segment);
+    }
+
+    /**
+     * Two segments with the same start and end point, length, order and hash function are equal.
+     */
+    @Test
+    public void equalSegmentsAreEqual() {
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        assertEquals(createSegment(), otherSegment);
+    }
+
+    /**
+     * Equal segments have the same hashCode.
+     */
+    @Test
+    public void equalSegmentsHaveSameHashCode() {
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        assertEquals(createSegment().hashCode(), otherSegment.hashCode());
+    }
+
+    /**
+     * Two segments are not equal if they have different start points.
+     */
+    @Test
+    public void segmentsNotEqualIfStartPointDifferent() {
+        Segment otherSegment = new Segment(POINT_01, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        assertFalse(createSegment().equals(otherSegment));
+    }
+
+    /**
+     * Two segments are not equal if they have different end points.
+     */
+    @Test
+    public void segmentsNotEqualIfEndPointDifferent() {
+        Segment otherSegment = new Segment(POINT_00, POINT_00, 1, 1, StandardHashFunction.SHA256);
+        assertFalse(createSegment().equals(otherSegment));
+    }
+
+    /**
+     * Two segments are not equal if they have different lengths.
+     */
+    @Test
+    public void segmentsNotEqualIfLengthDifferent() {
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 2, 1, StandardHashFunction.SHA256);
+        assertFalse(createSegment().equals(otherSegment));
+    }
+
+    /**
+     * Two segments are not equal if they have different orders.
+     */
+    @Test
+    public void segmentsNotEqualIfOrderDifferent() {
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 2, StandardHashFunction.SHA256);
+        assertFalse(createSegment().equals(otherSegment));
+    }
+
+    /**
+     * Two segments are not equal if they have different hash functions.
+     */
+    @Test
+    public void segmentsNotEqualIfHashFunctionDifferent() {
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA1);
+        assertFalse(createSegment().equals(otherSegment));
     }
 }
