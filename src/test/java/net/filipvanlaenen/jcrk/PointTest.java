@@ -1,8 +1,12 @@
 package net.filipvanlaenen.jcrk;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.Test;
+
+import net.filipvanlaenen.kolektoj.Map;
+import net.filipvanlaenen.kolektoj.Map.Entry;
 
 /**
  * Unit tests on the Point class.
@@ -15,46 +19,62 @@ public class PointTest {
     /**
      * The byte 0x00.
      */
-    private static final byte BYTE_0X00 = 0x00;
+    private static final Byte BYTE_0X00 = 0x00;
     /**
      * The byte 0x01.
      */
-    private static final byte BYTE_0X01 = 0x01;
+    private static final Byte BYTE_0X01 = 0x01;
     /**
      * The byte 0x23.
      */
-    private static final byte BYTE_0X23 = 0x23;
+    private static final Byte BYTE_0X23 = 0x23;
     /**
      * The byte 0x45.
      */
-    private static final byte BYTE_0X45 = 0x45;
+    private static final Byte BYTE_0X45 = 0x45;
     /**
      * The byte 0x67.
      */
-    private static final byte BYTE_0X67 = 0x67;
+    private static final Byte BYTE_0X67 = 0x67;
     /**
      * The byte 0x89.
      */
-    private static final byte BYTE_0X89 = (byte) 0x89;
+    private static final Byte BYTE_0X89 = (byte) 0x89;
     /**
      * The byte 0xAB.
      */
-    private static final byte BYTE_0XAB = (byte) 0xAB;
+    private static final Byte BYTE_0XAB = (byte) 0xAB;
     /**
      * The byte 0xCD.
      */
-    private static final byte BYTE_0XCD = (byte) 0xCD;
+    private static final Byte BYTE_0XCD = (byte) 0xCD;
     /**
      * The byte 0xEF.
      */
-    private static final byte BYTE_0XEF = (byte) 0xEF;
+    private static final Byte BYTE_0XEF = (byte) 0xEF;
+    /**
+     * A map with binary representations of bytes.
+     */
+    private static final Map<Byte, String> BINARY_MAP = Map.<Byte, String>of(
+            new Entry<Byte, String>(BYTE_0X01, "00000001"), new Entry<Byte, String>(BYTE_0X23, "00100011"),
+            new Entry<Byte, String>(BYTE_0X45, "01000101"), new Entry<Byte, String>(BYTE_0X67, "01100111"),
+            new Entry<Byte, String>(BYTE_0X89, "10001001"), new Entry<Byte, String>(BYTE_0XAB, "10101011"),
+            new Entry<Byte, String>(BYTE_0XCD, "11001101"), new Entry<Byte, String>(BYTE_0XEF, "11101111"));
+    /**
+     * A map with hexadecimal representations of bytes.
+     */
+    private static final Map<Byte, String> HEXADECIMAL_MAP =
+            Map.<Byte, String>of(new Entry<Byte, String>(BYTE_0X01, "01"), new Entry<Byte, String>(BYTE_0X23, "23"),
+                    new Entry<Byte, String>(BYTE_0X45, "45"), new Entry<Byte, String>(BYTE_0X67, "67"),
+                    new Entry<Byte, String>(BYTE_0X89, "89"), new Entry<Byte, String>(BYTE_0XAB, "ab"),
+                    new Entry<Byte, String>(BYTE_0XCD, "cd"), new Entry<Byte, String>(BYTE_0XEF, "ef"));
 
     /**
      * The constructor sets the bytes correctly.
      */
     @Test
     public void constructorSetsTheBytesCorrectly() {
-        Assert.assertEquals(new Point(BYTE_0X00).byteAt(0), BYTE_0X00);
+        assertEquals(new Point(BYTE_0X00).byteAt(0), BYTE_0X00);
     }
 
     /**
@@ -66,45 +86,27 @@ public class PointTest {
         byte[] byteArray = new byte[] {BYTE_0X00};
         Point point = new Point(byteArray);
         byteArray[0] = BYTE_0X01;
-        Assert.assertEquals(point.byteAt(0), BYTE_0X00);
-    }
-
-    /**
-     * Produces the data to test the method asBinaryString and asHexadecimalString.
-     *
-     * @return The data to test the methods asBinaryString and asHexadecimalString.
-     */
-    @DataProvider(name = "binaryAndHexadecimalTestData")
-    public Object[][] bytesAndBinaryNumbers() {
-        return new Object[][] {{BYTE_0X01, "00000001", "01"}, {BYTE_0X23, "00100011", "23"},
-                {BYTE_0X45, "01000101", "45"}, {BYTE_0X67, "01100111", "67"}, {BYTE_0X89, "10001001", "89"},
-                {BYTE_0XAB, "10101011", "ab"}, {BYTE_0XCD, "11001101", "cd"}, {BYTE_0XEF, "11101111", "ef"}};
+        assertEquals(point.byteAt(0), BYTE_0X00);
     }
 
     /**
      * The method asHexadecimalString produces all hexadecimal digits correctly.
-     *
-     * @param aByte               A byte to be converted.
-     * @param expectedBinary      The expected binary String representation of the byte.
-     * @param expectedHexadecimal The expected hexadecimal String representation of the byte.
      */
-    @Test(dataProvider = "binaryAndHexadecimalTestData")
-    public void asHexadecimalStringProducesHexadecimalDigitsCorrectly(final byte aByte, final String expectedBinary,
-            final String expectedHexadecimal) {
-        Assert.assertEquals(new Point(aByte).asHexadecimalString(), expectedHexadecimal);
+    @Test
+    public void asHexadecimalStringProducesHexadecimalDigitsCorrectly() {
+        for (Entry<Byte, String> entry : HEXADECIMAL_MAP) {
+            assertEquals(new Point(entry.key()).asHexadecimalString(), entry.value());
+        }
     }
 
     /**
-     * The method asBinaryString converts all hexadecimal digits correctly.
-     *
-     * @param aByte               A byte to be converted.
-     * @param expectedBinary      The expected binary String representation of the byte.
-     * @param expectedHexadecimal The expected hexadecimal String representation of the byte.
+     * The method asBinaryString produces all binary digits correctly.
      */
-    @Test(dataProvider = "binaryAndHexadecimalTestData")
-    public void asBinaryStringConvertsHexadecimalDigitsCorrectly(final byte aByte, final String expectedBinary,
-            final String expectedHexadecimal) {
-        Assert.assertEquals(new Point(aByte).asBinaryString(), expectedBinary);
+    @Test
+    public void asBinaryStringProducesBinarylDigitsCorrectly() {
+        for (Entry<Byte, String> entry : BINARY_MAP) {
+            assertEquals(new Point(entry.key()).asBinaryString(), entry.value());
+        }
     }
 
     /**
@@ -112,7 +114,7 @@ public class PointTest {
      */
     @Test
     public void pointStartingWithOneHasOrderZero() {
-        Assert.assertEquals(new Point(BYTE_0XEF).order(), 0);
+        assertEquals(new Point(BYTE_0XEF).order(), 0);
     }
 
     /**
@@ -120,7 +122,7 @@ public class PointTest {
      */
     @Test
     public void pointStartingWithZeroOneHasOrderOne() {
-        Assert.assertEquals(new Point(BYTE_0X45).order(), 1);
+        assertEquals(new Point(BYTE_0X45).order(), 1);
     }
 
     /**
@@ -128,7 +130,7 @@ public class PointTest {
      */
     @Test
     public void pointWithEightZeroesHasOrderEight() {
-        Assert.assertEquals(new Point(BYTE_0X00).order(), EIGHT);
+        assertEquals(new Point(BYTE_0X00).order(), EIGHT);
     }
 
     /**
@@ -136,7 +138,7 @@ public class PointTest {
      */
     @Test
     public void aPointIsNotEqualToAString() {
-        Assert.assertFalse(new Point().equals(""));
+        assertFalse(new Point().equals(""));
     }
 
     /**
@@ -145,7 +147,7 @@ public class PointTest {
     @Test
     public void aPointIsEqualToItself() {
         Point point = new Point();
-        Assert.assertEquals(point, point);
+        assertEquals(point, point);
     }
 
     /**
@@ -155,7 +157,7 @@ public class PointTest {
     public void aPointIsEqualToAPointWithTheSameByteArray() {
         Point a = new Point((byte) 0, (byte) 1, (byte) 2);
         Point b = new Point((byte) 0, (byte) 1, (byte) 2);
-        Assert.assertEquals(a, b);
+        assertEquals(a, b);
     }
 
     /**
@@ -165,7 +167,7 @@ public class PointTest {
     public void aPointIsNotEqualToAPointWithADifferentByteArray() {
         Point a = new Point((byte) 0, (byte) 1, (byte) 2);
         Point b = new Point((byte) 2, (byte) 1, (byte) 0);
-        Assert.assertFalse(a.equals(b));
+        assertFalse(a.equals(b));
     }
 
     /**
@@ -174,7 +176,7 @@ public class PointTest {
     @Test
     public void aPointHasTheSameHashcodeAsItself() {
         Point point = new Point();
-        Assert.assertEquals(point.hashCode(), point.hashCode());
+        assertEquals(point.hashCode(), point.hashCode());
     }
 
     /**
@@ -184,7 +186,7 @@ public class PointTest {
     public void aPointHasTheSameHashcodeAsAPointWithTheSameByteArray() {
         Point a = new Point((byte) 0, (byte) 1, (byte) 2);
         Point b = new Point((byte) 0, (byte) 1, (byte) 2);
-        Assert.assertEquals(a.hashCode(), b.hashCode());
+        assertEquals(a.hashCode(), b.hashCode());
     }
 
     /**
@@ -194,6 +196,6 @@ public class PointTest {
     public void aPointShouldNotHaveTheSameHashcodeAsAPointWithADifferentByteArray() {
         Point a = new Point((byte) 0, (byte) 1, (byte) 2);
         Point b = new Point((byte) 2, (byte) 1, (byte) 0);
-        Assert.assertFalse(a.hashCode() == b.hashCode());
+        assertFalse(a.hashCode() == b.hashCode());
     }
 }
