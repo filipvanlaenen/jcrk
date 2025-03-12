@@ -127,6 +127,11 @@ This should produce a short report displaying how to use the program.
 | 18         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 19         | `AC4B00` and `F15580`                 | `9D83A0`         | 97                                            |
 | 20         | `330750` and `A7F550`                 | `C4C890`         | 109                                           |
+| 21         | `2CB350` and `42ACA0`                 | `BB3AC8`         | 93                                            |
+| 22         | `C1BA94` and `F97FA8`                 | `CF2E10`         | 107                                           |
+| 23         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 24         | `22DF53` and `DBF791`                 | `2C9A15`         | 95                                            |
+| 25         | `559F8200` and `EFFD5A00`             | `519CBF00`       | 102                                           |
 
 ### SHA-256
 
