@@ -132,6 +132,11 @@ This should produce a short report displaying how to use the program.
 | 23         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 24         | `22DF53` and `DBF791`                 | `2C9A15`         | 95                                            |
 | 25         | `559F8200` and `EFFD5A00`             | `519CBF00`       | 102                                           |
+| 26         | `3B0A5300` and `501F3B40`             | `DDE96680`       | 87                                            |
+| 27         | `BAAE91A0` and `F9F8E800`             | `DA2FE680`       | 98                                            |
+| 28         | `10653BD0` and `AA3349D0`             | `21987A50`       | 99                                            |
+| 29         | `007BD1D8` and `D2415078`             | `7644FD10`       | 107                                           |
+| 30         | `E0D5F278` and `EF3DC88C`             | `DA32D9C4`       | 108                                           |
 
 ### SHA-256
 
