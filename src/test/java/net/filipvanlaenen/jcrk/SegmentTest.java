@@ -19,7 +19,7 @@ public class SegmentTest {
     /**
      * The byte 0x20.
      */
-    private static final int BYTE_0X20 = 0x20;
+    private static final byte BYTE_0X20 = 0x20;
     /**
      * The byte 0x40.
      */
@@ -32,6 +32,10 @@ public class SegmentTest {
      * Point zero.
      */
     private static final Point POINT_ZERO = new Point(new byte[THIRTY_TWO]);
+    /**
+     * Point 0x20.
+     */
+    private static final Point POINT_20 = new Point(BYTE_0X20);
     /**
      * Point 0x40.
      */
@@ -184,5 +188,85 @@ public class SegmentTest {
     @Test
     public void shortConstructorSetsHashFunctionCorrectly() {
         assertEquals(createSegmentUsingShortConstructor().getHashFunction(), SHA256);
+    }
+
+    /**
+     * Creates a segment instance using the long constructor to run the tests on.
+     *
+     * @return A segment instance using the long constructor to run the tests on.
+     */
+    public Segment createSegmentUsingLongConstructor() {
+        return new Segment(POINT_40, POINT_20, 2, 1, SHA256);
+    }
+
+    /**
+     * The long constructor should set the start point correctly.
+     */
+    @Test
+    public void longConstructorSetsStartPointCorrectly() {
+        assertEquals(createSegmentUsingLongConstructor().getStartPoint(), POINT_40);
+    }
+
+    /**
+     * The long constructor should throw an IllegalArgumentException if the start point is not a distinguished point of
+     * the provided order.
+     */
+    @Test
+    public void longConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, POINT_20, 2, 2, SHA256));
+        assertEquals("The start point's order (1) is less than the provided order (2).", exception.getMessage());
+    }
+
+    /**
+     * The long constructor should set the end point correctly.
+     */
+    @Test
+    public void longConstructorSetsEndPointCorrectly() {
+        assertEquals(createSegmentUsingLongConstructor().getEndPoint(), POINT_20);
+    }
+
+    /**
+     * The long constructor should set the length correctly.
+     */
+    @Test
+    public void longConstructorSetsLengthCorrectly() {
+        assertEquals(createSegmentUsingLongConstructor().getLength(), 2);
+    }
+
+    /**
+     * The long constructor should throw an IllegalArgumentException if the length is negative.
+     */
+    @Test
+    public void longConstructorThrowsIllegalArgumentExceptionIfLengthIsNegative() {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_20, POINT_20, -1, 2, SHA256));
+        assertEquals("The length (-1) is negative.", exception.getMessage());
+    }
+
+    /**
+     * The long constructor should set the hash function correctly.
+     */
+    @Test
+    public void longConstructorSetsHashFunctionCorrectly() {
+        assertEquals(createSegmentUsingLongConstructor().getHashFunction(), SHA256);
+    }
+
+    /**
+     * The long constructor should set the order correctly.
+     */
+    @Test
+    public void longConstructorSetsOrderCorrectly() {
+        assertEquals(createSegmentUsingLongConstructor().getOrder(), 1);
+    }
+
+    /**
+     * The long constructor should throw an IllegalArgumentException if the order is negative.
+     */
+    @Test
+    public void longConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, POINT_20, 2, -1, SHA256));
+        assertEquals("The order (-1) is negative.", exception.getMessage());
     }
 }
