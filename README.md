@@ -105,14 +105,18 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-224
 
-| Bit Length | Points                                | Hash Value       |
-|------------|---------------------------------------|------------------|
-| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
-| 4          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
-| 5          | `A0` and `C8`                         | `38`             |
-| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |
-| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |
-| 8          | `38` and `FD`                         | `52`             |
+| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
+|------------|---------------------------------------|------------------|-----------------------------------------------|
+| 1          | `00` and `80`                         | `80`             | 126                                           |
+| 2          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 4          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 5          | `A0` and `C8`                         | `38`             | 105                                           |
+| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 7          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 8          | `38` and `FD`                         | `52`             | 104                                           |
+| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
+| 10         | `2000` and `EAC0`                     | `2140`           | 105                                           |
 
 ### SHA-256
 
