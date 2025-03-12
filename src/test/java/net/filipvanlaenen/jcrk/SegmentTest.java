@@ -23,7 +23,7 @@ public class SegmentTest {
     /**
      * The byte 0x40.
      */
-    private static final int BYTE_0X40 = 0x40;
+    private static final byte BYTE_0X40 = 0x40;
     /**
      * The byte 0xFF.
      */
@@ -32,6 +32,10 @@ public class SegmentTest {
      * Point zero.
      */
     private static final Point POINT_ZERO = new Point(new byte[THIRTY_TWO]);
+    /**
+     * Point 0x40.
+     */
+    private static final Point POINT_40 = new Point(BYTE_0X40);
     /**
      * The hash value of point zero.
      */
@@ -109,5 +113,76 @@ public class SegmentTest {
         Segment newSegment = new Segment(POINT_ZERO, 1, SHA256);
         newSegment.extend();
         assertEquals(newSegment.getEndPoint(), FIRST_POINT_AFTER_POINT_ZERO);
+    }
+
+    /**
+     * Returns a segment instance using the short constructor to run the tests on.
+     *
+     * @return A segment instance using the short constructor to run the tests on.
+     */
+    public Segment createSegmentUsingShortConstructor() {
+        return new Segment(POINT_40, 1, SHA256);
+    }
+
+    /**
+     * The short constructor should set the start point correctly.
+     */
+    @Test
+    public void shortConstructorSetsStartPointCorrectly() {
+        assertEquals(createSegmentUsingShortConstructor().getStartPoint(), POINT_40);
+    }
+
+    /**
+     * The short constructor should throw an IllegalArgumentException if the start point is not a distinguished point of
+     * the provided order.
+     */
+    @Test
+    public void shortConstructorThrowsIllegalArgumentExceptionIfStartPointDoesNotMatchOrder() {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, 2, SHA256));
+        assertEquals("The start point's order (1) is less than the provided order (2).", exception.getMessage());
+    }
+
+    /**
+     * The short constructor should set the end point equal to the start point.
+     */
+    @Test
+    public void shortConstructorSetsEndPointEqualToStartPoint() {
+        assertEquals(createSegmentUsingShortConstructor().getEndPoint(), POINT_40);
+    }
+
+    /**
+     * The constructor should set the length to zero.
+     */
+    @Test
+    public void constructorSetsLengthToZero() {
+        assertEquals(createSegmentUsingShortConstructor().getLength(), 0);
+    }
+
+    /**
+     * The constructor should set the order correctly.
+     */
+    @Test
+    public void constructorSetsOrderCorrectly() {
+        assertEquals(createSegmentUsingShortConstructor().getOrder(), 1);
+    }
+
+    /**
+     * The short constructor should throw an IllegalArgumentException if the order is negative.
+     */
+    @Test
+    public void shortConstructorThrowsIllegalArgumentExceptionIfOrderIsNegative() {
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, -1, SHA256));
+        assertEquals("The order (-1) is negative.", exception.getMessage());
+
+    }
+
+    /**
+     * The short constructor should set the hash function correctly.
+     */
+    @Test
+    public void shortConstructorSetsHashFunctionCorrectly() {
+        assertEquals(createSegmentUsingShortConstructor().getHashFunction(), SHA256);
     }
 }
