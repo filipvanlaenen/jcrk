@@ -284,6 +284,16 @@ public class InMemorySegmentRepositoryTest {
     }
 
     /**
+     * The repository has order 1 when it's compressed to the next order.
+     */
+    @Test
+    public void repositoryShouldHaveOrderOneAfterCompressionToNextOrder() {
+        SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
+        repository.compressToNextOrder();
+        assertEquals(1, repository.getOrder());
+    }
+
+    /**
      * The repository is full when it contains all segments that can be found at the given order.
      */
     @Test
