@@ -57,6 +57,10 @@ public final class Point {
         return other instanceof Point && Arrays.equals(bytes, ((Point) other).bytes);
     }
 
+    public byte[] getBytes() {
+        return bytes.clone();
+    }
+
     /**
      * Calculates the Hamming distance between this point and another point.
      *

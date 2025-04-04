@@ -1,6 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
 import net.filipvanlaenen.kolektoj.Collection;
+import net.filipvanlaenen.kolektoj.OrderedCollection;
 import net.filipvanlaenen.laconic.Laconic;
 
 /**
@@ -12,9 +13,9 @@ public class CollisionFinder {
      */
     private final SegmentRepository segmentRepository;
     /**
-     * The segment producer.
+     * The segment producers.
      */
-    private final SegmentProducer segmentProducer;
+    private final OrderedCollection<SegmentProducer> segmentProducers;
     /**
      * The segment repository compression condition.
      */
@@ -24,13 +25,15 @@ public class CollisionFinder {
      * Creates a collision finder that can find a collision.
      *
      * @param segmentRepository                     The repository to be used for the segments found.
-     * @param segmentProducer                       The segment producer describing how new segments should be produced.
+     * @param segmentProducers                      The segment producers describing how new segments should be
+     *                                              produced.
      * @param segmentRepositoryCompressionCondition The condition specifying when to compress the segment repository.
      */
-    public CollisionFinder(final SegmentRepository segmentRepository, final SegmentProducer segmentProducer,
+    public CollisionFinder(final SegmentRepository segmentRepository,
+            final OrderedCollection<SegmentProducer> segmentProducers,
             final SegmentRepositoryCompressionCondition segmentRepositoryCompressionCondition) {
         this.segmentRepository = segmentRepository;
-        this.segmentProducer = segmentProducer;
+        this.segmentProducers = segmentProducers;
         this.segmentRepositoryCompressionCondition = segmentRepositoryCompressionCondition;
     }
 
@@ -52,7 +55,7 @@ public class CollisionFinder {
                         "Compressed the segment repository to order %d -- %d segments were retained and/or created.",
                         segmentRepository.getOrder(), segmentRepository.size()));
             }
-            Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
+            Point newStartPoint = findNextStartPoint();
             if (newStartPoint == null) {
                 return null;
             }
@@ -80,5 +83,15 @@ public class CollisionFinder {
         }
         Laconic.LOGGER.logProgress(String.format("Found a collision."));
         return collision;
+    }
+
+    private Point findNextStartPoint() {
+        for (SegmentProducer segmentProducer : segmentProducers) {
+            Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
+            if (newStartPoint != null) {
+                return newStartPoint;
+            }
+        }
+        return null;
     }
 }

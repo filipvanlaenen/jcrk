@@ -1,5 +1,6 @@
 package net.filipvanlaenen.jcrk;
 
+import net.filipvanlaenen.kolektoj.OrderedCollection;
 import net.filipvanlaenen.laconic.Laconic;
 
 /**
@@ -63,9 +64,9 @@ public final class CommandLineInterface {
                 }
                 HashFunction hashFunction = new TruncatedStandardHashFunction(baseHashFunction, numberOfBits);
                 SegmentRepository segmentRepository = new InMemorySegmentRepository(hashFunction);
-                CollisionFinder finder =
-                        new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
-                                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+                CollisionFinder finder = new CollisionFinder(segmentRepository,
+                        OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension, SegmentProducer.Counter),
+                        SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
                 Laconic.LOGGER.logProgress("The following points have the same hash value under the hash function %s:",
                         hashFunction.toString());

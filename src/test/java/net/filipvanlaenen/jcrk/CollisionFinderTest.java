@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
+import net.filipvanlaenen.kolektoj.OrderedCollection;
+
 /**
  * An integration test on the CollisionFinder class.
  */
@@ -38,8 +40,9 @@ public class CollisionFinderTest {
     @Test
     public void collisionFinderReturnsNullIfSegmentProducerCanNotProduceACollision() {
         SegmentRepository repository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_1_BITS);
-        CollisionFinder finder = new CollisionFinder(repository, SegmentProducer.ZeroPointSegmentChainExtension,
-                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+        CollisionFinder finder =
+                new CollisionFinder(repository, OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension),
+                        SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         assertNull(finder.findCollision());
     }
 
@@ -49,7 +52,8 @@ public class CollisionFinderTest {
     @Test
     public void collisionFinderMustFindCorrectCollision() {
         SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_8_BITS);
-        CollisionFinder finder = new CollisionFinder(segmentRepository, SegmentProducer.ZeroPointSegmentChainExtension,
+        CollisionFinder finder = new CollisionFinder(segmentRepository,
+                OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension),
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         Collision collision = finder.findCollision();
         assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_8_BITS, POINT_02, POINT_3C));
