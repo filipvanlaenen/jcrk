@@ -140,6 +140,15 @@ This should produce a short report displaying how to use the program.
 | 29         | `007BD1D8` and `D2415078`             | `7644FD10`       | 107                                           |
 | 30         | `E0D5F278` and `EF3DC88C`             | `DA32D9C4`       | 108                                           |
 | 31         | `03154476` and `035D98F6`             | `6F9CD2D8`       | 98                                            |
+| 32         | `96AB3FFF` and `D04AAF5C`             | `4CA09204`       | 104                                           |
+| 33         | `45A173D380` and `806BE12480`         | `7D43355D00`     | 100                                           |
+| 34         | `41830311C0` and `DEBCF08D40`         | `C4F0916700`     | 98                                            |
+| 35         | `3A35F5E1A0` and `D6A6CDC7A0`         | `CFAC155C60`     | 97                                            |
+| 36         | `4FAF32F2E0` and `B1CDC3E800`         | `B779458F20`     | 99                                            |
+| 37         | `0EF1FF3E40` and `3E81AD1828`         | `AE5B282FB8`     | 92                                            |
+| 38         | `001D27F5B8` and `6D8F7F3000`         | `350C8F2F9C`     | 111                                           |
+| 39         | `61BA00B17A` and `B85667863E`         | `EE675A9812`     | 89                                            |
+| 40         | `5DF4E0C783` and `B19151D20B`         | `C4E6C4058E`     | 106                                           |
 
 ### SHA-256
 
