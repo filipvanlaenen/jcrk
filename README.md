@@ -164,7 +164,7 @@ This should produce a short report displaying how to use the program.
 | 53         | `181A2D69E89FA8` and `8F1D35F16571B0`     | `E6A4E23620D210`   | 83                                            |
 | 54         | `03E4BD49553F34` and `54BB410AEB95FC`     | `E53144130D1AD4`   | 79                                            |
 | 55         | `46FFECA3C68FA0` and `71B0A65E9EE2F6`     | `D8CEFB6FDA3404`   | 86                                            |
-
+| 56         | `097918D63270A2` and `819FCC4BB8D157`     | `220B18E00493D2`   | 89                                            |
 | 57         | `725DFC223D98ED00` and `CDD266ED78F28480` | `9A6923E4237F2480` | 78                                            |
 | 58         | `854095C02E84B1C0` and `B9795F9B5443CA80` | `AFB53F3834CFCC00` | 83                                            |
 
