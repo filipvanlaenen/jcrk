@@ -48,6 +48,8 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
 |------------|---------------------------------------|------------------|-----------------------------------------------|
+| 1          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
+| 2          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
 | 3          | `80` and `A0`                         | `C0`             | 80                                            |
 | 4          | `00` and `50`                         | `50`             | 81                                            |
 | 5          | `58` and `E0`                         | `C0`             | 75                                            |
@@ -62,10 +64,10 @@ This should produce a short report displaying how to use the program.
 | 14         | `4DC4` and `C0DC`                     | `79F8`           | 74                                            |
 | 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 16         | `0DF7` and `298F`                     | `484D`           | 75                                            |
-| 17         |                                       |                  |                                               |
+| 17         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 18         | `A48BC0` and `E21940`                 | `4FA900`         | 70                                            |
 | 19         | `0510A0` and `A58460`                 | `2FC8A0`         | 62                                            |
-| 20         |                                       |                  |                                               |
+| 20         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
 | 21         | `44CE30` and `BBFB70`                 | `FD6750`         | 73                                            |
 | 22         | `35507C` and `E08504`                 | `3D0514`         | 68                                            |
 | 23         | `BC1BF0` and `DBF6B0`                 | `8FE7CE`         | 73                                            |
