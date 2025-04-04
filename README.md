@@ -107,48 +107,66 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-224
 
-| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
-|------------|---------------------------------------|------------------|-----------------------------------------------|
-| 1          | `00` and `80`                         | `80`             | 126                                           |
-| 2          | `40` and `C0`                         | `00`             | 108                                           |
-| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
-| 4          | `40` and `C0`                         | `00`             | 108                                           |
-| 5          | `A0` and `C8`                         | `38`             | 105                                           |
-| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 7          | `02` and `7A`                         | `2C`             | 114                                           |
-| 8          | `38` and `FD`                         | `52`             | 104                                           |
-| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 10         | `2000` and `EAC0`                     | `2140`           | 105                                           |
-| 11         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 12         | `1F80` and `A010`                     | `B990`           | 108                                           |
-| 13         | `A6A0` and `B8B8`                     | `0F10`           | 109                                           |
-| 14         | `80A8` and `E2E4`                     | `7BCC`           | 104                                           |
-| 15         | `3B9E` and `5540`                     | `1508`           | 118                                           |
-| 16         | `75C4` and `9A10`                     | `49AD`           | 102                                           |
-| 17         | `8E0600` and `E87100`                 | `938300`         | 114                                           |
-| 18         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 19         | `AC4B00` and `F15580`                 | `9D83A0`         | 97                                            |
-| 20         | `330750` and `A7F550`                 | `C4C890`         | 109                                           |
-| 21         | `2CB350` and `42ACA0`                 | `BB3AC8`         | 93                                            |
-| 22         | `C1BA94` and `F97FA8`                 | `CF2E10`         | 107                                           |
-| 23         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 24         | `22DF53` and `DBF791`                 | `2C9A15`         | 95                                            |
-| 25         | `559F8200` and `EFFD5A00`             | `519CBF00`       | 102                                           |
-| 26         | `3B0A5300` and `501F3B40`             | `DDE96680`       | 87                                            |
-| 27         | `BAAE91A0` and `F9F8E800`             | `DA2FE680`       | 98                                            |
-| 28         | `10653BD0` and `AA3349D0`             | `21987A50`       | 99                                            |
-| 29         | `007BD1D8` and `D2415078`             | `7644FD10`       | 107                                           |
-| 30         | `E0D5F278` and `EF3DC88C`             | `DA32D9C4`       | 108                                           |
-| 31         | `03154476` and `035D98F6`             | `6F9CD2D8`       | 98                                            |
-| 32         | `96AB3FFF` and `D04AAF5C`             | `4CA09204`       | 104                                           |
-| 33         | `45A173D380` and `806BE12480`         | `7D43355D00`     | 100                                           |
-| 34         | `41830311C0` and `DEBCF08D40`         | `C4F0916700`     | 98                                            |
-| 35         | `3A35F5E1A0` and `D6A6CDC7A0`         | `CFAC155C60`     | 97                                            |
-| 36         | `4FAF32F2E0` and `B1CDC3E800`         | `B779458F20`     | 99                                            |
-| 37         | `0EF1FF3E40` and `3E81AD1828`         | `AE5B282FB8`     | 92                                            |
-| 38         | `001D27F5B8` and `6D8F7F3000`         | `350C8F2F9C`     | 111                                           |
-| 39         | `61BA00B17A` and `B85667863E`         | `EE675A9812`     | 89                                            |
-| 40         | `5DF4E0C783` and `B19151D20B`         | `C4E6C4058E`     | 106                                           |
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | `00` and `80`                             | `80`               | 126                                           |
+| 2          | `40` and `C0`                             | `00`               | 108                                           |
+| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 4          | `40` and `C0`                             | `00`               | 108                                           |
+| 5          | `A0` and `C8`                             | `38`               | 105                                           |
+| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 7          | `02` and `7A`                             | `2C`               | 114                                           |
+| 8          | `38` and `FD`                             | `52`               | 104                                           |
+| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 10         | `2000` and `EAC0`                         | `2140`             | 105                                           |
+| 11         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 12         | `1F80` and `A010`                         | `B990`             | 108                                           |
+| 13         | `A6A0` and `B8B8`                         | `0F10`             | 109                                           |
+| 14         | `80A8` and `E2E4`                         | `7BCC`             | 104                                           |
+| 15         | `3B9E` and `5540`                         | `1508`             | 118                                           |
+| 16         | `75C4` and `9A10`                         | `49AD`             | 102                                           |
+| 17         | `8E0600` and `E87100`                     | `938300`           | 114                                           |
+| 18         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 19         | `AC4B00` and `F15580`                     | `9D83A0`           | 97                                            |
+| 20         | `330750` and `A7F550`                     | `C4C890`           | 109                                           |
+| 21         | `2CB350` and `42ACA0`                     | `BB3AC8`           | 93                                            |
+| 22         | `C1BA94` and `F97FA8`                     | `CF2E10`           | 107                                           |
+| 23         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 24         | `22DF53` and `DBF791`                     | `2C9A15`           | 95                                            |
+| 25         | `559F8200` and `EFFD5A00`                 | `519CBF00`         | 102                                           |
+| 26         | `3B0A5300` and `501F3B40`                 | `DDE96680`         | 87                                            |
+| 27         | `BAAE91A0` and `F9F8E800`                 | `DA2FE680`         | 98                                            |
+| 28         | `10653BD0` and `AA3349D0`                 | `21987A50`         | 99                                            |
+| 29         | `007BD1D8` and `D2415078`                 | `7644FD10`         | 107                                           |
+| 30         | `E0D5F278` and `EF3DC88C`                 | `DA32D9C4`         | 108                                           |
+| 31         | `03154476` and `035D98F6`                 | `6F9CD2D8`         | 98                                            |
+| 32         | `96AB3FFF` and `D04AAF5C`                 | `4CA09204`         | 104                                           |
+| 33         | `45A173D380` and `806BE12480`             | `7D43355D00`       | 100                                           |
+| 34         | `41830311C0` and `DEBCF08D40`             | `C4F0916700`       | 98                                            |
+| 35         | `3A35F5E1A0` and `D6A6CDC7A0`             | `CFAC155C60`       | 97                                            |
+| 36         | `4FAF32F2E0` and `B1CDC3E800`             | `B779458F20`       | 99                                            |
+| 37         | `0EF1FF3E40` and `3E81AD1828`             | `AE5B282FB8`       | 92                                            |
+| 38         | `001D27F5B8` and `6D8F7F3000`             | `350C8F2F9C`       | 111                                           |
+| 39         | `61BA00B17A` and `B85667863E`             | `EE675A9812`       | 89                                            |
+| 40         | `5DF4E0C783` and `B19151D20B`             | `C4E6C4058E`       | 106                                           |
+| 41         | `A388388E6A80` and `D423ECEF3A80`         | `EEBABA238880`     | 101                                           |
+| 42         | `4018C4D4C480` and `5E2D0DD95AC0`         | `69FDA6FD9180`     | 93                                            |
+| 43         | `907B44239DC0` and `FF97E04BFF60`         | `873C82CBB000`     | 85                                            |
+| 44         | `A0C841452290` and `D8C277F9ABE0`         | `663A82339380`     | 88                                            |
+| 45         | `5DBF77134FF0` and `9156D6BFE898`         | `4C6297EF05F0`     | 94                                            |
+| 46         | `E55CC7C7B160` and `E8F5E71132CC`         | `7F7097A3EF88`     | 94                                            |
+| 47         | `825F9C3C3658` and `DDAFE12448BE`         | `FFA57C5B5DD0`     | 79                                            |
+| 48         | `164644C53EA2` and `58EB001D6A1D`         | `5C7EF878A505`     | 83                                            |
+| 49         | `7495F239495280` and `85DE9043CBC800`     | `31B0A1FE07F480`   | 86                                            |
+| 50         | `DC84D36253E540` and `F195AAF5D40840`     | `4B0B151B484E80`   | 92                                            |
+| 51         | `49B9EEE3709C80` and `5656CCF2D51900`     | `88DFC9877652C0`   | 85                                            |
+| 52         | `3C574DDEDBDE50` and `BC6F0A60D7D7C0`     | `88DFC9877652C0`   | 89                                            |
+| 53         | `181A2D69E89FA8` and `8F1D35F16571B0`     | `E6A4E23620D210`   | 83                                            |
+| 54         | `03E4BD49553F34` and `54BB410AEB95FC`     | `E53144130D1AD4`   | 79                                            |
+| 55         | `46FFECA3C68FA0` and `71B0A65E9EE2F6`     | `D8CEFB6FDA3404`   | 86                                            |
+
+| 57         | `725DFC223D98ED00` and `CDD266ED78F28480` | `9A6923E4237F2480` | 78                                            |
+| 58         | `854095C02E84B1C0` and `B9795F9B5443CA80` | `AFB53F3834CFCC00` | 83                                            |
 
 ### SHA-256
 
