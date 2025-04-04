@@ -96,12 +96,12 @@ This should produce a short report displaying how to use the program.
 | 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`     | `EBE7781A0E38`   | 61                                            |
 | 47         | `9D962B47E0FA` and `F8B57FB5C90E`     | `49F9475CA84E`   | 57                                            |
 | 48         | `41A6BA9A6C45` and `4B95CCEF416B`     | `DC3CD50087EF`   | 66                                            |
-| 49         |                                       |                  |                                               |
-| 50         |                                       |                  |                                               |
-| 51         |                                       |                  |                                               |
-| 52         |                                       |                  |                                               |
-| 53         |                                       |                  |                                               |
-| 54         |                                       |                  |                                               |
+| 49         | `AB8CA2D01A2E80` and `ACFB249976E300` | `4801FC138B0600` | 57                                            |
+| 50         | `9681D1AA287080` and `E5062E0A40F240` | `FF95D7B07C79C0` | 57                                            |
+| 51         | `57B233EEBD4D40` and `D1FCB319BDB0E0` | `6BBAAD4B75E160` | 57                                            |
+| 52         | `109A49AAD61240` and `F56569F4956C70` | `44AA521A28EB60` | 57                                            |
+| 53         | `5FE78C52E68970` and `62D9DEC1B55F40` | `C27A05E5899600` | 46                                            |
+| 54         | `2BB7EAC22D7554` and `6C0FDEC69C1E5C` | `50DFD69C3DAEC0` | 52                                            |
 | 55         |                                       |                  |                                               |
 | 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99` | `345D67FC70AE2A` |                                               |
 
