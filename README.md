@@ -46,64 +46,65 @@ This should produce a short report displaying how to use the program.
 
 ### SHA-1
 
-| Bit Length | Points                                | Hash Value       | Hamming Distance between the Full Hash Values |
-|------------|---------------------------------------|------------------|-----------------------------------------------|
-| 1          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
-| 2          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                     |
-| 3          | `80` and `A0`                         | `C0`             | 80                                            |
-| 4          | `00` and `50`                         | `50`             | 81                                            |
-| 5          | `58` and `E0`                         | `C0`             | 75                                            |
-| 6          | `58` and `E0`                         | `C0`             | 75                                            |
-| 7          | `3C` and `90`                         | `C4`             | 82                                            |
-| 8          | `02` and `3C`                         | `C4`             | 83                                            |
-| 9          | `0200` and `E180`                     | `9B80`           | 87                                            |
-| 10         | `B9C0` and `E500`                     | `4E40`           | 65                                            |
-| 11         | `0000` and `7040`                     | `1480`           | 71                                            |
-| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 13         | `8FD8` and `F790`                     | `2338`           | 73                                            |
-| 14         | `4DC4` and `C0DC`                     | `79F8`           | 74                                            |
-| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 16         | `0DF7` and `298F`                     | `484D`           | 75                                            |
-| 17         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                     |
-| 18         | `A48BC0` and `E21940`                 | `4FA900`         | 70                                            |
-| 19         | `0510A0` and `A58460`                 | `2FC8A0`         | 62                                            |
-| 20         | `5AE4A0` and `8A3020`                 | `742DC0`         | 67                                            |
-| 21         | `44CE30` and `BBFB70`                 | `FD6750`         | 73                                            |
-| 22         | `35507C` and `E08504`                 | `3D0514`         | 68                                            |
-| 23         | `BC1BF0` and `DBF6B0`                 | `8FE7CE`         | 73                                            |
-| 24         | `9B8FD1` and `FDA184`                 | `D760BE`         | 74                                            |
-| 25         | `4A0CD180` and `8553E680`             | `119BCF00`       | 65                                            |
-| 26         | `A035A140` and `AC30F200`             | `DEA50900`       | 73                                            |
-| 27         | `6182AE40` and `C1D96340`             | `43BC9CA0`       | 65                                            |
-| 28         | `08A2F0C0` and `4FA0E450`             | `992B8720`       | 72                                            |
-| 29         | `5488F588` and `FA2D1CB8`             | `D55352B8`       | 66                                            |
-| 30         | `9D4D5B10` and `9F95172C`             | `93F85F54`       | 70                                            |
-| 31         | `ACB23AEA` and `C7E8735C`             | `8F603976`       | 51                                            |
-| 32         | `21E72897` and `28670599`             | `D8C2E59B`       | 64                                            |
-| 33         | `05B4E6B680` and `C01BB31600`         | `207C0B8D00`     | 63                                            |
-| 34         | `2981ED9A40` and `E693204780`         | `F5F08989C0`     | 61                                            |
-| 35         | `47334C4080` and `E8B39B1BC0`         | `2BEFC6AEE0`     | 63                                            |
-| 36         | `333BCBDC00` and `E81CE75AA0`         | `2A7ADCF5E0`     | 63                                            |
-| 37         | `80B94985F8` and `DEB3D00688`         | `A2D429C9C8`     | 53                                            |
-| 38         | `CF528F70F0` and `E1B78EC250`         | `1D84F5E36C`     | 57                                            |
-| 39         | `432C523A9C` and `65A2D6A508`         | `638856A48A`     | 62                                            |
-| 40         | `3399BD40DC` and `A7F7B62182`         | `4FFDC01CB7`     | 61                                            |
-| 41         | `A44815DC6280` and `BB809E886400`     | `C5C45F01F300`   | 59                                            |
-| 42         | `365369F50E80` and `41D83DFF1740`     | `C48B1A1075C0`   | 60                                            |
-| 43         | `512B5B3652C0` and `70785ED19D40`     | `F77C498F7180`   | 47                                            |
-| 44         | `68E4A2DA8FD0` and `D5850D48F390`     | `FBBA72E3B310`   | 59                                            |
-| 45         | `03DA927D0EF0` and `5E3D28A5CED0`     | `4EAE7B87DA60`   | 44                                            |
-| 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`     | `EBE7781A0E38`   | 61                                            |
-| 47         | `9D962B47E0FA` and `F8B57FB5C90E`     | `49F9475CA84E`   | 57                                            |
-| 48         | `41A6BA9A6C45` and `4B95CCEF416B`     | `DC3CD50087EF`   | 66                                            |
-| 49         | `AB8CA2D01A2E80` and `ACFB249976E300` | `4801FC138B0600` | 57                                            |
-| 50         | `9681D1AA287080` and `E5062E0A40F240` | `FF95D7B07C79C0` | 57                                            |
-| 51         | `57B233EEBD4D40` and `D1FCB319BDB0E0` | `6BBAAD4B75E160` | 57                                            |
-| 52         | `109A49AAD61240` and `F56569F4956C70` | `44AA521A28EB60` | 57                                            |
-| 53         | `5FE78C52E68970` and `62D9DEC1B55F40` | `C27A05E5899600` | 46                                            |
-| 54         | `2BB7EAC22D7554` and `6C0FDEC69C1E5C` | `50DFD69C3DAEC0` | 52                                            |
-| 55         | `6C621051F81E2C` and `E8DEB93CF3D692` | `E88DD64B74DE82` | 59                                            |
-| 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99` | `345D67FC70AE2A` | 58                                            |
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 2          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 3          | `80` and `A0`                             | `C0`               | 80                                            |
+| 4          | `00` and `50`                             | `50`               | 81                                            |
+| 5          | `58` and `E0`                             | `C0`               | 75                                            |
+| 6          | `58` and `E0`                             | `C0`               | 75                                            |
+| 7          | `3C` and `90`                             | `C4`               | 82                                            |
+| 8          | `02` and `3C`                             | `C4`               | 83                                            |
+| 9          | `0200` and `E180`                         | `9B80`             | 87                                            |
+| 10         | `B9C0` and `E500`                         | `4E40`             | 65                                            |
+| 11         | `0000` and `7040`                         | `1480`             | 71                                            |
+| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 13         | `8FD8` and `F790`                         | `2338`             | 73                                            |
+| 14         | `4DC4` and `C0DC`                         | `79F8`             | 74                                            |
+| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 16         | `0DF7` and `298F`                         | `484D`             | 75                                            |
+| 17         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 18         | `A48BC0` and `E21940`                     | `4FA900`           | 70                                            |
+| 19         | `0510A0` and `A58460`                     | `2FC8A0`           | 62                                            |
+| 20         | `5AE4A0` and `8A3020`                     | `742DC0`           | 67                                            |
+| 21         | `44CE30` and `BBFB70`                     | `FD6750`           | 73                                            |
+| 22         | `35507C` and `E08504`                     | `3D0514`           | 68                                            |
+| 23         | `BC1BF0` and `DBF6B0`                     | `8FE7CE`           | 73                                            |
+| 24         | `9B8FD1` and `FDA184`                     | `D760BE`           | 74                                            |
+| 25         | `4A0CD180` and `8553E680`                 | `119BCF00`         | 65                                            |
+| 26         | `A035A140` and `AC30F200`                 | `DEA50900`         | 73                                            |
+| 27         | `6182AE40` and `C1D96340`                 | `43BC9CA0`         | 65                                            |
+| 28         | `08A2F0C0` and `4FA0E450`                 | `992B8720`         | 72                                            |
+| 29         | `5488F588` and `FA2D1CB8`                 | `D55352B8`         | 66                                            |
+| 30         | `9D4D5B10` and `9F95172C`                 | `93F85F54`         | 70                                            |
+| 31         | `ACB23AEA` and `C7E8735C`                 | `8F603976`         | 51                                            |
+| 32         | `21E72897` and `28670599`                 | `D8C2E59B`         | 64                                            |
+| 33         | `05B4E6B680` and `C01BB31600`             | `207C0B8D00`       | 63                                            |
+| 34         | `2981ED9A40` and `E693204780`             | `F5F08989C0`       | 61                                            |
+| 35         | `47334C4080` and `E8B39B1BC0`             | `2BEFC6AEE0`       | 63                                            |
+| 36         | `333BCBDC00` and `E81CE75AA0`             | `2A7ADCF5E0`       | 63                                            |
+| 37         | `80B94985F8` and `DEB3D00688`             | `A2D429C9C8`       | 53                                            |
+| 38         | `CF528F70F0` and `E1B78EC250`             | `1D84F5E36C`       | 57                                            |
+| 39         | `432C523A9C` and `65A2D6A508`             | `638856A48A`       | 62                                            |
+| 40         | `3399BD40DC` and `A7F7B62182`             | `4FFDC01CB7`       | 61                                            |
+| 41         | `A44815DC6280` and `BB809E886400`         | `C5C45F01F300`     | 59                                            |
+| 42         | `365369F50E80` and `41D83DFF1740`         | `C48B1A1075C0`     | 60                                            |
+| 43         | `512B5B3652C0` and `70785ED19D40`         | `F77C498F7180`     | 47                                            |
+| 44         | `68E4A2DA8FD0` and `D5850D48F390`         | `FBBA72E3B310`     | 59                                            |
+| 45         | `03DA927D0EF0` and `5E3D28A5CED0`         | `4EAE7B87DA60`     | 44                                            |
+| 46         | `19DC8EB77CAC` and `EA8FDEA0CDBC`         | `EBE7781A0E38`     | 61                                            |
+| 47         | `9D962B47E0FA` and `F8B57FB5C90E`         | `49F9475CA84E`     | 57                                            |
+| 48         | `41A6BA9A6C45` and `4B95CCEF416B`         | `DC3CD50087EF`     | 66                                            |
+| 49         | `AB8CA2D01A2E80` and `ACFB249976E300`     | `4801FC138B0600`   | 57                                            |
+| 50         | `9681D1AA287080` and `E5062E0A40F240`     | `FF95D7B07C79C0`   | 57                                            |
+| 51         | `57B233EEBD4D40` and `D1FCB319BDB0E0`     | `6BBAAD4B75E160`   | 57                                            |
+| 52         | `109A49AAD61240` and `F56569F4956C70`     | `44AA521A28EB60`   | 57                                            |
+| 53         | `5FE78C52E68970` and `62D9DEC1B55F40`     | `C27A05E5899600`   | 46                                            |
+| 54         | `2BB7EAC22D7554` and `6C0FDEC69C1E5C`     | `50DFD69C3DAEC0`   | 52                                            |
+| 55         | `6C621051F81E2C` and `E8DEB93CF3D692`     | `E88DD64B74DE82`   | 59                                            |
+| 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99`     | `345D67FC70AE2A`   | 58                                            |
+| 57         | `D3CCB66F076DC480` and `EE04C1F20197D880` | `0E410CD7C512AB00` | 49                                            |
 
 ### SHA-224
 
