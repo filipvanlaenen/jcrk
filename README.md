@@ -105,6 +105,7 @@ This should produce a short report displaying how to use the program.
 | 55         | `6C621051F81E2C` and `E8DEB93CF3D692`     | `E88DD64B74DE82`   | 59                                            |
 | 56         | `0A21F652E2A8F6` and `5CDEA5DF5B8C99`     | `345D67FC70AE2A`   | 58                                            |
 | 57         | `D3CCB66F076DC480` and `EE04C1F20197D880` | `0E410CD7C512AB00` | 49                                            |
+| 58         | `26F5741F54CE0300` and `AC4874FA8F414480` | `BF2FD6F086A8D580` | 55                                            |
 
 ### SHA-224
 
