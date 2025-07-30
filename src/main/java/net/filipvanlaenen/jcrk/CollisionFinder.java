@@ -59,6 +59,10 @@ public class CollisionFinder {
             if (newStartPoint == null) {
                 return null;
             }
+            if (newStartPoint.order() < segmentRepository.getOrder()) {
+                Laconic.LOGGER.logProgress("No collision found -- the hash function has a cyclic result space.");
+                return null;
+            }
             Laconic.LOGGER.logProgress(String.format("Starting on a new segment of order %d with start point %s.",
                     segmentRepository.getOrder(), newStartPoint.asHexadecimalString()));
             Segment newSegment =

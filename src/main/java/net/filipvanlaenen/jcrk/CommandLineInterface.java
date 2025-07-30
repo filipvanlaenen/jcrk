@@ -68,21 +68,26 @@ public final class CommandLineInterface {
                         OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension, SegmentProducer.Counter),
                         SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
-                Laconic.LOGGER.logProgress("The following points have the same hash value under the hash function %s:",
-                        hashFunction.toString());
-                Point firstPointFullHash = null;
-                for (Point point : collision.points()) {
-                    Point fullHash = point.hash(baseHashFunction);
-                    Laconic.LOGGER.logProgress(" - Point: %s", point.asHexadecimalString());
-                    Laconic.LOGGER.logProgress("   Truncated hash value: %s",
-                            point.hash(hashFunction).asHexadecimalString());
-                    Laconic.LOGGER.logProgress("   Full hash value: %s", fullHash.asHexadecimalString());
-                    if (firstPointFullHash == null) {
-                        firstPointFullHash = fullHash;
-                    } else {
-                        Laconic.LOGGER.logProgress(
-                                "   Hamming distance of the full hash value to the first point’s full hash value: %d",
-                                firstPointFullHash.hammingDistanceTo(fullHash));
+                if (collision == null) {
+                    Laconic.LOGGER.logProgress("No collision found.");
+                } else {
+                    Laconic.LOGGER.logProgress(
+                            "The following points have the same hash value under the hash function %s:",
+                            hashFunction.toString());
+                    Point firstPointFullHash = null;
+                    for (Point point : collision.points()) {
+                        Point fullHash = point.hash(baseHashFunction);
+                        Laconic.LOGGER.logProgress(" - Point: %s", point.asHexadecimalString());
+                        Laconic.LOGGER.logProgress("   Truncated hash value: %s",
+                                point.hash(hashFunction).asHexadecimalString());
+                        Laconic.LOGGER.logProgress("   Full hash value: %s", fullHash.asHexadecimalString());
+                        if (firstPointFullHash == null) {
+                            firstPointFullHash = fullHash;
+                        } else {
+                            Laconic.LOGGER.logProgress(
+                                    "   Hamming distance of the full hash value to the first point’s full hash value: %d",
+                                    firstPointFullHash.hammingDistanceTo(fullHash));
+                        }
                     }
                 }
             }
