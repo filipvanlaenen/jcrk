@@ -175,7 +175,7 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
-| 1          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 1          | `00` and `80`                             | `00`               | 120                                           |
 | 2          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
 | 3          | `00` and `80`                             | `60`               | 120                                           |
 | 4          | `80` and `E0`                             | `70`               | 130                                           |
@@ -241,7 +241,7 @@ This should produce a short report displaying how to use the program.
 | 1          | `00` and `80`                             | `80`               | 190                                           |
 | 2          | `00` and `80`                             | `80`               | 190                                           |
 | 3          | `00` and `60`                             | `A0`               | 192                                           |
-| 4          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 4          | `70` and `B0`                             | `00`               | 202                                           |
 | 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
 | 6          | `1C` and `5C`                             | `C8`               | 195                                           |
 | 7          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
