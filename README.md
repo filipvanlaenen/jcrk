@@ -114,7 +114,7 @@ This should produce a short report displaying how to use the program.
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
 | 1          | `00` and `80`                             | `80`               | 126                                           |
 | 2          | `40` and `C0`                             | `00`               | 108                                           |
-| 3          | See [issue 13](https://github.com/filipvanlaenen/jcrk/issues/13) | |                                           |
+| 3          | Cyclic result space                       | N/A                |                                               |
 | 4          | `40` and `C0`                             | `00`               | 108                                           |
 | 5          | `A0` and `C8`                             | `38`               | 105                                           |
 | 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
