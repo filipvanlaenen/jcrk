@@ -10,6 +10,11 @@ public enum SegmentProducer {
      * point yet.
      */
     Counter {
+        /**
+         * The magic number eight.
+         */
+        private static final int EIGHT = 8;
+
         @Override
         Point findNewStartPoint(final SegmentRepository segmentRepository) {
             int byteLength = segmentRepository.getHashFunction().getByteLength();
@@ -22,9 +27,17 @@ public enum SegmentProducer {
             return counter;
         }
 
-        private Point increment(final Point counter, final int byteLength, final int bitLength) {
-            byte[] bytes = counter.getBytes();
-            int shift = (8 - (bitLength % 8)) % 8;
+        /**
+         * Returns an increment of a point.
+         *
+         * @param point      The point to start from.
+         * @param byteLength The byte length that should be applied to the point.
+         * @param bitLength  The bit length that should be applied to the point.
+         * @return An increment of the provided point.
+         */
+        private Point increment(final Point point, final int byteLength, final int bitLength) {
+            byte[] bytes = point.getBytes();
+            int shift = (EIGHT - (bitLength % EIGHT)) % EIGHT;
             int byteIndex = byteLength - 1;
             bytes[byteIndex] = (byte) (bytes[byteIndex] + (1 << shift));
             while (bytes[byteIndex] == 0) {
