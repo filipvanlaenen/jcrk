@@ -1,10 +1,8 @@
 package net.filipvanlaenen.jcrk;
 
+import static net.filipvanlaenen.jcrk.StandardHashFunction.SHA1;
 import static net.filipvanlaenen.jcrk.StandardHashFunction.SHA256;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -309,7 +307,7 @@ public class SegmentTest {
      */
     @Test
     public void equalSegmentsAreEqual() {
-        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, SHA256);
         assertEquals(createSegment(), otherSegment);
     }
 
@@ -318,7 +316,7 @@ public class SegmentTest {
      */
     @Test
     public void equalSegmentsHaveSameHashCode() {
-        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, SHA256);
         assertEquals(createSegment().hashCode(), otherSegment.hashCode());
     }
 
@@ -327,7 +325,7 @@ public class SegmentTest {
      */
     @Test
     public void segmentsNotEqualIfStartPointDifferent() {
-        Segment otherSegment = new Segment(POINT_01, POINT_01, 1, 1, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_01, POINT_01, 1, 1, SHA256);
         assertFalse(createSegment().equals(otherSegment));
     }
 
@@ -336,7 +334,7 @@ public class SegmentTest {
      */
     @Test
     public void segmentsNotEqualIfEndPointDifferent() {
-        Segment otherSegment = new Segment(POINT_00, POINT_00, 1, 1, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_00, POINT_00, 1, 1, SHA256);
         assertFalse(createSegment().equals(otherSegment));
     }
 
@@ -345,7 +343,7 @@ public class SegmentTest {
      */
     @Test
     public void segmentsNotEqualIfLengthDifferent() {
-        Segment otherSegment = new Segment(POINT_00, POINT_01, 2, 1, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 2, 1, SHA256);
         assertFalse(createSegment().equals(otherSegment));
     }
 
@@ -354,7 +352,7 @@ public class SegmentTest {
      */
     @Test
     public void segmentsNotEqualIfOrderDifferent() {
-        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 2, StandardHashFunction.SHA256);
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 2, SHA256);
         assertFalse(createSegment().equals(otherSegment));
     }
 
@@ -363,7 +361,7 @@ public class SegmentTest {
      */
     @Test
     public void segmentsNotEqualIfHashFunctionDifferent() {
-        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, StandardHashFunction.SHA1);
+        Segment otherSegment = new Segment(POINT_00, POINT_01, 1, 1, SHA1);
         assertFalse(createSegment().equals(otherSegment));
     }
 }
