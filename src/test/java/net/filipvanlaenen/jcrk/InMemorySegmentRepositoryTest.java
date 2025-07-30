@@ -1,10 +1,6 @@
 package net.filipvanlaenen.jcrk;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import static net.filipvanlaenen.jcrk.StandardHashFunction.SHA256;
 
@@ -239,7 +235,7 @@ public class InMemorySegmentRepositoryTest {
     @Test
     public void repositoryThrowsIllegalArgumentExceptionIfTheSegmentHasTheWrongHashFunction() {
         SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
-        Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, StandardHashFunction.SHA256);
+        Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, SHA256);
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
         assertEquals("The hash function of the segment (SHA-256) isn't the same as the hash function of the repository"
@@ -252,7 +248,7 @@ public class InMemorySegmentRepositoryTest {
     @Test
     public void messageOfIllegalArgumentExceptionWhenWrongHashFunctionMustBeCorrect() {
         SegmentRepository repository = createNewTruncatedSha256SegmentRepository();
-        Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, StandardHashFunction.SHA256);
+        Segment segment = new Segment(POINT_6E, POINT_6E, 1, 0, SHA256);
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> repository.add(segment));
         assertEquals("The hash function of the segment (SHA-256) isn't the same as the hash function of the repository"
