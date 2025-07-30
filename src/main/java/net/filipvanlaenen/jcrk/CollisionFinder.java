@@ -85,6 +85,11 @@ public class CollisionFinder {
         return collision;
     }
 
+    /**
+     * Finds a start point to produce a new segment.
+     *
+     * @return A start point to produce a new segment.
+     */
     private Point findNextStartPoint() {
         for (SegmentProducer segmentProducer : segmentProducers) {
             Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
