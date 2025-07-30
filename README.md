@@ -295,6 +295,7 @@ This should produce a short report displaying how to use the program.
 | 55         | `1733D209B6F0DA` and `D66FD950BDE27C`     | `2888A74143C4D4`   | 161                                           |
 | 56         | `8819474D63E685` and `FA09E326DBA0A2`     | `3041d7827d5161`   | 178                                           |
 | 57         | `7520139D68C4CF80` and `BC4E52106BBCB980` | `CDD3AD791465F680` | 144                                           |
+| 58         | `67BC1175E80C34C0` and `A6DE9E5ED4157940` | `5533E2935A4A6540` | 169                                           |
 
 ### SHA-512
 
