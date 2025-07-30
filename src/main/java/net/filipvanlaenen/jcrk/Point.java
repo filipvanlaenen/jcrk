@@ -57,6 +57,11 @@ public final class Point {
         return other instanceof Point && Arrays.equals(bytes, ((Point) other).bytes);
     }
 
+    /**
+     * Returns the point a byte array.
+     *
+     * @return A byte array representing this point.
+     */
     public byte[] getBytes() {
         return bytes.clone();
     }
