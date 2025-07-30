@@ -2,10 +2,11 @@ package net.filipvanlaenen.jcrk;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
 
 import org.junit.jupiter.api.Test;
-
-import net.filipvanlaenen.kolektoj.OrderedCollection;
 
 /**
  * An integration test on the CollisionFinder class.
@@ -21,6 +22,11 @@ public class CollisionFinderTest {
      */
     private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 8);
+    /**
+     * The hash function SHA-1 truncated to 8 bits.
+     */
+    private static final TruncatedStandardHashFunction SHA224_TRUNCATED_TO_3_BITS =
+            new TruncatedStandardHashFunction(StandardHashFunction.SHA224, 3);
     /**
      * Point 0x02.
      */
@@ -40,9 +46,8 @@ public class CollisionFinderTest {
     @Test
     public void collisionFinderReturnsNullIfSegmentProducerCanNotProduceACollision() {
         SegmentRepository repository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_1_BITS);
-        CollisionFinder finder =
-                new CollisionFinder(repository, OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension),
-                        SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+        CollisionFinder finder = new CollisionFinder(repository,
+                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         assertNull(finder.findCollision());
     }
 
@@ -53,10 +58,23 @@ public class CollisionFinderTest {
     public void collisionFinderMustFindCorrectCollision() {
         SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_8_BITS);
         CollisionFinder finder = new CollisionFinder(segmentRepository,
-                OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension),
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         Collision collision = finder.findCollision();
         assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_8_BITS, POINT_02, POINT_3C));
         assertEquals(segmentRepository.getOrder(), FOUR);
+    }
+
+    /**
+     * Verifies correct reporting when no collision can be found due to a cyclic result space for the hash function.
+     */
+    @Test
+    public void shouldDetectACyclicResultSpace() {
+        ByteArrayOutputStream outputStream = LaconicConfigurator.resetLaconicOutputStream();
+        SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA224_TRUNCATED_TO_3_BITS);
+        CollisionFinder finder = new CollisionFinder(segmentRepository,
+                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+        finder.findCollision();
+        assertTrue(
+                outputStream.toString().contains("No collision found -- the hash function has a cyclic result space."));
     }
 }

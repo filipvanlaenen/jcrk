@@ -9,13 +9,14 @@ import net.filipvanlaenen.laconic.Laconic;
  */
 public class CollisionFinder {
     /**
+     * The segment producers.
+     */
+    private static final OrderedCollection<SegmentProducer> SEGMENT_PRODUCERS =
+            OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension, SegmentProducer.Counter);
+    /**
      * The segment repository.
      */
     private final SegmentRepository segmentRepository;
-    /**
-     * The segment producers.
-     */
-    private final OrderedCollection<SegmentProducer> segmentProducers;
     /**
      * The segment repository compression condition.
      */
@@ -25,15 +26,11 @@ public class CollisionFinder {
      * Creates a collision finder that can find a collision.
      *
      * @param segmentRepository                     The repository to be used for the segments found.
-     * @param segmentProducers                      The segment producers describing how new segments should be
-     *                                              produced.
      * @param segmentRepositoryCompressionCondition The condition specifying when to compress the segment repository.
      */
     public CollisionFinder(final SegmentRepository segmentRepository,
-            final OrderedCollection<SegmentProducer> segmentProducers,
             final SegmentRepositoryCompressionCondition segmentRepositoryCompressionCondition) {
         this.segmentRepository = segmentRepository;
-        this.segmentProducers = segmentProducers;
         this.segmentRepositoryCompressionCondition = segmentRepositoryCompressionCondition;
     }
 
@@ -98,7 +95,7 @@ public class CollisionFinder {
      * @return A start point to produce a new segment.
      */
     private Point findNextStartPoint() {
-        for (SegmentProducer segmentProducer : segmentProducers) {
+        for (SegmentProducer segmentProducer : SEGMENT_PRODUCERS) {
             Point newStartPoint = segmentProducer.findNewStartPoint(segmentRepository);
             if (newStartPoint != null) {
                 return newStartPoint;

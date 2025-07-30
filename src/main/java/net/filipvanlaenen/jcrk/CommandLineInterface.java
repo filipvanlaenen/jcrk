@@ -1,6 +1,5 @@
 package net.filipvanlaenen.jcrk;
 
-import net.filipvanlaenen.kolektoj.OrderedCollection;
 import net.filipvanlaenen.laconic.Laconic;
 
 /**
@@ -65,7 +64,6 @@ public final class CommandLineInterface {
                 HashFunction hashFunction = new TruncatedStandardHashFunction(baseHashFunction, numberOfBits);
                 SegmentRepository segmentRepository = new InMemorySegmentRepository(hashFunction);
                 CollisionFinder finder = new CollisionFinder(segmentRepository,
-                        OrderedCollection.of(SegmentProducer.ZeroPointSegmentChainExtension, SegmentProducer.Counter),
                         SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
                 if (collision == null) {
@@ -85,7 +83,8 @@ public final class CommandLineInterface {
                             firstPointFullHash = fullHash;
                         } else {
                             Laconic.LOGGER.logProgress(
-                                    "   Hamming distance of the full hash value to the first point’s full hash value: %d",
+                                    "   Hamming distance of the full hash value to the first point’s full hash value:"
+                                            + " %d",
                                     firstPointFullHash.hammingDistanceTo(fullHash));
                         }
                     }
