@@ -90,7 +90,15 @@ public final class Segment {
         return THIRTY_ONE * hashCode + value;
     }
 
+    /**
+     * Exports the segment as a cyclic segment.
+     *
+     * @return The segment as a cyclic segment.
+     */
     CyclicSegment asCyclicSegment() {
+        if (!isCyclic()) {
+            throw new IllegalStateException("A segment that isn't cyclic can't be exported as a cyclic segment.");
+        }
         return new CyclicSegment(startPoint, endPoint, hashFunction);
     }
 

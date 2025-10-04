@@ -40,7 +40,13 @@ public class CollisionFinderTest {
      * Point 0x4C.
      */
     private static final Point POINT_3C = new Point((byte) 0x3c);
+    /**
+     * Point 0x0C00.
+     */
     private static final Point POINT_0C00 = new Point((byte) 0x0c, (byte) 0x00);
+    /**
+     * Point 0x3680.
+     */
     private static final Point POINT_3680 = new Point((byte) 0x36, (byte) 0x80);
 
     /**

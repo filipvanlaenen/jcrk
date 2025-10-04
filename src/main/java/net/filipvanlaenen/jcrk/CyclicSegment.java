@@ -1,22 +1,47 @@
 package net.filipvanlaenen.jcrk;
 
+/**
+ * A segment on a path in Pollard's rho collision search that has been found to contain a cycle. A cyclic segment has a
+ * start point, a cyclic point and a hash function.
+ */
 public final class CyclicSegment {
-    private final Point startPoint;
+    /**
+     * A point that's on the cycle.
+     */
     private final Point cyclicPoint;
+    /**
+     * The hash function.
+     */
     private final HashFunction hashFunction;
+    /**
+     * The start point of the cyclic segment.
+     */
+    private final Point startPoint;
 
-    public CyclicSegment(Point startPoint, Point cyclicPoint, HashFunction hashFunction) {
+    /**
+     * Constructor taking the start point, the cyclic point and the hash function.
+     *
+     * @param startPoint   The start point of the cyclic segment.
+     * @param cyclicPoint  One of the points on the cyclic segment's cycle.
+     * @param hashFunction The hash function for the segment.
+     */
+    public CyclicSegment(final Point startPoint, final Point cyclicPoint, final HashFunction hashFunction) {
         this.startPoint = startPoint;
         this.cyclicPoint = cyclicPoint;
         this.hashFunction = hashFunction;
     }
 
+    /**
+     * Finds the collision in the cyclic segment.
+     *
+     * @return The collision in the cycle segment.
+     */
     Collision findCollision() {
         Point p = startPoint;
-        long firstLength = 0;
+        long startLength = 0;
         while (!p.equals(cyclicPoint)) {
             p = p.hash(hashFunction);
-            firstLength++;
+            startLength++;
         }
         long cycleLength = 1;
         p = p.hash(hashFunction);
@@ -24,25 +49,25 @@ public final class CyclicSegment {
             p = p.hash(hashFunction);
             cycleLength++;
         }
-        Point headP = startPoint;
-        Point cycleP = cyclicPoint;
-        if (cycleLength > firstLength) {
-            for (int i = 0; i < cycleLength - firstLength; i++) {
-                cycleP = cycleP.hash(hashFunction);
+        Point startP = startPoint;
+        Point cyclicP = cyclicPoint;
+        if (cycleLength > startLength) {
+            for (int i = 0; i < cycleLength - startLength; i++) {
+                cyclicP = cyclicP.hash(hashFunction);
             }
         } else {
-            for (int i = 0; i < firstLength - cycleLength; i++) {
-                headP = headP.hash(hashFunction);
+            for (int i = 0; i < startLength - cycleLength; i++) {
+                startP = startP.hash(hashFunction);
             }
         }
-        Point nextHeadPoint = headP.hash(hashFunction);
-        Point nextCycleP = cycleP.hash(hashFunction);
-        while (!nextHeadPoint.equals(nextCycleP)) {
-            headP = nextHeadPoint;
-            nextHeadPoint = headP.hash(hashFunction);
-            cycleP = nextCycleP;
-            nextCycleP = cycleP.hash(hashFunction);
+        Point nextStartP = startP.hash(hashFunction);
+        Point nextCyclicP = cyclicP.hash(hashFunction);
+        while (!nextStartP.equals(nextCyclicP)) {
+            startP = nextStartP;
+            nextStartP = startP.hash(hashFunction);
+            cyclicP = nextCyclicP;
+            nextCyclicP = cyclicP.hash(hashFunction);
         }
-        return new Collision(hashFunction, headP, cycleP);
+        return new Collision(hashFunction, startP, cyclicP);
     }
 }
