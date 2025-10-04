@@ -1,6 +1,6 @@
 package net.filipvanlaenen.jcrk;
 
-import net.filipvanlaenen.kolektoj.ModifiableMap;
+import net.filipvanlaenen.kolektoj.ModifiableCollection;
 
 /**
  * A segment on a path in Pollard's rho collision search. A segment has a start point, an end point, a length, an order
@@ -34,7 +34,7 @@ public final class Segment {
     /**
      * Points tracked while extending the segment in order to detect whether it's cyclic.
      */
-    private ModifiableMap<Point, Long> trackedPoints;
+    private ModifiableCollection<Point> trackedPoints;
     /**
      * The length at which to track points.
      */
@@ -75,7 +75,7 @@ public final class Segment {
         this.length = length;
         this.order = order;
         this.hashFunction = hashFunction;
-        this.trackedPoints = ModifiableMap.empty();
+        this.trackedPoints = ModifiableCollection.empty();
         this.trackLength = 1L << order;
     }
 
@@ -88,6 +88,10 @@ public final class Segment {
      */
     private int addValueToHashCode(final int hashCode, final int value) {
         return THIRTY_ONE * hashCode + value;
+    }
+
+    CyclicSegment asCyclicSegment() {
+        return new CyclicSegment(startPoint, endPoint, hashFunction);
     }
 
     @Override
@@ -103,7 +107,7 @@ public final class Segment {
             throw new IllegalStateException("A complete segment cannot be extended.");
         }
         if (length > 0 && length % trackLength == 0) {
-            trackedPoints.add(endPoint, length);
+            trackedPoints.add(endPoint);
         }
         endPoint = endPoint.hash(hashFunction);
         length++;
@@ -179,7 +183,7 @@ public final class Segment {
      * @return True if the segment is cyclic, and false otherwise.
      */
     boolean isCyclic() {
-        return trackedPoints.containsKey(endPoint);
+        return trackedPoints.contains(endPoint);
     }
 
     /**
@@ -200,9 +204,5 @@ public final class Segment {
      */
     private boolean isSpatiallyEqual(final Segment other) {
         return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
-    }
-
-    CyclicSegment asCyclicSegment() {
-        return new CyclicSegment(startPoint, endPoint, trackedPoints.get(endPoint), length, hashFunction);
     }
 }

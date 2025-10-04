@@ -5,8 +5,7 @@ public final class CyclicSegment {
     private final Point cyclicPoint;
     private final HashFunction hashFunction;
 
-    public CyclicSegment(Point startPoint, Point cyclicPoint, Long firstLength, long totalLength,
-            HashFunction hashFunction) {
+    public CyclicSegment(Point startPoint, Point cyclicPoint, HashFunction hashFunction) {
         this.startPoint = startPoint;
         this.cyclicPoint = cyclicPoint;
         this.hashFunction = hashFunction;
