@@ -51,6 +51,7 @@ public final class CyclicSegment {
         }
         Point startP = startPoint;
         Point cyclicP = cyclicPoint;
+        // EQMU: Changing the conditional boundary below produces an equivalent mutant.
         if (cycleLength > startLength) {
             for (int i = 0; i < cycleLength - startLength; i++) {
                 cyclicP = cyclicP.hash(hashFunction);
