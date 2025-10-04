@@ -74,6 +74,11 @@ public class SegmentTest {
      */
     private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point(HASH_OF_POINT_ZERO);
     /**
+     * The hash function SHA-1 truncated to 1 bit.
+     */
+    private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_1_BITS =
+            new TruncatedStandardHashFunction(SHA1, 1);
+    /**
      * The hash function SHA-1 truncated to 9 bits.
      */
     private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_9_BITS =
@@ -324,6 +329,16 @@ public class SegmentTest {
     @Test
     public void isCyclicShouldReturnFalseForNonCyclicSegment() {
         assertFalse(createSegment().isCyclic());
+    }
+
+    /**
+     * Verifies that <code>isCyclic</code> returns false on a perfect cyclic segment.
+     */
+    @Test
+    public void isCyclicShouldReturnFalseOnPerfectCyclicSegment() {
+        Segment segment = new Segment(POINT_00, FOUR, SHA1_TRUNCATED_TO_1_BITS);
+        segment.extend();
+        assertFalse(segment.isCyclic());
     }
 
     /**
