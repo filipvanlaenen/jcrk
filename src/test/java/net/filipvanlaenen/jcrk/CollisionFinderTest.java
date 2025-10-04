@@ -70,12 +70,14 @@ public class CollisionFinderTest {
      */
     @Test
     public void collisionFinderMustFindCorrectCollision() {
+        ByteArrayOutputStream outputStream = LaconicConfigurator.resetLaconicOutputStream();
         SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_8_BITS);
         CollisionFinder finder = new CollisionFinder(segmentRepository,
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         Collision collision = finder.findCollision();
         assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_8_BITS, POINT_02, POINT_3C));
         assertEquals(segmentRepository.getOrder(), FOUR);
+        assertTrue(outputStream.toString().contains("Found a collision."));
     }
 
     /**
@@ -83,12 +85,14 @@ public class CollisionFinderTest {
      */
     @Test
     public void shouldDetectACollisionFromACyclicSegment() {
+        ByteArrayOutputStream outputStream = LaconicConfigurator.resetLaconicOutputStream();
         SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_9_BITS);
         CollisionFinder finder = new CollisionFinder(segmentRepository,
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         Collision collision = finder.findCollision();
         assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_9_BITS, POINT_0C00, POINT_3680));
         assertEquals(segmentRepository.getOrder(), FOUR);
+        assertTrue(outputStream.toString().contains("The segment of order 4 with start point 0c00 is cyclic."));
     }
 
     /**
