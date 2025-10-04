@@ -59,12 +59,12 @@ This should produce a short report displaying how to use the program.
 | 9          | `0200` and `E180`                         | `9B80`             | 87                                            |
 | 10         | `B9C0` and `E500`                         | `4E40`             | 65                                            |
 | 11         | `0000` and `7040`                         | `1480`             | 71                                            |
-| 12         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 12         | `3450` and `8860`                         | `CDD0`             | 65                                            |
 | 13         | `8FD8` and `F790`                         | `2338`             | 73                                            |
 | 14         | `4DC4` and `C0DC`                         | `79F8`             | 74                                            |
-| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 15         | `1EEE` and `98DE`                         | `CA26`             | 80                                            |
 | 16         | `0DF7` and `298F`                         | `484D`             | 75                                            |
-| 17         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 17         | `26F080` and `D5E100`                     | `51DA00`           | 69                                            |
 | 18         | `A48BC0` and `E21940`                     | `4FA900`           | 70                                            |
 | 19         | `0510A0` and `A58460`                     | `2FC8A0`           | 62                                            |
 | 20         | `5AE4A0` and `8A3020`                     | `742DC0`           | 67                                            |
@@ -117,24 +117,24 @@ This should produce a short report displaying how to use the program.
 | 3          | Cyclic result space                       | N/A                | N/A                                           |
 | 4          | `40` and `C0`                             | `00`               | 108                                           |
 | 5          | `A0` and `C8`                             | `38`               | 105                                           |
-| 6          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 6          | `A0` and `C8`                             | `38`               | 105                                           |
 | 7          | `02` and `7A`                             | `2C`               | 114                                           |
 | 8          | `38` and `FD`                             | `52`               | 104                                           |
-| 9          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 9          | `8200` and `9300`                         | `F780`             | 109                                           |
 | 10         | `2000` and `EAC0`                         | `2140`             | 105                                           |
-| 11         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 11         | `8500` and `E960`                         | `BB40`             | 118                                           |
 | 12         | `1F80` and `A010`                         | `B990`             | 108                                           |
 | 13         | `A6A0` and `B8B8`                         | `0F10`             | 109                                           |
 | 14         | `80A8` and `E2E4`                         | `7BCC`             | 104                                           |
 | 15         | `3B9E` and `5540`                         | `1508`             | 118                                           |
 | 16         | `75C4` and `9A10`                         | `49AD`             | 102                                           |
 | 17         | `8E0600` and `E87100`                     | `938300`           | 114                                           |
-| 18         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 18         | `0986C0` and `780E00`                     | `BC0F00`           | 98                                            |
 | 19         | `AC4B00` and `F15580`                     | `9D83A0`           | 97                                            |
 | 20         | `330750` and `A7F550`                     | `C4C890`           | 109                                           |
 | 21         | `2CB350` and `42ACA0`                     | `BB3AC8`           | 93                                            |
 | 22         | `C1BA94` and `F97FA8`                     | `CF2E10`           | 107                                           |
-| 23         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 23         | `2754B8` and `97A1B6`                     | `CA8EF2`           | 93                                            |
 | 24         | `22DF53` and `DBF791`                     | `2C9A15`           | 95                                            |
 | 25         | `559F8200` and `EFFD5A00`                 | `519CBF00`         | 102                                           |
 | 26         | `3B0A5300` and `501F3B40`                 | `DDE96680`         | 87                                            |
@@ -176,15 +176,15 @@ This should produce a short report displaying how to use the program.
 | Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
 | 1          | `00` and `80`                             | `00`               | 120                                           |
-| 2          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 2          | `40` and `C0`                             | `C0`               | 123                                           |
 | 3          | `00` and `80`                             | `60`               | 120                                           |
 | 4          | `80` and `E0`                             | `70`               | 130                                           |
-| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 5          | `10` and `40`                             | `C0`               | 116                                           |
 | 6          | `6C` and `D8`                             | `AC`               | 125                                           |
-| 7          | See [issue 14](https://github.com/filipvanlaenen/jcrk/issues/14) | |                                           |
-| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 7          | `5E` and `A8`                             | `74`               | 123                                           |
+| 8          | `8C` and `9D`                             | `9D`               | 112                                           |
 | 9          | `6380` and `9680`                         | `E000`             | 119                                           |
-| 10         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 10         | `5B00` and `7DC0`                         | `D840`             | 116                                           |
 | 11         | `2EC0` and `B880`                         | `5AA0`             | 126                                           |
 | 12         | `7A20` and `D3A0`                         | `F400`             | 129                                           |
 | 13         | `4F10` and `5A18`                         | `8DD0`             | 132                                           |
@@ -242,29 +242,29 @@ This should produce a short report displaying how to use the program.
 | 2          | `00` and `80`                             | `80`               | 190                                           |
 | 3          | `00` and `60`                             | `A0`               | 192                                           |
 | 4          | `70` and `B0`                             | `00`               | 202                                           |
-| 5          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 5          | `18` and `C0`                             | `C0`               | 194                                           |
 | 6          | `1C` and `5C`                             | `C8`               | 195                                           |
-| 7          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
-| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 7          | `58` and `5E`                             | `74`               | 192                                           |
+| 8          | `7B` and `CF`                             | `95`               | 201                                           |
 | 9          | `0400` and `1280`                         | `A880`             | 190                                           |
 | 10         | `3D80` and `7680`                         | `6E80`             | 191                                           |
 | 11         | `8C80` and `EBA0`                         | `2140`             | 181                                           |
 | 12         | `68B0` and `C580`                         | `1A60`             | 188                                           |
 | 13         | `C098` and `C4F0`                         | `D700`             | 181                                           |
 | 14         | `21EC` and `7820`                         | `C7BC`             | 179                                           |
-| 15         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 15         | `A636` and `E036`                         | `6860`             | 173                                           |
 | 16         | `A352` and `A876`                         | `8607`             | 198                                           |
 | 17         | `1D9280` and `E77B80`                     | `ED2D80`           | 186                                           |
 | 18         | `845C80` and `E239C0`                     | `F4D800`           | 170                                           |
 | 19         | `13AEC0` and `3C1A60`                     | `7159E0`           | 194                                           |
-| 20         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 20         | `F135A0` and `F58900`                     | `424CE0`           | 160                                           |
 | 21         | `575148` and `6B5C18`                     | `D18E78`           | 181                                           |
 | 22         | `07D394` and `8E7D7C`                     | `DBF490`           | 173                                           |
 | 23         | `D43A22` and `DF81F0`                     | `A6038C`           | 185                                           |
 | 24         | `763F9E` and `DA2ABE`                     | `D493BE`           | 199                                           |
 | 25         | `02609280` and `7403FD00`                 | `7977DE00`         | 177                                           |
-| 26         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
-| 27         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 26         | `20670100` and `DB5BC840`                 | `7C41DE80`         | 184                                           |
+| 27         | `53F48CC0` and `AA233DE0`                 | `2BFF9FC0`         | 182                                           |
 | 28         | `11868EE0` and `9F14AE70`                 | `CBE9BA20`         | 177                                           |
 | 29         | `12411C68` and `95CF1778`                 | `09436C00`         | 154                                           |
 | 30         | `1A871A38` and `26ED083C`                 | `0ED962B4`         | 171                                           |
@@ -309,10 +309,10 @@ This should produce a short report displaying how to use the program.
 | 5          | `80` and `B8`                             | `D8`               | 249                                           |
 | 6          | `A0` and `DC`                             | `70`               | 264                                           |
 | 7          | `72` and `E8`                             | `A8`               | 236                                           |
-| 8          | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 8          | `2C` and `92`                             | `C2`               | 256                                           |
 | 9          | `0F80` and `6480`                         | `C100`             | 233                                           |
-| 10         | `0000` and `2240`                         | `5E80`             | 266                                           |
-| 11         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 10         | `0000` and `2240`                         | `B1C0`             | 244                                           |
+| 11         | `5600` and `CB20`                         | `5E80`             | 266                                           |
 | 12         | `9B00` and `AFF0`                         | `3B40`             | 246                                           |
 | 13         | `0970` and `3DC0`                         | `2260`             | 263                                           |
 | 14         | `5EA4` and `E824`                         | `A920`             | 237                                           |
@@ -323,9 +323,9 @@ This should produce a short report displaying how to use the program.
 | 19         | `9FA560` and `F36E80`                     | `6459C0`           | 238                                           |
 | 20         | `03DA60` and `1AFEF0`                     | `8EEC70`           | 246                                           |
 | 21         | `B926A0` and `C8BB98`                     | `07B708`           | 235                                           |
-| 22         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 22         | `7A51A4` and `C7BB88`                     | `02E184`           | 232                                           |
 | 23         | `086E3A` and `77C636`                     | `A06772`           | 255                                           |
-| 24         | See [issue 12](https://github.com/filipvanlaenen/jcrk/issues/12) | |                                           |
+| 24         | `41565B` and `77A961`                     | `7505E0`           | 240                                           |
 | 25         | `539A9080` and `F2171900`                 | `4A4DB200`         | 245                                           |
 | 26         | `5139E9C0` and `D8641740`                 | `F4D546C0`         | 240                                           |
 | 27         | `52BC4FE0` and `84819D40`                 | `84BDD0C0`         | 236                                           |
