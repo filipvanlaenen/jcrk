@@ -3,34 +3,12 @@ package net.filipvanlaenen.jcrk;
 /**
  * A segment on a path in Pollard's rho collision search that has been found to contain a cycle. A cyclic segment has a
  * start point, a cyclic point and a hash function.
+ *
+ * @param startPoint   The start point of the cyclic segment.
+ * @param cyclicPoint  One of the points on the cyclic segment's cycle.
+ * @param hashFunction The hash function for the segment.
  */
-public final class CyclicSegment {
-    /**
-     * A point that's on the cycle.
-     */
-    private final Point cyclicPoint;
-    /**
-     * The hash function.
-     */
-    private final HashFunction hashFunction;
-    /**
-     * The start point of the cyclic segment.
-     */
-    private final Point startPoint;
-
-    /**
-     * Constructor taking the start point, the cyclic point and the hash function.
-     *
-     * @param startPoint   The start point of the cyclic segment.
-     * @param cyclicPoint  One of the points on the cyclic segment's cycle.
-     * @param hashFunction The hash function for the segment.
-     */
-    public CyclicSegment(final Point startPoint, final Point cyclicPoint, final HashFunction hashFunction) {
-        this.startPoint = startPoint;
-        this.cyclicPoint = cyclicPoint;
-        this.hashFunction = hashFunction;
-    }
-
+public record CyclicSegment(Point startPoint, Point cyclicPoint, HashFunction hashFunction) {
     /**
      * Finds the collision in the cyclic segment.
      *

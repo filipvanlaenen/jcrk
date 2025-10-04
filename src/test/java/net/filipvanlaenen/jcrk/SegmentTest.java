@@ -11,6 +11,14 @@ import org.junit.jupiter.api.Test;
  */
 public class SegmentTest {
     /**
+     * The magic number four.
+     */
+    private static final int FOUR = 4;
+    /**
+     * The magic number twenty.
+     */
+    private static final int TWENTY = 20;
+    /**
      * The magic number thirty two.
      */
     private static final int THIRTY_TWO = 32;
@@ -26,6 +34,14 @@ public class SegmentTest {
      * The byte 0xFF.
      */
     private static final int BYTE_0XFF = 0xff;
+    /**
+     * Point 0x0C00.
+     */
+    private static final Point POINT_0C00 = new Point((byte) 0x0c, (byte) 0x00);
+    /**
+     * Point 0x3680.
+     */
+    private static final Point POINT_3680 = new Point((byte) 0x36, (byte) 0x80);
     /**
      * Point zero.
      */
@@ -57,6 +73,11 @@ public class SegmentTest {
      * The first point after point zero.
      */
     private static final Point FIRST_POINT_AFTER_POINT_ZERO = new Point(HASH_OF_POINT_ZERO);
+    /**
+     * The hash function SHA-1 truncated to 9 bits.
+     */
+    private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_9_BITS =
+            new TruncatedStandardHashFunction(SHA1, 9);
 
     /**
      * A segment is not complete if its length is zero.
@@ -185,7 +206,6 @@ public class SegmentTest {
         IllegalArgumentException exception =
                 assertThrows(IllegalArgumentException.class, () -> new Segment(POINT_40, -1, SHA256));
         assertEquals("The order (-1) is negative.", exception.getMessage());
-
     }
 
     /**
@@ -281,8 +301,66 @@ public class SegmentTest {
      *
      * @return A segment to run the unit tests on.
      */
-    public Segment createSegment() {
+    private Segment createSegment() {
         return new Segment(POINT_00, POINT_01, 1, 1, SHA256);
+    }
+
+    /**
+     * Creates a cyclic segment to run the unit tests on.
+     *
+     * @return A cycle segment to run the unit tests on.
+     */
+    private Segment createCyclicSegment() {
+        Segment result = new Segment(POINT_0C00, FOUR, SHA1_TRUNCATED_TO_9_BITS);
+        for (int i = 0; i < TWENTY; i++) {
+            result.extend();
+        }
+        return result;
+    }
+
+    /**
+     * Verifies that <code>isCyclic</code> returns false for a non-cyclic segment.
+     */
+    @Test
+    public void isCyclicShouldReturnFalseForNonCyclicSegment() {
+        assertFalse(createSegment().isCyclic());
+    }
+
+    /**
+     * Verifies that <code>isCyclic</code> returns true for a cyclic segment.
+     */
+    @Test
+    public void isCyclicShouldReturnTrueForCyclicSegment() {
+        assertTrue(createCyclicSegment().isCyclic());
+    }
+
+    /**
+     * Verifies that <code>asCyclicSegment</code> throws an exception when called on a non-cyclic segment.
+     */
+    @Test
+    public void asCyclicSegmentShouldThrowIllegalStateExceptionForNonCyclicSegment() {
+        IllegalStateException exception =
+                assertThrows(IllegalStateException.class, () -> createSegment().asCyclicSegment());
+        assertEquals("A segment that isn't cyclic can't be exported as a cyclic segment.", exception.getMessage());
+    }
+
+    /**
+     * Verifies that <code>asCyclicSegment</code> returns a cyclic segment.
+     */
+    @Test
+    public void asCyclicSegmentShouldReturnCyclicSegmentCorrectly() {
+        CyclicSegment cyclicSegment = createCyclicSegment().asCyclicSegment();
+        assertEquals(new CyclicSegment(POINT_0C00, POINT_3680, SHA1_TRUNCATED_TO_9_BITS), cyclicSegment);
+    }
+
+    /**
+     * Verifies that <code>extend</code> throws an exception when called on a cyclic segment.
+     */
+    @Test
+    public void extendShouldThrowIllegalStateExceptionForCyclicSegment() {
+        IllegalStateException exception =
+                assertThrows(IllegalStateException.class, () -> createCyclicSegment().extend());
+        assertEquals("A cyclic segment cannot be extended.", exception.getMessage());
     }
 
     /**

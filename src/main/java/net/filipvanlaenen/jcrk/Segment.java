@@ -114,6 +114,9 @@ public final class Segment {
         if (isComplete()) {
             throw new IllegalStateException("A complete segment cannot be extended.");
         }
+        if (isCyclic()) {
+            throw new IllegalStateException("A cyclic segment cannot be extended.");
+        }
         if (length > 0 && length % trackLength == 0) {
             trackedPoints.add(endPoint);
         }
