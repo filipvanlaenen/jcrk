@@ -1,5 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
+import net.filipvanlaenen.kolektoj.ModifiableMap;
+
 /**
  * A segment on a path in Pollard's rho collision search. A segment has a start point, an end point, a length, an order
  * and a hash function.
@@ -10,13 +12,13 @@ public final class Segment {
      */
     private static final int THIRTY_ONE = 31;
     /**
-     * The start point of the segment.
-     */
-    private final Point startPoint;
-    /**
      * The (current) end point of the segment.
      */
     private Point endPoint;
+    /**
+     * The hash function of the segment.
+     */
+    private final HashFunction hashFunction;
     /**
      * The (current) length of the segment.
      */
@@ -26,9 +28,17 @@ public final class Segment {
      */
     private final int order;
     /**
-     * The hash function of the segment.
+     * The start point of the segment.
      */
-    private final HashFunction hashFunction;
+    private final Point startPoint;
+    /**
+     * Points tracked while extending the segment in order to detect whether it's cyclic.
+     */
+    private ModifiableMap<Point, Long> trackedPoints;
+    /**
+     * The length at which to track points.
+     */
+    private final long trackLength;
 
     /**
      * Constructs a segment using a start point, order and a hash function, and defaults the other segment values.
@@ -65,6 +75,8 @@ public final class Segment {
         this.length = length;
         this.order = order;
         this.hashFunction = hashFunction;
+        this.trackedPoints = ModifiableMap.empty();
+        this.trackLength = 1L << order;
     }
 
     /**
@@ -89,6 +101,9 @@ public final class Segment {
     void extend() {
         if (isComplete()) {
             throw new IllegalStateException("A complete segment cannot be extended.");
+        }
+        if (length > 0 && length % trackLength == 0) {
+            trackedPoints.add(endPoint, length);
         }
         endPoint = endPoint.hash(hashFunction);
         length++;
@@ -159,6 +174,15 @@ public final class Segment {
     }
 
     /**
+     * Checks whether the segment is cyclic. The segment is cyclic if the same point has occurred more than once.
+     *
+     * @return True if the segment is cyclic, and false otherwise.
+     */
+    boolean isCyclic() {
+        return trackedPoints.containsKey(endPoint);
+    }
+
+    /**
      * Checks whether a segment is equal to another segment.
      *
      * @param other The other segment.
@@ -176,5 +200,9 @@ public final class Segment {
      */
     private boolean isSpatiallyEqual(final Segment other) {
         return startPoint.equals(other.startPoint) && endPoint.equals(other.endPoint) && length == other.length;
+    }
+
+    CyclicSegment asCyclicSegment() {
+        return new CyclicSegment(startPoint, endPoint, trackedPoints.get(endPoint), length, hashFunction);
     }
 }

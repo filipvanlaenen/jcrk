@@ -64,25 +64,32 @@ public class CollisionFinder {
                     segmentRepository.getOrder(), newStartPoint.asHexadecimalString()));
             Segment newSegment =
                     new Segment(newStartPoint, segmentRepository.getOrder(), segmentRepository.getHashFunction());
-            while (!newSegment.isComplete()) {
+            while (!newSegment.isComplete() && !newSegment.isCyclic()) {
                 newSegment.extend();
             }
-            Laconic.LOGGER.logProgress(
-                    String.format("Completed a segment of order %d with start point %s, end point %s and length %d.",
-                            segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
-                            newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
-            segmentRepository.add(newSegment);
-            Laconic.LOGGER.logProgress(
-                    String.format("Added the new segment to the repository, which now contains %d segments.",
-                            segmentRepository.size()));
-            Collection<Segment> segmentsWithNewEndPoint =
-                    segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
-            if (segmentsWithNewEndPoint.size() > 1) {
-                CollidingSegmentsCollection collidingSegments =
-                        new CollidingSegmentsCollection(segmentsWithNewEndPoint);
-                Laconic.LOGGER.logProgress("Found two colliding segments with end point %s.",
-                        newSegment.getEndPoint().asHexadecimalString());
-                collision = collidingSegments.findCollision();
+            if (newSegment.isCyclic()) {
+                Laconic.LOGGER.logProgress(String.format("The segment of order %d with start point %s is cyclic.",
+                        segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString()));
+                CyclicSegment cyclicSegment = newSegment.asCyclicSegment();
+                collision = cyclicSegment.findCollision();
+            } else {
+                Laconic.LOGGER.logProgress(String.format(
+                        "Completed a segment of order %d with start point %s, end point %s and length %d.",
+                        segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
+                        newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
+                segmentRepository.add(newSegment);
+                Laconic.LOGGER.logProgress(
+                        String.format("Added the new segment to the repository, which now contains %d segments.",
+                                segmentRepository.size()));
+                Collection<Segment> segmentsWithNewEndPoint =
+                        segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
+                if (segmentsWithNewEndPoint.size() > 1) {
+                    CollidingSegmentsCollection collidingSegments =
+                            new CollidingSegmentsCollection(segmentsWithNewEndPoint);
+                    Laconic.LOGGER.logProgress("Found two colliding segments with end point %s.",
+                            newSegment.getEndPoint().asHexadecimalString());
+                    collision = collidingSegments.findCollision();
+                }
             }
         }
         Laconic.LOGGER.logProgress(String.format("Found a collision."));

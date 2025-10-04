@@ -23,6 +23,11 @@ public class CollisionFinderTest {
     private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_8_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 8);
     /**
+     * The hash function SHA-1 truncated to 9 bits.
+     */
+    private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_9_BITS =
+            new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 9);
+    /**
      * The hash function SHA-1 truncated to 8 bits.
      */
     private static final TruncatedStandardHashFunction SHA224_TRUNCATED_TO_3_BITS =
@@ -35,6 +40,9 @@ public class CollisionFinderTest {
      * Point 0x4C.
      */
     private static final Point POINT_3C = new Point((byte) 0x3c);
+    private static final Point POINT_0C00 = new Point((byte) 0x0c, (byte) 0x00);
+    private static final Point POINT_3680 = new Point((byte) 0x36, (byte) 0x80);
+
     /**
      * The magic number four.
      */
@@ -61,6 +69,19 @@ public class CollisionFinderTest {
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         Collision collision = finder.findCollision();
         assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_8_BITS, POINT_02, POINT_3C));
+        assertEquals(segmentRepository.getOrder(), FOUR);
+    }
+
+    /**
+     * Verifies correct reporting when a collision is found in a cyclic segment.
+     */
+    @Test
+    public void shouldDetectACollisionFromACyclicSegment() {
+        SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_9_BITS);
+        CollisionFinder finder = new CollisionFinder(segmentRepository,
+                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+        Collision collision = finder.findCollision();
+        assertEquals(collision, new Collision(SHA1_TRUNCATED_TO_9_BITS, POINT_0C00, POINT_3680));
         assertEquals(segmentRepository.getOrder(), FOUR);
     }
 
