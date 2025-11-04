@@ -107,6 +107,7 @@ This should produce a short report displaying how to use the program.
 | 57         | `D3CCB66F076DC480` and `EE04C1F20197D880` | `0E410CD7C512AB00` | 49                                            |
 | 58         | `26F5741F54CE0300` and `AC4874FA8F414480` | `BF2FD6F086A8D580` | 55                                            |
 | 59         | `6A14C7A37E9AC140` and `AD6DB2DD8689E900` | `C1BC8BC580F5F120` | 49                                            |
+| 60         | `08B3FCB100CCE1A0` and `0D6A8E105E73B670` | `70FA31885E403E70` | 52                                            |
 
 ### SHA-224
 
@@ -170,6 +171,7 @@ This should produce a short report displaying how to use the program.
 | 56         | `097918D63270A2` and `819FCC4BB8D157`     | `220B18E00493D2`   | 89                                            |
 | 57         | `725DFC223D98ED00` and `CDD266ED78F28480` | `9A6923E4237F2480` | 78                                            |
 | 58         | `854095C02E84B1C0` and `B9795F9B5443CA80` | `AFB53F3834CFCC00` | 83                                            |
+| 59         | `3C70A0939FB6A0E0` and `77EB3FEE89C5ACE0` | `5ECDE24F8B42DF40` | 75                                            |
 
 ### SHA-256
 
@@ -233,6 +235,7 @@ This should produce a short report displaying how to use the program.
 | 56         | `194066CE0C376C` and `E9B8071FCA5C94`     | `3D955EC11B8379`   | 95                                            |
 | 57         | `8B76D455EFD2C680` and `EBEB92B82917BB80` | `A7CC7EECFED69100` | 97                                            |
 | 58         | `AE5E8359214AC200` and `B9BD37A32AC98900` | `26DB0BEDAF2B1680` | 99                                            |
+| 59         | `546764DF44476BC0` and `C97BC0D955D7ABA0` | `29E60273FD319C80` | 94                                            |
 
 ### SHA-384
 
