@@ -172,6 +172,7 @@ This should produce a short report displaying how to use the program.
 | 57         | `725DFC223D98ED00` and `CDD266ED78F28480` | `9A6923E4237F2480` | 78                                            |
 | 58         | `854095C02E84B1C0` and `B9795F9B5443CA80` | `AFB53F3834CFCC00` | 83                                            |
 | 59         | `3C70A0939FB6A0E0` and `77EB3FEE89C5ACE0` | `5ECDE24F8B42DF40` | 75                                            |
+| 60         | `2BC0F4515F242E60` and `A3FCA7641FA79C80` | `36E528F2FEB23520` | 85                                            |
 
 ### SHA-256
 
