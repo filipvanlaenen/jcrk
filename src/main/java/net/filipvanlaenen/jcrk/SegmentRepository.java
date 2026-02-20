@@ -1,5 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
+import java.io.IOException;
+
 import net.filipvanlaenen.kolektoj.Collection;
 
 /**
@@ -17,8 +19,9 @@ public interface SegmentRepository {
      * @return True if the segment wasn't yet present, false otherwise.
      * @throws IllegalArgumentException Thrown if the segment doesn't have the same order and hash function as the
      *                                  repository.
+     * @throws IOException 
      */
-    boolean add(Segment segment) throws IllegalArgumentException;
+    boolean add(Segment segment) throws IllegalArgumentException, IOException;
 
     /**
      * Returns true if this repository contains the segment.

@@ -150,8 +150,19 @@ public final class InMemorySegmentRepository implements SegmentRepository {
         return hashFunction;
     }
 
+    Collection<Segment> getSegments() {
+        return startPointMap.getValues();
+    }
+
     @Override
     public boolean isFull() {
         return maxSize.equals(new BigDecimal(size()));
+    }
+
+    void setOrder(int newOrder) {
+        order = newOrder;
+        maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
+        startPointMap.clear();
+        endPointMap.clear();
     }
 }

@@ -1,5 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
+import java.io.IOException;
+
 import net.filipvanlaenen.laconic.Laconic;
 
 /**
@@ -21,8 +23,9 @@ public final class CommandLineInterface {
      * The main entry point for the command line interface.
      *
      * @param args The arguments.
+     * @throws IOException 
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         if (args.length < 1) {
             printUsage();
             return;
@@ -52,7 +55,7 @@ public final class CommandLineInterface {
          */
         ANALYZE {
             @Override
-            void execute(final String[] args) {
+            void execute(final String[] args) throws IllegalArgumentException, IOException {
                 StandardHashFunction baseHashFunction = StandardHashFunction.SHA1;
                 if (args.length > 1) {
                     baseHashFunction = StandardHashFunction.valueOf(args[1].toUpperCase());
@@ -62,7 +65,8 @@ public final class CommandLineInterface {
                     numberOfBits = Integer.parseInt(args[2]);
                 }
                 HashFunction hashFunction = new TruncatedStandardHashFunction(baseHashFunction, numberOfBits);
-                SegmentRepository segmentRepository = new InMemorySegmentRepository(hashFunction);
+                String cacheFileName = baseHashFunction.toString() + "-" + numberOfBits + ".rcf";
+                SegmentRepository segmentRepository = new FileBasedSegmentRepository(cacheFileName, hashFunction);
                 CollisionFinder finder = new CollisionFinder(segmentRepository,
                         SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
                 Collision collision = finder.findCollision();
@@ -96,7 +100,9 @@ public final class CommandLineInterface {
          * Executes the command, passing the arguments from the command line.
          *
          * @param args The arguments from the command line.
+         * @throws IOException 
+         * @throws IllegalArgumentException 
          */
-        abstract void execute(String[] args);
+        abstract void execute(String[] args) throws IllegalArgumentException, IOException;
     }
 }

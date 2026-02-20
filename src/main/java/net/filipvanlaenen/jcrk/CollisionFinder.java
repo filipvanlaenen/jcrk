@@ -1,5 +1,7 @@
 package net.filipvanlaenen.jcrk;
 
+import java.io.IOException;
+
 import net.filipvanlaenen.kolektoj.Collection;
 import net.filipvanlaenen.kolektoj.OrderedCollection;
 import net.filipvanlaenen.laconic.Laconic;
@@ -37,10 +39,14 @@ public class CollisionFinder {
     /**
      * Finds a collision using the segment repository with the segment producer to add new segments and the segment
      * repository compression condition to determine when to compress the segment repository.
+     * 
+     * @param cacheFileName
      *
      * @return The first collision found.
+     * @throws IOException 
+     * @throws IllegalArgumentException 
      */
-    public Collision findCollision() {
+    public Collision findCollision() throws IllegalArgumentException, IOException {
         Collision collision = null;
         while (collision == null && !segmentRepository.isFull()) {
             if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {
