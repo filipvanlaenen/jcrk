@@ -23,7 +23,7 @@ public final class CommandLineInterface {
      * The main entry point for the command line interface.
      *
      * @param args The arguments.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(final String[] args) throws IOException {
         if (args.length < 1) {
@@ -58,7 +58,7 @@ public final class CommandLineInterface {
             void execute(final String[] args) throws IllegalArgumentException {
                 StandardHashFunction baseHashFunction = StandardHashFunction.SHA1;
                 if (args.length > 1) {
-                    baseHashFunction = StandardHashFunction.valueOf(args[1].toUpperCase());
+                    baseHashFunction = StandardHashFunction.valueOf(args[1].toUpperCase().replaceAll("[^A-Z0-9]", ""));
                 }
                 int numberOfBits = EIGHT;
                 if (args.length > 2) {
@@ -100,8 +100,8 @@ public final class CommandLineInterface {
          * Executes the command, passing the arguments from the command line.
          *
          * @param args The arguments from the command line.
-         * @throws IOException 
-         * @throws IllegalArgumentException 
+         * @throws IOException
+         * @throws IllegalArgumentException
          */
         abstract void execute(String[] args) throws IllegalArgumentException;
     }
