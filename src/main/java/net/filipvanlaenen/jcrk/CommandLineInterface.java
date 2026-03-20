@@ -55,7 +55,7 @@ public final class CommandLineInterface {
          */
         ANALYZE {
             @Override
-            void execute(final String[] args) throws IllegalArgumentException, IOException {
+            void execute(final String[] args) throws IllegalArgumentException {
                 StandardHashFunction baseHashFunction = StandardHashFunction.SHA1;
                 if (args.length > 1) {
                     baseHashFunction = StandardHashFunction.valueOf(args[1].toUpperCase());
@@ -103,6 +103,6 @@ public final class CommandLineInterface {
          * @throws IOException 
          * @throws IllegalArgumentException 
          */
-        abstract void execute(String[] args) throws IllegalArgumentException, IOException;
+        abstract void execute(String[] args) throws IllegalArgumentException;
     }
 }

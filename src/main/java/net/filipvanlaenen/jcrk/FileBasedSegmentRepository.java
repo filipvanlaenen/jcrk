@@ -3,26 +3,31 @@ package net.filipvanlaenen.jcrk;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.HexFormat;
 
 import net.filipvanlaenen.kolektoj.Collection;
+import net.filipvanlaenen.laconic.Laconic;
 
 public final class FileBasedSegmentRepository implements SegmentRepository {
     private final InMemorySegmentRepository inMemorySegmentRepository;
     private final String cacheFileName;
 
-    public FileBasedSegmentRepository(final String cacheFileName, final HashFunction hashFunction) throws IOException {
+    public FileBasedSegmentRepository(final String cacheFileName, final HashFunction hashFunction) {
         this.cacheFileName = cacheFileName;
         this.inMemorySegmentRepository = new InMemorySegmentRepository(hashFunction);
         loadFromCache();
     }
 
     @Override
-    public boolean add(final Segment segment) throws IllegalArgumentException, IOException {
+    public boolean add(final Segment segment) throws IllegalArgumentException {
         boolean result = inMemorySegmentRepository.add(segment);
-        writeFile(cacheFileName, calculateCacheContent());
+        try {
+            writeFile(cacheFileName, calculateCacheContent());
+        } catch (IOException ioe) {
+            Laconic.LOGGER.logError("IOException while trying to write a segment repository to a file: %s",
+                    ioe.getMessage());
+        }
         return result;
     }
 
@@ -64,6 +69,11 @@ public final class FileBasedSegmentRepository implements SegmentRepository {
     }
 
     @Override
+    public Collection<Collision> getCollisions() {
+        return inMemorySegmentRepository.getCollisions();
+    }
+
+    @Override
     public HashFunction getHashFunction() {
         return inMemorySegmentRepository.getHashFunction();
     }
@@ -93,14 +103,14 @@ public final class FileBasedSegmentRepository implements SegmentRepository {
         return inMemorySegmentRepository.isFull();
     }
 
-    private void loadFromCache() throws IOException {
+    private void loadFromCache() {
         try {
             String[] lines = readFile(cacheFileName);
             HashFunction hashFunction = getHashFunction();
             if (lines[1].equals(hashFunction.toString())) {
                 int order = Integer.parseInt(lines[0]);
                 inMemorySegmentRepository.setOrder(order);
-                for (int i = 2; i < lines.length - 1; i++) { // TODO: Remove -1
+                for (int i = 2; i < lines.length; i++) {
                     String[] parts = lines[i].split("\\.");
                     Point startPoint = new Point(HexFormat.of().parseHex(parts[0]));
                     Point endPoint = new Point(HexFormat.of().parseHex(parts[1]));
@@ -109,7 +119,9 @@ public final class FileBasedSegmentRepository implements SegmentRepository {
                     inMemorySegmentRepository.add(segment);
                 }
             }
-        } catch (NoSuchFileException nsfe) {
+        } catch (IOException ioe) {
+            Laconic.LOGGER.logError("IOException while trying to load a segment repository from a file: %s",
+                    ioe.getMessage());
         }
     }
 

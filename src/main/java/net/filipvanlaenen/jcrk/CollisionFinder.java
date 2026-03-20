@@ -43,10 +43,15 @@ public class CollisionFinder {
      * @param cacheFileName
      *
      * @return The first collision found.
-     * @throws IOException 
-     * @throws IllegalArgumentException 
+     * @throws IOException
+     * @throws IllegalArgumentException
      */
-    public Collision findCollision() throws IllegalArgumentException, IOException {
+    public Collision findCollision() throws IllegalArgumentException {
+        Collection<Collision> collisions = segmentRepository.getCollisions();
+        if (!collisions.isEmpty()) {
+            Laconic.LOGGER.logProgress(String.format("Found a collision."));
+            return collisions.get();
+        }
         Collision collision = null;
         while (collision == null && !segmentRepository.isFull()) {
             if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {

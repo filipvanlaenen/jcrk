@@ -3,9 +3,10 @@ package net.filipvanlaenen.jcrk;
 import java.math.BigDecimal;
 
 import net.filipvanlaenen.kolektoj.Collection;
-import net.filipvanlaenen.kolektoj.ModifiableCollection;
+import net.filipvanlaenen.kolektoj.Map;
 import net.filipvanlaenen.kolektoj.ModifiableMap;
 import net.filipvanlaenen.kolektoj.hash.ModifiableHashMap;
+import net.filipvanlaenen.laconic.Laconic;
 
 /**
  * An in-memory implementation of the segment repository.
@@ -22,8 +23,8 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     /**
      * The segments mapped by their ending point.
      */
-    private final ModifiableMap<Point, ModifiableCollection<Segment>> endPointMap =
-            new ModifiableHashMap<Point, ModifiableCollection<Segment>>();
+    private final ModifiableMap<Point, Segment> endPointMap =
+            new ModifiableHashMap<Point, Segment>(Map.KeyAndValueCardinality.DUPLICATE_KEYS_WITH_DISTINCT_VALUES);
     /**
      * The order of the segment repository.
      */
@@ -61,13 +62,8 @@ public final class InMemorySegmentRepository implements SegmentRepository {
         if (contains(segment)) {
             return false;
         } else {
-            startPointMap.put(segment.getStartPoint(), segment);
-            if (endPointMap.containsKey(segment.getEndPoint())) {
-                endPointMap.get(segment.getEndPoint()).add(segment);
-            } else {
-                ModifiableCollection<Segment> segments = ModifiableCollection.of(segment);
-                endPointMap.put(segment.getEndPoint(), segments);
-            }
+            startPointMap.add(segment.getStartPoint(), segment);
+            endPointMap.add(segment.getEndPoint(), segment);
             return true;
         }
     }
@@ -99,7 +95,7 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     @Override
     public Collection<Segment> getSegmentsWithEndPoint(final Point point) {
         if (endPointMap.containsKey(point)) {
-            return endPointMap.get(point);
+            return endPointMap.getAll(point);
         } else {
             return Collection.of();
         }
@@ -143,6 +139,20 @@ public final class InMemorySegmentRepository implements SegmentRepository {
                 }
             }
         }
+    }
+
+    @Override
+    public Collection<Collision> getCollisions() {
+        for (Point point : endPointMap.getKeys()) {
+            Collection<Segment> segments = endPointMap.getAll(point);
+            if (segments.size() > 1) {
+                CollidingSegmentsCollection collidingSegments = new CollidingSegmentsCollection(segments);
+                Laconic.LOGGER.logProgress("Found two colliding segments with end point %s.",
+                        point.asHexadecimalString());
+                return Collection.of(collidingSegments.findCollision());
+            }
+        }
+        return Collection.empty();
     }
 
     @Override

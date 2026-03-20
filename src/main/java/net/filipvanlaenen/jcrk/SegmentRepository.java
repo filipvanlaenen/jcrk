@@ -19,9 +19,9 @@ public interface SegmentRepository {
      * @return True if the segment wasn't yet present, false otherwise.
      * @throws IllegalArgumentException Thrown if the segment doesn't have the same order and hash function as the
      *                                  repository.
-     * @throws IOException 
+     * @throws IOException
      */
-    boolean add(Segment segment) throws IllegalArgumentException, IOException;
+    boolean add(Segment segment) throws IllegalArgumentException;
 
     /**
      * Returns true if this repository contains the segment.
@@ -95,6 +95,13 @@ public interface SegmentRepository {
      * try and form new segments of the new order.
      */
     void compressToNextOrder();
+
+    /**
+     * Returns the collisions present in the repository.
+     *
+     * @return A collection with the collisions present in the repository.
+     */
+    Collection<Collision> getCollisions();
 
     /**
      * Returns the hash function of the repository.
