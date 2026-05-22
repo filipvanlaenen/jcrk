@@ -108,6 +108,7 @@ This should produce a short report displaying how to use the program.
 | 58         | `26F5741F54CE0300` and `AC4874FA8F414480` | `BF2FD6F086A8D580` | 55                                            |
 | 59         | `6A14C7A37E9AC140` and `AD6DB2DD8689E900` | `C1BC8BC580F5F120` | 49                                            |
 | 60         | `08B3FCB100CCE1A0` and `0D6A8E105E73B670` | `70FA31885E403E70` | 52                                            |
+| 61         | `02BC102B02041888` and `31E2CAB10AA18D10` | `73B21F6EC700EA88` | 51                                            |
 
 ### SHA-224
 
@@ -173,6 +174,7 @@ This should produce a short report displaying how to use the program.
 | 58         | `854095C02E84B1C0` and `B9795F9B5443CA80` | `AFB53F3834CFCC00` | 83                                            |
 | 59         | `3C70A0939FB6A0E0` and `77EB3FEE89C5ACE0` | `5ECDE24F8B42DF40` | 75                                            |
 | 60         | `2BC0F4515F242E60` and `A3FCA7641FA79C80` | `36E528F2FEB23520` | 85                                            |
+| 61         | `6D4BDB3DD3AF92A0` and `F042433E168C4D10` | `93647EED41511858` | 83                                            |
 
 ### SHA-256
 
@@ -237,6 +239,8 @@ This should produce a short report displaying how to use the program.
 | 57         | `8B76D455EFD2C680` and `EBEB92B82917BB80` | `A7CC7EECFED69100` | 97                                            |
 | 58         | `AE5E8359214AC200` and `B9BD37A32AC98900` | `26DB0BEDAF2B1680` | 99                                            |
 | 59         | `546764DF44476BC0` and `C97BC0D955D7ABA0` | `29E60273FD319C80` | 94                                            |
+| 60         | `AA005FAC6FE508F0` and `D3591AD9137A5820` | `79C4096076BF6C20` | 91                                            |
+| 61         | `20D46DE69826B958` and `ED930134A26734B0` | `80FB7A634ABE7548` | 97                                            |
 
 ### SHA-384
 
@@ -301,6 +305,7 @@ This should produce a short report displaying how to use the program.
 | 57         | `7520139D68C4CF80` and `BC4E52106BBCB980` | `CDD3AD791465F680` | 144                                           |
 | 58         | `67BC1175E80C34C0` and `A6DE9E5ED4157940` | `5533E2935A4A6540` | 169                                           |
 | 59         | `0E8A17ACDC631C80` and `27CCE922B54F10A0` | `583C6A24DCC7DD00` | 158                                           |
+| 60         | `5A622F013F6C2A40` and `9218FD99CCE215B0` | `6E596E0271A37B30` | 165                                           |
 
 ### SHA-512
 
@@ -365,3 +370,4 @@ This should produce a short report displaying how to use the program.
 | 57         | `0E8B8D33147B4F00` and `5DC239145E015A80` | `871B9DA07645BF80` | 208                                           |
 | 58         | `2A3D1262ADCE2580` and `3DB5A1B92A5DC300` | `DE3CDE6687455FC0` | 234                                           |
 | 59         | `1CB4EDD5EBCCE280` and `AEB431C93655D100` | `75B4AA9DD19578C0` | 221                                           |
+| 60         | `48BBFF5DD0616B70` and `AD856D430E28A9F0` | `A13E159AFBCC2F90` | 238                                           |
