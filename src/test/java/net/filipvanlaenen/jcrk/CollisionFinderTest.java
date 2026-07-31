@@ -96,16 +96,16 @@ public class CollisionFinderTest {
     }
 
     /**
-     * Verifies correct reporting when no collision can be found due to a cyclic result space for the hash function.
+     * Verifies correct reporting when no collision can be found due to a cyclic result space for the hash function that
+     * isn't point full.
      */
     @Test
-    public void shouldDetectACyclicResultSpace() {
+    public void shouldDetectACyclicResultSpaceThatIsNotPointFull() {
         ByteArrayOutputStream outputStream = LaconicConfigurator.resetLaconicOutputStream();
         SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA224_TRUNCATED_TO_3_BITS);
         CollisionFinder finder = new CollisionFinder(segmentRepository,
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         finder.findCollision();
-        assertTrue(
-                outputStream.toString().contains("No collision found -- the hash function has a cyclic result space."));
+        assertTrue(outputStream.toString().contains("Found a collision."));
     }
 }

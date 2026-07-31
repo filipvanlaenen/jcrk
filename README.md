@@ -118,7 +118,7 @@ This should produce a short report displaying how to use the program.
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
 | 1          | `00` and `80`                             | `80`               | 126                                           |
 | 2          | `40` and `C0`                             | `00`               | 108                                           |
-| 3          | See [issue 17](https://github.com/filipvanlaenen/jcrk/issues/17) | |                                           |
+| 2          | `40` and `C0`                             | `00`               | 108                                           |
 | 4          | `40` and `C0`                             | `00`               | 108                                           |
 | 5          | `A0` and `C8`                             | `38`               | 105                                           |
 | 6          | `A0` and `C8`                             | `38`               | 105                                           |

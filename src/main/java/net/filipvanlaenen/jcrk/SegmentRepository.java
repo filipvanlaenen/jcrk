@@ -114,4 +114,18 @@ public interface SegmentRepository {
      * @return True if the segment repository contains all segments of the given order.
      */
     boolean isFull();
+
+    /**
+     * Returns true if the segment repository is point full, i.e. the repository is full, and all points are included in
+     * the segments.
+     *
+     * @return True if the segment repository contains all points.
+     */
+    boolean isPointFull();
+
+    /**
+     * Relaxes the repository to the previous order. After relaxation, the order of the repository will have been
+     * decreased by one. Only segments that already are of the new order, are retained.
+     */
+    void relaxToPreviousOrder();
 }

@@ -6,6 +6,15 @@ package net.filipvanlaenen.jcrk;
  */
 public enum SegmentRepositoryCompressionCondition {
     /**
+     * Never compress.
+     */
+    NoCompression {
+        @Override
+        boolean evaluate(final SegmentRepository segmentRepository) {
+            return false;
+        }
+    },
+    /**
      * Condition evaluates to true if the size of the repository is larger than the power of two of half of the order.
      */
     SizeLargerThanHalfOrderPowerOfTwo {

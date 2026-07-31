@@ -141,6 +141,11 @@ public abstract class CachedSegmentRepository implements SegmentRepository {
         return inMemorySegmentRepository.isFull();
     }
 
+    @Override
+    public final boolean isPointFull() {
+        return inMemorySegmentRepository.isPointFull();
+    }
+
     /**
      * Loads content from a cache file.
      */
@@ -164,6 +169,11 @@ public abstract class CachedSegmentRepository implements SegmentRepository {
             Laconic.LOGGER.logError("IOException while trying to load a segment repository from a file: %s",
                     ioe.getMessage());
         }
+    }
+
+    @Override
+    public final void relaxToPreviousOrder() {
+        inMemorySegmentRepository.relaxToPreviousOrder();
     }
 
     @Override

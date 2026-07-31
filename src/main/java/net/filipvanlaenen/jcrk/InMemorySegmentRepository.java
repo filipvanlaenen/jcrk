@@ -33,6 +33,10 @@ public final class InMemorySegmentRepository implements SegmentRepository {
      * The maximum size of the segment repository.
      */
     private BigDecimal maxSize;
+    /**
+     * The maximum point size of the segment repository.
+     */
+    private final BigDecimal maxPointSize;
 
     /**
      * Constructor creating an empty in-memory repository for a hash function.
@@ -41,6 +45,7 @@ public final class InMemorySegmentRepository implements SegmentRepository {
      */
     public InMemorySegmentRepository(final HashFunction hashFunction) {
         this.hashFunction = hashFunction;
+        this.maxPointSize = new BigDecimal(2).pow(hashFunction.getBitLength());
         this.maxSize = new BigDecimal(2).pow(hashFunction.getBitLength());
     }
 
@@ -69,54 +74,6 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     }
 
     @Override
-    public boolean contains(final Segment segment) {
-        return startPointMap.containsValue(segment);
-    }
-
-    @Override
-    public boolean containsSegmentWithStartPoint(final Point point) {
-        return startPointMap.containsKey(point);
-    }
-
-    @Override
-    public boolean containsSegmentsWithEndPoint(final Point point) {
-        return endPointMap.containsKey(point);
-    }
-
-    @Override
-    public Segment getSegmentWithStartPoint(final Point point) {
-        if (startPointMap.containsKey(point)) {
-            return startPointMap.get(point);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public Collection<Segment> getSegmentsWithEndPoint(final Point point) {
-        if (endPointMap.containsKey(point)) {
-            return endPointMap.getAll(point);
-        } else {
-            return Collection.of();
-        }
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return startPointMap.isEmpty();
-    }
-
-    @Override
-    public int size() {
-        return startPointMap.size();
-    }
-
-    @Override
-    public int getOrder() {
-        return order;
-    }
-
-    @Override
     public void compressToNextOrder() {
         ModifiableMap<Point, Segment> lowerOrderStartPointMap = new ModifiableHashMap<Point, Segment>(startPointMap);
         order++;
@@ -142,6 +99,21 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     }
 
     @Override
+    public boolean contains(final Segment segment) {
+        return startPointMap.containsValue(segment);
+    }
+
+    @Override
+    public boolean containsSegmentsWithEndPoint(final Point point) {
+        return endPointMap.containsKey(point);
+    }
+
+    @Override
+    public boolean containsSegmentWithStartPoint(final Point point) {
+        return startPointMap.containsKey(point);
+    }
+
+    @Override
     public Collection<Collision> getCollisions() {
         for (Point point : endPointMap.getKeys()) {
             Collection<Segment> segments = endPointMap.getAll(point);
@@ -160,8 +132,36 @@ public final class InMemorySegmentRepository implements SegmentRepository {
         return hashFunction;
     }
 
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
     Collection<Segment> getSegments() {
         return startPointMap.getValues();
+    }
+
+    @Override
+    public Collection<Segment> getSegmentsWithEndPoint(final Point point) {
+        if (endPointMap.containsKey(point)) {
+            return endPointMap.getAll(point);
+        } else {
+            return Collection.of();
+        }
+    }
+
+    @Override
+    public Segment getSegmentWithStartPoint(final Point point) {
+        if (startPointMap.containsKey(point)) {
+            return startPointMap.get(point);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return startPointMap.isEmpty();
     }
 
     @Override
@@ -169,10 +169,38 @@ public final class InMemorySegmentRepository implements SegmentRepository {
         return maxSize.equals(new BigDecimal(size()));
     }
 
+    @Override
+    public boolean isPointFull() {
+        BigDecimal pointSize = BigDecimal.ZERO;
+        for (Segment segment : startPointMap.getValues()) {
+            pointSize.add(BigDecimal.valueOf(segment.getLength()));
+        }
+        return maxPointSize.equals(pointSize);
+    }
+
+    @Override
+    public void relaxToPreviousOrder() {
+        ModifiableMap<Point, Segment> higherOrderStartPointMap = new ModifiableHashMap<Point, Segment>(startPointMap);
+        order--;
+        maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
+        startPointMap.clear();
+        endPointMap.clear();
+        for (Segment segment : higherOrderStartPointMap.getValues()) {
+            if (segment.getOrder() == order) {
+                add(segment);
+            }
+        }
+    }
+
     void setOrder(final int newOrder) {
         order = newOrder;
         maxSize = new BigDecimal(2).pow(hashFunction.getBitLength() - order);
         startPointMap.clear();
         endPointMap.clear();
+    }
+
+    @Override
+    public int size() {
+        return startPointMap.size();
     }
 }

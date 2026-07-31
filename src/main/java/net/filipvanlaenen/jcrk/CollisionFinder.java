@@ -68,8 +68,21 @@ public class CollisionFinder {
                 return null;
             }
             if (newStartPoint.order() < segmentRepository.getOrder()) {
-                Laconic.LOGGER.logProgress("No collision found -- the hash function has a cyclic result space.");
-                return null;
+                if (segmentRepository.isPointFull()) {
+                    Laconic.LOGGER.logProgress("No collision found -- the hash function has a cyclic result space.");
+                    return null;
+                } else {
+                    Laconic.LOGGER.logProgress(String.format(
+                            "The segment repository has %d segments of order %d but no collisions, and not all points are covered by the segments -- going to relax it to the previous order.",
+                            segmentRepository.size(), segmentRepository.getOrder()));
+                    segmentRepository.relaxToPreviousOrder();
+                    Laconic.LOGGER.logProgress(
+                            String.format("Relaxed the segment repository to order %d -- %d segments were retained.",
+                                    segmentRepository.getOrder(), segmentRepository.size()));
+                    CollisionFinder finder =
+                            new CollisionFinder(segmentRepository, SegmentRepositoryCompressionCondition.NoCompression);
+                    return finder.findCollision();
+                }
             }
             Laconic.LOGGER.logProgress(String.format("Starting on a new segment of order %d with start point %s.",
                     segmentRepository.getOrder(), newStartPoint.asHexadecimalString()));
