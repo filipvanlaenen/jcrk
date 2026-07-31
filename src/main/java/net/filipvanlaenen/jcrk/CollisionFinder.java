@@ -1,7 +1,5 @@
 package net.filipvanlaenen.jcrk;
 
-import java.io.IOException;
-
 import net.filipvanlaenen.kolektoj.Collection;
 import net.filipvanlaenen.kolektoj.OrderedCollection;
 import net.filipvanlaenen.laconic.Laconic;
@@ -39,8 +37,6 @@ public class CollisionFinder {
     /**
      * Finds a collision using the segment repository with the segment producer to add new segments and the segment
      * repository compression condition to determine when to compress the segment repository.
-     * 
-     * @param cacheFileName
      *
      * @return The first collision found.
      * @throws IOException
@@ -73,7 +69,8 @@ public class CollisionFinder {
                     return null;
                 } else {
                     Laconic.LOGGER.logProgress(String.format(
-                            "The segment repository has %d segments of order %d but no collisions, and not all points are covered by the segments -- going to relax it to the previous order.",
+                            "The segment repository has %d segments of order %d but no collisions, and not all points"
+                                    + " are covered by the segments -- going to relax it to the previous order.",
                             segmentRepository.size(), segmentRepository.getOrder()));
                     segmentRepository.relaxToPreviousOrder();
                     Laconic.LOGGER.logProgress(

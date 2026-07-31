@@ -28,6 +28,15 @@ public class SegmentRepositoryCompressionConditionTest {
     private static final byte BYTE_0X02 = (byte) 0x02;
 
     /**
+     * No compression should always return false.
+     */
+    @Test
+    public void noCompressionShouldNeverCompress() {
+        SegmentRepository repository = new InMemorySegmentRepository(TRUNCATED_SHA1);
+        assertFalse(SegmentRepositoryCompressionCondition.NoCompression.evaluate(repository));
+    }
+
+    /**
      * An empty repository should not be compressed.
      */
     @Test
