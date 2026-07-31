@@ -3,153 +3,49 @@ package net.filipvanlaenen.jcrk;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HexFormat;
 
-import net.filipvanlaenen.kolektoj.Collection;
-import net.filipvanlaenen.laconic.Laconic;
+/**
+ * A segment repository cached to a file in the file system.
+ */
+public final class FileBasedSegmentRepository extends CachedSegmentRepository {
+    /**
+     * A cache backed by a file in the file system.
+     */
+    static final class FileCache implements Cache {
+        /**
+         * The path to the cache file.
+         */
+        private final Path cacheFilePath;
 
-public final class FileBasedSegmentRepository implements SegmentRepository {
-    private final InMemorySegmentRepository inMemorySegmentRepository;
-    private final String cacheFileName;
+        /**
+         * Constructor taking the name of the file in the file system.
+         *
+         * @param cacheFileName The name of the file in the file system.
+         */
+        FileCache(final String cacheFileName) {
+            cacheFilePath = Paths.get(cacheFileName);
+        }
 
+        @Override
+        public String[] getContent() throws IOException {
+            return Files.readAllLines(cacheFilePath, StandardCharsets.UTF_8).toArray(new String[] {});
+        }
+
+        @Override
+        public void setContent(final String content) throws IOException {
+            Files.writeString(cacheFilePath, content, StandardCharsets.UTF_8);
+        }
+    }
+
+    /**
+     * Constructor using the file name of the cache and the hash function.
+     *
+     * @param cacheFileName The file name for the cache.
+     * @param hashFunction  The hash function.
+     */
     public FileBasedSegmentRepository(final String cacheFileName, final HashFunction hashFunction) {
-        this.cacheFileName = cacheFileName;
-        this.inMemorySegmentRepository = new InMemorySegmentRepository(hashFunction);
-        loadFromCache();
+        super(new FileCache(cacheFileName), hashFunction);
     }
-
-    @Override
-    public boolean add(final Segment segment) throws IllegalArgumentException {
-        boolean result = inMemorySegmentRepository.add(segment);
-        try {
-            writeFile(cacheFileName, calculateCacheContent());
-        } catch (IOException ioe) {
-            Laconic.LOGGER.logError("IOException while trying to write a segment repository to a file: %s",
-                    ioe.getMessage());
-        }
-        return result;
-    }
-
-    private String calculateCacheContent() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getOrder());
-        sb.append("\n");
-        sb.append(getHashFunction().toString());
-        sb.append("\n");
-        for (Segment segment : inMemorySegmentRepository.getSegments()) {
-            sb.append(segment.getStartPoint().asHexadecimalString());
-            sb.append(".");
-            sb.append(segment.getEndPoint().asHexadecimalString());
-            sb.append(".");
-            sb.append(segment.getLength());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public void compressToNextOrder() {
-        inMemorySegmentRepository.compressToNextOrder();
-    }
-
-    @Override
-    public boolean contains(final Segment segment) {
-        return inMemorySegmentRepository.contains(segment);
-    }
-
-    @Override
-    public boolean containsSegmentsWithEndPoint(final Point point) {
-        return inMemorySegmentRepository.containsSegmentsWithEndPoint(point);
-    }
-
-    @Override
-    public boolean containsSegmentWithStartPoint(final Point point) {
-        return inMemorySegmentRepository.containsSegmentWithStartPoint(point);
-    }
-
-    @Override
-    public Collection<Collision> getCollisions() {
-        return inMemorySegmentRepository.getCollisions();
-    }
-
-    @Override
-    public HashFunction getHashFunction() {
-        return inMemorySegmentRepository.getHashFunction();
-    }
-
-    @Override
-    public int getOrder() {
-        return inMemorySegmentRepository.getOrder();
-    }
-
-    @Override
-    public Collection<Segment> getSegmentsWithEndPoint(final Point point) {
-        return inMemorySegmentRepository.getSegmentsWithEndPoint(point);
-    }
-
-    @Override
-    public Segment getSegmentWithStartPoint(final Point point) {
-        return inMemorySegmentRepository.getSegmentWithStartPoint(point);
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return inMemorySegmentRepository.isEmpty();
-    }
-
-    @Override
-    public boolean isFull() {
-        return inMemorySegmentRepository.isFull();
-    }
-
-    private void loadFromCache() {
-        try {
-            String[] lines = readFile(cacheFileName);
-            HashFunction hashFunction = getHashFunction();
-            if (lines[1].equals(hashFunction.toString())) {
-                int order = Integer.parseInt(lines[0]);
-                inMemorySegmentRepository.setOrder(order);
-                for (int i = 2; i < lines.length; i++) {
-                    String[] parts = lines[i].split("\\.");
-                    Point startPoint = new Point(HexFormat.of().parseHex(parts[0]));
-                    Point endPoint = new Point(HexFormat.of().parseHex(parts[1]));
-                    long length = Long.parseLong(parts[2]);
-                    Segment segment = new Segment(startPoint, endPoint, length, order, hashFunction);
-                    inMemorySegmentRepository.add(segment);
-                }
-            }
-        } catch (IOException ioe) {
-            Laconic.LOGGER.logError("IOException while trying to load a segment repository from a file: %s",
-                    ioe.getMessage());
-        }
-    }
-
-    /**
-     * Utility method to read a file into an array of strings.
-     *
-     * @param fileName The name of the file to read from.
-     * @return The content of the file, as an array of strings.
-     * @throws IOException Thrown if an exception occurs related to IO.
-     */
-    private static String[] readFile(final String fileName) throws IOException {
-        return Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8).toArray(new String[] {});
-    }
-
-    @Override
-    public int size() {
-        return inMemorySegmentRepository.size();
-    }
-
-    /**
-     * Utility method to write a string to a file.
-     *
-     * @param fileName The name for the file.
-     * @param content  The string to be written to the file.
-     * @throws IOException Thrown if an exception occurs related to IO.
-     */
-    private static void writeFile(final String fileName, final String content) throws IOException {
-        Files.writeString(Paths.get(fileName), content, StandardCharsets.UTF_8);
-    }
-
 }

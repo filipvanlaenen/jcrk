@@ -1,7 +1,5 @@
 package net.filipvanlaenen.jcrk;
 
-import java.io.IOException;
-
 import net.filipvanlaenen.kolektoj.Collection;
 
 /**
