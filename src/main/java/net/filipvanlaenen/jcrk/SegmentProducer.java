@@ -21,7 +21,7 @@ public enum SegmentProducer {
             int bitLength = segmentRepository.getHashFunction().getBitLength();
             byte[] bytes = new byte[byteLength];
             Point counter = new Point(bytes);
-            while (segmentRepository.containsSegmentWithStartPoint(counter)) {
+            while (counter != null && segmentRepository.containsSegmentWithStartPoint(counter)) {
                 counter = increment(counter, byteLength, bitLength);
             }
             return counter;
@@ -42,6 +42,9 @@ public enum SegmentProducer {
             bytes[byteIndex] = (byte) (bytes[byteIndex] + (1 << shift));
             while (bytes[byteIndex] == 0) {
                 byteIndex--;
+                if (byteIndex < 0) {
+                    return null;
+                }
                 bytes[byteIndex] = (byte) (bytes[byteIndex] + 1);
             }
             return new Point(bytes);

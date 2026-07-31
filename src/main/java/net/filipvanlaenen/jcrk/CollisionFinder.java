@@ -45,11 +45,11 @@ public class CollisionFinder {
     public Collision findCollision() throws IllegalArgumentException {
         Collection<Collision> collisions = segmentRepository.getCollisions();
         if (!collisions.isEmpty()) {
-            Laconic.LOGGER.logProgress(String.format("Found a collision."));
+            Laconic.LOGGER.logProgress("Found a collision.");
             return collisions.get();
         }
         Collision collision = null;
-        while (collision == null && !segmentRepository.isFull()) {
+        while (collision == null) {
             if (segmentRepositoryCompressionCondition.evaluate(segmentRepository)) {
                 Laconic.LOGGER.logProgress(String.format(
                         "The segment repository has %d segments of order %d -- going to compress it to the next order.",
@@ -61,6 +61,7 @@ public class CollisionFinder {
             }
             Point newStartPoint = findNextStartPoint();
             if (newStartPoint == null) {
+                Laconic.LOGGER.logProgress("No collision found -- the hash function has a cyclic result space.");
                 return null;
             }
             if (newStartPoint.order() < segmentRepository.getOrder()) {
@@ -99,9 +100,8 @@ public class CollisionFinder {
                         segmentRepository.getOrder(), newSegment.getStartPoint().asHexadecimalString(),
                         newSegment.getEndPoint().asHexadecimalString(), newSegment.getLength()));
                 segmentRepository.add(newSegment);
-                Laconic.LOGGER.logProgress(
-                        String.format("Added the new segment to the repository, which now contains %d segments.",
-                                segmentRepository.size()));
+                Laconic.LOGGER.logProgress("Added the new segment to the repository, which now contains %d segments.",
+                        segmentRepository.size());
                 Collection<Segment> segmentsWithNewEndPoint =
                         segmentRepository.getSegmentsWithEndPoint(newSegment.getEndPoint());
                 if (segmentsWithNewEndPoint.size() > 1) {
@@ -113,7 +113,7 @@ public class CollisionFinder {
                 }
             }
         }
-        Laconic.LOGGER.logProgress(String.format("Found a collision."));
+        Laconic.LOGGER.logProgress("Found a collision.");
         return collision;
     }
 

@@ -18,6 +18,11 @@ public class CollisionFinderTest {
     private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_1_BITS =
             new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 1);
     /**
+     * The hash function SHA-1 truncated to 2 bit.
+     */
+    private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_2_BITS =
+            new TruncatedStandardHashFunction(StandardHashFunction.SHA1, 2);
+    /**
      * The hash function SHA-1 truncated to 8 bits.
      */
     private static final TruncatedStandardHashFunction SHA1_TRUNCATED_TO_8_BITS =
@@ -107,5 +112,19 @@ public class CollisionFinderTest {
                 SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
         finder.findCollision();
         assertTrue(outputStream.toString().contains("Found a collision."));
+    }
+
+    /**
+     * Verifies correct reporting when no collision can be found due to a cyclic result space for the hash function.
+     */
+    @Test
+    public void shouldDetectATrueCyclicResultSpace() {
+        ByteArrayOutputStream outputStream = LaconicConfigurator.resetLaconicOutputStream();
+        SegmentRepository segmentRepository = new InMemorySegmentRepository(SHA1_TRUNCATED_TO_2_BITS);
+        CollisionFinder finder = new CollisionFinder(segmentRepository,
+                SegmentRepositoryCompressionCondition.SizeLargerThanHalfOrderPowerOfTwo);
+        finder.findCollision();
+        assertTrue(
+                outputStream.toString().contains("No collision found -- the hash function has a cyclic result space."));
     }
 }
