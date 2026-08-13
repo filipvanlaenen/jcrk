@@ -173,7 +173,7 @@ public final class InMemorySegmentRepository implements SegmentRepository {
     public boolean isPointFull() {
         BigDecimal pointSize = BigDecimal.ZERO;
         for (Segment segment : startPointMap.getValues()) {
-            pointSize.add(BigDecimal.valueOf(segment.getLength()));
+            pointSize = pointSize.add(BigDecimal.valueOf(segment.getLength()));
         }
         return maxPointSize.equals(pointSize);
     }
