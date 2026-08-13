@@ -30,7 +30,11 @@ public final class FileBasedSegmentRepository extends CachedSegmentRepository {
 
         @Override
         public String[] getContent() throws IOException {
-            return Files.readAllLines(cacheFilePath, StandardCharsets.UTF_8).toArray(new String[] {});
+            if (Files.exists(cacheFilePath)) {
+                return Files.readAllLines(cacheFilePath, StandardCharsets.UTF_8).toArray(new String[] {});
+            } else {
+                return null;
+            }
         }
 
         @Override

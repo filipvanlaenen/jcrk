@@ -16,8 +16,9 @@ public abstract class CachedSegmentRepository implements SegmentRepository {
     protected interface Cache {
         /**
          * Returns the content of the cache. For a cache backed by a file, this means reading the content of the file.
+         * If nothing is cached, <code>null</code> is returned.
          *
-         * @return The content of the cache.
+         * @return The content of the cache, or <code>null</code>.
          * @throws IOException Thrown if an exception occurs related to IO.
          */
         String[] getContent() throws IOException;
@@ -153,16 +154,25 @@ public abstract class CachedSegmentRepository implements SegmentRepository {
         try {
             String[] lines = cache.getContent();
             HashFunction hashFunction = getHashFunction();
-            if (lines[1].equals(hashFunction.toString())) {
-                int order = Integer.parseInt(lines[0]);
-                inMemorySegmentRepository.setOrder(order);
-                for (int i = 2; i < lines.length; i++) {
-                    String[] parts = lines[i].split("\\.");
-                    Point startPoint = new Point(HexFormat.of().parseHex(parts[0]));
-                    Point endPoint = new Point(HexFormat.of().parseHex(parts[1]));
-                    long length = Long.parseLong(parts[2]);
-                    Segment segment = new Segment(startPoint, endPoint, length, order, hashFunction);
-                    inMemorySegmentRepository.add(segment);
+            String hashFunctionName = hashFunction.toString();
+            if (lines == null) {
+                Laconic.LOGGER.logProgress("Empty cache.");
+            } else {
+                if (lines[1].equals(hashFunctionName)) {
+                    int order = Integer.parseInt(lines[0]);
+                    inMemorySegmentRepository.setOrder(order);
+                    for (int i = 2; i < lines.length; i++) {
+                        String[] parts = lines[i].split("\\.");
+                        Point startPoint = new Point(HexFormat.of().parseHex(parts[0]));
+                        Point endPoint = new Point(HexFormat.of().parseHex(parts[1]));
+                        long length = Long.parseLong(parts[2]);
+                        Segment segment = new Segment(startPoint, endPoint, length, order, hashFunction);
+                        inMemorySegmentRepository.add(segment);
+                    }
+                    Laconic.LOGGER.logProgress("Loaded %d segments from the cache.", inMemorySegmentRepository.size());
+                } else {
+                    Laconic.LOGGER.logError("The name of the hash function in the cache file doesn't match the"
+                            + " requested hash function name %s.", hashFunctionName);
                 }
             }
         } catch (IOException ioe) {
