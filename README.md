@@ -246,6 +246,7 @@ This should produce a short report displaying how to use the program.
 | 60         | `AA005FAC6FE508F0` and `D3591AD9137A5820` | `79C4096076BF6C20` | 91                                            |
 | 61         | `20D46DE69826B958` and `ED930134A26734B0` | `80FB7A634ABE7548` | 97                                            |
 | 62         | `020C51A544606E88` and `03E9F81FE0493048` | `9922928B872837E4` | 96                                            |
+| 63         | `38F6685225CB0C8E` and `BD686839C5AA72A6` | `388A82434525D456` | 90                                            |
 
 ### SHA-384
 
