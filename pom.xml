@@ -19,7 +19,7 @@
    </prerequisites>
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <java.version>17</java.version>
+      <java.version>21</java.version>
       <project.build.javaVersion>${java.version}</project.build.javaVersion>
       <maven.compile.sourceLevel>${java.version}</maven.compile.sourceLevel>
       <maven.compile.targetLevel>${java.version}</maven.compile.targetLevel>
