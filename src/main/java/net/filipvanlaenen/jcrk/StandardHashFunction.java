@@ -8,6 +8,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public enum StandardHashFunction implements HashFunction {
     /**
+     * The MD5 hash function.
+     */
+    MD5("MD5"),
+    /**
      * The SHA-1 hash function.
      */
     SHA1("SHA-1"),
