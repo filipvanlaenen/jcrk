@@ -8,6 +8,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public enum StandardHashFunction implements HashFunction {
     /**
+     * The MD2 hash function.
+     */
+    MD2("MD2"),
+    /**
      * The MD5 hash function.
      */
     MD5("MD5"),
@@ -28,9 +32,33 @@ public enum StandardHashFunction implements HashFunction {
      */
     SHA384("SHA-384"),
     /**
-     * The SHA-256 hash function.
+     * The SHA-512 hash function.
      */
-    SHA512("SHA-512");
+    SHA512("SHA-512"),
+    /**
+     * The SHA-512/224 hash function.
+     */
+    SHA512224("SHA-512/224"),
+    /**
+     * The SHA-512/256 hash function.
+     */
+    SHA512256("SHA-512/256"),
+    /**
+     * The SHA3-224 hash function.
+     */
+    SHA3224("SHA3-224"),
+    /**
+     * The SHA3-256 hash function.
+     */
+    SHA3256("SHA3-256"),
+    /**
+     * The SHA3-384 hash function.
+     */
+    SHA3384("SHA3-384"),
+    /**
+     * The SHA3-512 hash function.
+     */
+    SHA3512("SHA3-512");
 
     /**
      * The magic number eight.
