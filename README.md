@@ -48,8 +48,8 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
-| 1          | See [issue 15](https://github.com/filipvanlaenen/jcrk/issues/15) | |                                           |
-| 2          | See [issue 15](https://github.com/filipvanlaenen/jcrk/issues/15) | |                                           |
+| 1          | No collission (cyclic space)              |                    |                                               |
+| 2          | No collission (cyclic space)              |                    |                                               |
 | 3          | `80` and `A0`                             | `C0`               | 80                                            |
 | 4          | `00` and `50`                             | `50`               | 81                                            |
 | 5          | `58` and `E0`                             | `C0`               | 75                                            |
@@ -111,6 +111,7 @@ This should produce a short report displaying how to use the program.
 | 61         | `02BC102B02041888` and `31E2CAB10AA18D10` | `73B21F6EC700EA88` | 51                                            |
 | 62         | `ABBAFB3948C7E3F8` and `DDA414A174E192CC` | `4D4CFA4A9F27158C` | 49                                            |
 | 63         | `86FD603993CB9160` and `D6DAA9FD9EB6520E` | `F952264D4BB4F9C2` | 46                                            |
+| 64         | `06105B4FBEB9F387` and `A07171A544F83AC4` | `422A38087369BD1D` | 42                                            |
 
 ### SHA-224
 
@@ -179,6 +180,7 @@ This should produce a short report displaying how to use the program.
 | 61         | `6D4BDB3DD3AF92A0` and `F042433E168C4D10` | `93647EED41511858` | 83                                            |
 | 62         | `97474D9197AFB62C` and `AC814BF01E2CA61C` | `AE0135B7715B720C` | 82                                            |
 | 63         | `7DCC976B2550487E` and `D9C423483511B628` | `8F60B80C3042F366` | 89                                            |
+| 64         | `4BF8C3E2E112654C` and `F52C0C81880653D6` | `0F8100F185487E5A` | 84                                            |
 
 ### SHA-256
 
@@ -314,6 +316,7 @@ This should produce a short report displaying how to use the program.
 | 60         | `5A622F013F6C2A40` and `9218FD99CCE215B0` | `6E596E0271A37B30` | 165                                           |
 | 61         | `6BBF469F831B98D8` and `A79DBC018D7ACD20` | `16D93D1557BD0DD0` | 164                                           |
 | 62         | `92AE9BED6D2BFA90` and `AE2C0544419CA288` | `9644C106E53F5D04` | 167                                           |
+| 63         | `6061FE0CCC3FEF5A` and `BA099FA05E8114F4` | `B458C6D8DE23AEA2` | 172                                           |
 
 ### SHA-512
 
@@ -381,3 +384,4 @@ This should produce a short report displaying how to use the program.
 | 60         | `48BBFF5DD0616B70` and `AD856D430E28A9F0` | `A13E159AFBCC2F90` | 238                                           |
 | 61         | `D9C3D64E6113BB98` and `E92F788DE3D25020` | `243A433E59B4FB98` | 218                                           |
 | 62         | `31B17C0177B4F1BC` and `84C5B5CD6D34E2D0` | `AB6734591D7DF778` | 215                                           |
+| 63         | `2F45612ECAAEC5FE` and `88DB98F6F07CA22A` | `D74D0D95433589D4` | 215                                           |
