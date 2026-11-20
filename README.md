@@ -3,6 +3,7 @@
 - [Cracking cryptographic hash functions in Java](#cracking-cryptographic-hash-functions-in-java)
 - [Getting Started](#getting-started)
 - [Results](#results)
+  - [MD2](#md2)
   - [SHA-1](#sha-1)
   - [SHA-224](#sha-224)
   - [SHA-256](#sha-256)
@@ -43,6 +44,19 @@ java -jar jcrk-1.0-jar-with-dependencies.jar
 This should produce a short report displaying how to use the program.
 
 ## Results
+
+### MD2
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | `00` and `80`                             | `80`               | 68                                            |
+| 2          | `00` and `80`                             | `C0`               | 68                                            |
+| 3          | `00` and `80`                             | `E0`               | 68                                            |
+| 4          | `A0` and `E0`                             | `C0`               | 65                                            |
+| 5          | `58` and `A0`                             | `C8`               | 59                                            |
+| 6          | `54` and `CC`                             | `AC`               | 60                                            |
+| 7          | `68` and `9A`                             | `20`               | 64                                            |
+| 8          | `AE` and `EE`                             | `E3`               | 62                                            |
 
 ### SHA-1
 
