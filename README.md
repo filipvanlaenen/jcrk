@@ -4,6 +4,7 @@
 - [Getting Started](#getting-started)
 - [Results](#results)
   - [MD2](#md2)
+  - [MD5](#md5)
   - [SHA-1](#sha-1)
   - [SHA-224](#sha-224)
   - [SHA-256](#sha-256)
@@ -57,6 +58,19 @@ This should produce a short report displaying how to use the program.
 | 6          | `54` and `CC`                             | `AC`               | 60                                            |
 | 7          | `68` and `9A`                             | `20`               | 64                                            |
 | 8          | `AE` and `EE`                             | `E3`               | 62                                            |
+
+### MD5
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | `00` and `80`                             | `80`               | 65                                            |
+| 2          | `00` and `80`                             | `80`               | 65                                            |
+| 3          | `00` and `80`                             | `80`               | 65                                            |
+| 4          | `B0` and `E0`                             | `E0`               | 58                                            |
+| 5          | `20` and `88`                             | `70`               | 58                                            |
+| 6          | `80` and `D0`                             | `8C`               | 56                                            |
+| 7          | `36` and `EC`                             | `16`               | 58                                            |
+| 8          | `4A` and `C4`                             | `FF`               | 62                                            |
 
 ### SHA-1
 
