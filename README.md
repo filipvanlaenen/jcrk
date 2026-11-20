@@ -10,6 +10,10 @@
   - [SHA-256](#sha-256)
   - [SHA-384](#sha-384)
   - [SHA-512](#sha-512)
+  - [SHA3-224](#sha3-224)
+  - [SHA3-256](#sha3-256)
+  - [SHA3-384](#sha3-384)
+  - [SHA3-512](#sha3-512)
 
 ## Cracking cryptographic hash functions in Java
 
@@ -413,3 +417,34 @@ This should produce a short report displaying how to use the program.
 | 61         | `D9C3D64E6113BB98` and `E92F788DE3D25020` | `243A433E59B4FB98` | 218                                           |
 | 62         | `31B17C0177B4F1BC` and `84C5B5CD6D34E2D0` | `AB6734591D7DF778` | 215                                           |
 | 63         | `2F45612ECAAEC5FE` and `88DB98F6F07CA22A` | `D74D0D95433589D4` | 215                                           |
+
+### SHA3-224
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | `00` and `80`                             | `80`               | 118                                           |
+| 2          | `00` and `80`                             | `80`               | 118                                           |
+| 3          | `00` and `E0`                             | `A0`               | 107                                           |
+| 4          | `80` and `B0`                             | `80`               | 114                                           |
+| 5          | `00` and `F0`                             | `B8`               | 108                                           |
+| 6          | `40` and `88`                             | `F4`               | 118                                           |
+| 7          | `12` and `82`                             | `2E`               | 110                                           |
+| 8          | `11` and `B6`                             | `3D`               | 104                                           |
+
+
+### SHA3-256
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+
+
+### SHA3-384
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
+
+
+### SHA3-512
+
+| Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
+|------------|-------------------------------------------|--------------------|-----------------------------------------------|
