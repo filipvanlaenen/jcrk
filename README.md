@@ -436,6 +436,14 @@ This should produce a short report displaying how to use the program.
 
 | Bit Length | Points                                    | Hash Value         | Hamming Distance between the Full Hash Values |
 |------------|-------------------------------------------|--------------------|-----------------------------------------------|
+| 1          | No collission (cyclic space)              |                    |                                               |
+| 2          | No collission (cyclic space)              |                    |                                               |
+| 3          | `20` and `60`                             | `60`               | 119                                           |
+| 4          | `E0` and `F0`                             | `D0`               | 134                                           |
+| 5          | `58` and `F8`                             | `30`               | 123                                           |
+| 6          | `98` and `BC`                             | `98`               | 124                                           |
+| 7          | `5A` and `92`                             | `1E`               | 122                                           |
+| 8          | `82` and `96`                             | `3A`               | 130                                           |
 
 
 ### SHA3-384
